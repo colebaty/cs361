@@ -33,3 +33,6 @@
 
 # Debugging info
 .gdb*
+
+# General/misc
+*.swp

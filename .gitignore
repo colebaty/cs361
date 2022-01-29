@@ -39,3 +39,6 @@
 .vscode
 *test*
 *Test*
+
+# other scripts
+*.sh

@@ -1,12 +1,19 @@
-#include "container.h"
-#include <ctime>
-#include <cstdlib>
 #include <iostream>
+
+#include "container.h"
+#include "shiputils.h"
 
 using namespace std;
 
-container::container()
+container::container(int id)
 {
-    //seed srand
-    srand(time(NULL));
+    _id = id;
+
+   _dest = getRand(100, 900);
+}
+
+void container::display(ostream& out)
+{
+    cout << "container id:\t" << _id << endl
+         << "destination:\t" << _dest << endl;
 }

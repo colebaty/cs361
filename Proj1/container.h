@@ -13,6 +13,9 @@ class container
          * @brief Constructs a new container object with the given id. 
          * destination codes are generated randomly.  please note that srand 
          * must be seeded in the `main` function
+         * 
+         * TODO
+         * [ ] randomize id?
          */
         container(int id);
 

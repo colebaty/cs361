@@ -37,8 +37,11 @@
 # General/misc
 *.swp
 .vscode
-*test*
-*Test*
+#*test*
+#*Test*
 
 # other scripts
 *.sh
+
+# makefile stuff
+*.dep

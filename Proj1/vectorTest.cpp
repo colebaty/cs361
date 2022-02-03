@@ -19,6 +19,10 @@
 #include "container.h"
 
 using namespace std;
+struct teststruct {
+    int id = 0;
+    bool isState = false;
+};
 
 int main(int argc, char** argv)
 {
@@ -26,7 +30,6 @@ int main(int argc, char** argv)
     srand(time(NULL));
 
     cout << "creating a row of ten containers...";
-
     container * cont;
     vector<container> row;
     for (int i = 0; i < 10; i++)
@@ -37,6 +40,13 @@ int main(int argc, char** argv)
 
     assert(row.size() == 10);
     cout << "pass" << endl;
+    cout << "displaying contents of container row" << endl;
+    for (int i = 0; i < 10; i++)
+    {
+        row[i].display();
+        cout << endl;
+    }
+
     
     return 0;
 }

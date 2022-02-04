@@ -83,7 +83,7 @@ int main(int argc, char** argv)
     
     // do columns of stacks?
     cout << "---------------------" << endl
-         << "creating layers of columns of stacks" << endl;
+         << "creating a layer of columns of stacks" << endl;
 
     stack<container> * colptr;
 

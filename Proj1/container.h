@@ -9,6 +9,7 @@ class container
 
     public:
         //constructor
+        container() { _id = 0; _dest = 0; }
         /**
          * @brief Constructs a new container object with the given id. 
          * destination codes are generated randomly.  please note that srand 

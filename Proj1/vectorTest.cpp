@@ -20,10 +20,6 @@
 #include "container.h"
 
 using namespace std;
-struct teststruct {
-    int id = 0;
-    bool isState = false;
-};
 
 int main(int argc, char** argv)
 {

@@ -17,7 +17,7 @@ class crane {
         crane(int id) { _id = id; }
         //public methods
         int getID() { return _id; }
-        int setID(int id) { _id = id; }
+        void setID(int id) { _id = id; }
 
         /**
          * @brief returns true if crane is currently loaded

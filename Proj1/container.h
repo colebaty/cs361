@@ -9,7 +9,8 @@ class container
 
     public:
         //constructor
-        container() { _id = 0; _dest = 0; }
+        container();
+        
         /**
          * @brief Constructs a new container object with the given id. 
          * destination codes are generated randomly.  please note that srand 
@@ -19,6 +20,7 @@ class container
          * [ ] randomize id?
          */
         container(int id);
+        container(const container& other);
 
         int getID() { return _id; }
         int getDest() { return _dest; }

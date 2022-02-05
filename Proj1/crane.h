@@ -6,7 +6,7 @@
 class crane {
     private:
         int _id;
-        bool _loaded;
+        bool _empty;
 
         container * _cont;
 
@@ -14,7 +14,7 @@ class crane {
 
     public:
         crane();
-        crane(int id) { _id = id; }
+        crane(int id); 
         //public methods
         int getID() { return _id; }
         void setID(int id) { _id = id; }
@@ -25,7 +25,7 @@ class crane {
          * @return true 
          * @return false 
          */
-        bool isLoaded() { return _loaded; }
+        bool empty() { return _empty; }
 
         /**
          * @brief loads the crane with the specified container, sets state to loaded

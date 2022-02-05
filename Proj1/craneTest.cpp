@@ -27,9 +27,36 @@ int main(int argc, char** argv)
     //seed srand
     srand(time(NULL));
 
+    cout << "creating crane with id 1..." << endl;
+    crane crane(1);
+    cout << "crane " << crane.getID() << " should be empty" << endl;
+    cout << "--------------------------" << endl;
+    crane.display();
+    cout << "--------------------------" << endl;
+
+    cout << "loading crane 1 with a single container" << endl;
+    container * contptr;
+    contptr = new container();
+    crane.load(*contptr);
+    cout << "crane " << crane.getID() << " should be empty..." << endl;
+
+    assert(!crane.empty());
+    cout << "pass" << endl;
+
+    cout << "expecting container id 0, dest 0" << endl;
+    cout << "--------------------------" << endl;
+    crane.display();
+    cout << "--------------------------" << endl;
+
+    cout << "unloading crane...";
+    *contptr = crane.unload();
+    assert(crane.empty());
+    cout << "pass" << endl;
+
+    delete contptr;
+
     cout << "creating stack of 10 containers...";
 
-    container * contptr;
     stack<container> contents;
 
     for (int i = 0; i < 10; i++)
@@ -41,6 +68,36 @@ int main(int argc, char** argv)
     assert(contents.size() == 10);
     cout << "done" << endl;
 
+    cout << "--------------------------" << endl;
+    cout << "removing one container from stack to crane...";
+
+    crane.load(contents.top());
+    contents.pop();
+    assert(contents.size() == 9);
+    cout << "done" << endl;
+
+    cout << "crane should be loaded...";
+    assert(!crane.empty());
+    cout << "done" << endl;
+
+    cout << "unloading crane...";
+    crane.unload();
+    assert(crane.empty());
+    cout << "done" << endl;
+
+    cout << "removing all containers from stack...";
+    while (!contents.empty())
+    {
+        crane.load(contents.top());
+        contents.pop();
+        crane.unload();
+    }
+    assert(crane.empty());
+    assert(contents.empty());
+    cout << "done" << endl;
+
+    //housekeeping
+    delete contptr;
 
     return 0;
 }

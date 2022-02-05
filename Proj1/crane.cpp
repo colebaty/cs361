@@ -8,21 +8,28 @@ using namespace std;
 crane::crane()
 {
     _id = 0;
-    _loaded = false;
+    _empty = true;
+    _cont = nullptr;
+}
+crane::crane(int id)
+{ 
+    _id = id; 
+    _empty = true;
+    _cont = nullptr;
 }
 
 int crane::getContID()
 {
-    if (!_loaded) return 0;
+    if (_empty) return 0;
     else return _cont->getID();
 }
 
 void crane::load(container cont)
 { 
-    if (!_loaded)
+    if (_empty)
     {
-       *_cont = cont; 
-        _loaded = true;
+       _cont = &cont; 
+       _empty = false;
     }
     else
     {
@@ -32,20 +39,22 @@ void crane::load(container cont)
 
 container crane::unload()
 {
-    _loaded = false;
-    return *_cont;
+    _empty = true;
+    container cont = *_cont;
+    _cont = nullptr;
+    return cont;
 }
 
 void crane::display()
 {
-    cout << "crane no. " << _id << "is ";
-    if (!_loaded)
+    cout << "crane no. " << _id << " is";
+    if (_empty)
     {
-        cout << "not loaded" << endl;
+        cout << " not loaded" << endl;
     }
     else
     {
-        cout << "loaded with container" << endl;
+        cout << " loaded with container" << endl;
         _cont->display();
     }
 }

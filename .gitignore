@@ -39,7 +39,7 @@
 .vscode
 *result*
 #*test*
-#*Test*
+*Test
 
 # other scripts
 *.sh

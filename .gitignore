@@ -37,6 +37,7 @@
 # General/misc
 *.swp
 .vscode
+*result*
 #*test*
 #*Test*
 

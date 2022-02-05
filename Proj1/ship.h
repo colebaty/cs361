@@ -18,6 +18,7 @@ class ship {
         int _capacity;
         
         //super private instance variables just for debugging
+        int _numLevels;
         int _contsPerLevel;
         int _width;
         int _length;
@@ -53,6 +54,10 @@ class ship {
          * @param max 
          */
         ship(int id, int capacity = getRand(MIN_CAPACITY, MAX_CAPACITY));
+
+        int getID() { return _id; }
+
+        int getCapacity() { return _capacity; }
 
         void display();
 };

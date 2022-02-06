@@ -35,7 +35,8 @@ class ship {
          * generated with incrementing IDs and pseud-randomly generated 
          * destination codes
          */
-        vector<vector<stack<container>>> fillCargo();
+        // vector<vector<stack<container>>> fillCargo();
+
     public:
         /**
          * @brief default constructor, initializes a ship object with

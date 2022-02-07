@@ -103,7 +103,7 @@ DEPENDENCIES = $(OBJS:.o=.d)
 # 
 all: $(TARGET)
 
-$(TARGET): $(OBJS)
+$(TARGET): $(TARGET).cpp $(OBJS)
 	$(LINK) $(FLAGS) -o $(TARGET) $(TARGET).cpp $(OBJS) $(LFLAGS)
 
 #$(TARGET).cpp: $(OBJS)

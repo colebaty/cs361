@@ -49,10 +49,12 @@ class ship {
         int _length;
 
         /**
-         * @brief a 2D vector of stacks of containers. a 2D vector of stacks 
-         * eliminates the need to access any container below the topmost 
+         * @brief the cargo hold. best thought of as
+         * container -> stack -> columns -> layers
+         * accessed through _cargo[x][y].top()
+         * 
          */
-        vector<stack<container>> * _cargo;
+        vector<vector<stack<container>>> _cargo;
         //private methods
 
         /**

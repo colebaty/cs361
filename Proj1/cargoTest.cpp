@@ -14,7 +14,11 @@ int main()
     int contID = id * 10000;
     int contCount = 0;
 
-    container * contptr;
+    /**
+     * @brief general algorithm to fill cargo
+     * 
+     */
+    container * contptr;                    
     stack<container> * column;
     vector<stack<container>> * layer;
     vector<vector<stack<container>>> cargo;
@@ -39,8 +43,32 @@ int main()
     std::cout << contCount << " containers generated" << endl;
     std::cout << "------------------------" << endl;
 
-    // cout << "get container at top of stack (1 1)" << endl;
-    // cargo[1][1].top().display();
+    cout << "directly get container at top of stack (1 1)" << endl;
+    std::cout << "------------------------" << endl;
+    cargo[1][1].top().display();
+    std::cout << "------------------------" << endl;
+
+    cout << "get container at top of stack (1 1) w/ pointer" << endl;
+    std::cout << "------------------------" << endl;
+    *contptr = cargo[1][1].top();
+    contptr->display();
+    std::cout << "------------------------" << endl;
+
+    cout << "removing container from cargo" << endl;
+    cargo[1][1].pop();
+    contCount--;
+
+    cout << "displaying selected container" << endl;
+    std::cout << "------------------------" << endl;
+    contptr->display();
+    std::cout << "------------------------" << endl;
+
+    cout << "passing container to non-heap variable" << endl;
+    container newcont = *contptr;
+
+    std::cout << "------------------------" << endl;
+    newcont.display();
+    std::cout << "------------------------" << endl;
 
     return 0;
 }

@@ -11,7 +11,6 @@ ship::ship()
     _id = 0;
     _capacity = 0;
     _numLoadedConts = 0;
-    _cargo = nullptr;
     _contsPerLevel = 0;
     _numLevels = 0;
     _width = 0;
@@ -22,7 +21,6 @@ ship::ship(int id, int capacity)
 {
     _id = id;
     _capacity = capacity;
-    _cargo = new vector<stack<container>>;
 
     int rawContsPerLevel = _capacity * 0.05;
     //round down to nearest multiple of 5
@@ -36,21 +34,28 @@ ship::ship(int id, int capacity)
 
 void ship::fillCargo()
 {
-    container * contptr;
-    stack<container> * colptr;
-
     int contID = _id * 10000 + 1;
-    vector<vector<stack<container>>> * rowptr = new vector<vector<stack<container>>>;
-    for (int col = 0; col < _length; col++)
+
+    container * contptr;                    
+    stack<container> * column;
+    vector<stack<container>> * layer;
+
+    for (int row = 0; row < _width; row++)
     {
-        colptr = new stack<container>;
-        for (int depth = 0; depth < _numLevels; depth++)
+        layer = new vector<stack<container>>;
+        for (int col = 0; col < _length; col++)
         {
-            contptr = new container(contID++);
-            colptr->push(*contptr);
-            _numLoadedConts++;
+            column = new stack<container>;
+            for (int i = 0; i < _numLevels; i++)
+            {
+                contptr = new container(contID++);
+                contID++;
+                column->push(*contptr);
+                _numLoadedConts++;
+            }
+            layer->push_back(*column);
         }
-        _cargo->push_back(*colptr); 
+        _cargo.push_back(*layer);
     }
 
     #ifdef DEBUG
@@ -74,7 +79,7 @@ void ship::display()
 void ship::displayCargoInfo()
 {
     std::cout << "level count <full levels + remaining containers>:" << endl;
-    if (_cargo == nullptr)
+    if (_cargo.empty())
     {
         std::cout << "\t0+0" << endl;
     }

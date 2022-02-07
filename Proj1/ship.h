@@ -59,7 +59,7 @@ class ship {
 
         /**
          * @brief private method to fill the cargo hold. containers are
-         * generated with incrementing IDs and pseud-randomly generated 
+         * generated with incrementing IDs and pseudo-randomly generated 
          * destination codes
          */
         void fillCargo();
@@ -94,13 +94,22 @@ class ship {
         int getCapacity() { return _capacity; }
 
         /**
-         * @brief returns a pointer to a container declared on the heap
-         * 
          * @param row 
          * @param col 
          * @return container& 
          */
+
+
+        /**
+         * @brief returns a pointer to a container declared on the heap
+         * 
+         * @param row 
+         * @param col 
+         * @return container* returns nullptr if cargo is empty
+         */
         container* getCont(int row, int col);
+
+        bool empty() { return _cargo.empty(); }
 
         void display();
 };

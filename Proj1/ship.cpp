@@ -76,6 +76,7 @@ void ship::display()
     #endif
 }
 
+#ifdef DEBUG
 void ship::displayCargoInfo()
 {
     std::cout << "level count <full levels + remaining containers>:" << endl;
@@ -90,6 +91,7 @@ void ship::displayCargoInfo()
         _cargo[0][0].top().display();
     }
 }
+#endif
 
 container* ship::getCont(int row, int col)
 {

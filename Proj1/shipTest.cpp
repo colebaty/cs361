@@ -35,8 +35,10 @@ int main(int argc, char** argv)
     shipptr->display();
     cout << "----------------------------" << endl;
 
-    cout << "testing access of empty cargo hold";
+    cout << "testing access of empty cargo hold...";
     assert(shipptr->getCont(0, 0) == nullptr);
+    cout << "done" << endl;
+    cout << "----------------------------" << endl;
     delete shipptr;
 
     cout << "creating single ship with id 1...";
@@ -58,11 +60,11 @@ int main(int argc, char** argv)
 
     cout << "----------------------------" << endl;
     cout << "removed container:" << endl;
+    assert(shipptr->getNumLoadedConts() == prevLoaded - 1);
     contptr->display();
     cout << "----------------------------" << endl;
 
     cout << "----------------------------" << endl;
-    assert(shipptr->getNumLoadedConts() == prevLoaded - 1);
     shipptr->display();
     cout << "----------------------------" << endl;
     //housekeeping

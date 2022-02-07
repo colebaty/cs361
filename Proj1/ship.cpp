@@ -91,12 +91,15 @@ void ship::displayCargoInfo()
     }
 }
 
-container& ship::getCont(int row, int col)
+container* ship::getCont(int row, int col)
 {
-    container * contptr;
-    *contptr = _cargo[row][col].top();
-    _cargo[row][col].pop();
-    _numLoadedConts--;
-    
-    return *contptr;
+    container * contptr = nullptr;
+    if (!_cargo.empty())
+    {
+        contptr = &_cargo[row][col].top();
+        _cargo[row][col].pop();
+        _numLoadedConts--;
+    }
+
+    return contptr;
 }

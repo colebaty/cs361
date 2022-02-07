@@ -93,7 +93,14 @@ class ship {
         int getNumLoadedConts() { return _numLoadedConts; }
         int getCapacity() { return _capacity; }
 
-        container& getCont(int row, int col);
+        /**
+         * @brief returns a pointer to a container declared on the heap
+         * 
+         * @param row 
+         * @param col 
+         * @return container& 
+         */
+        container* getCont(int row, int col);
 
         void display();
 };

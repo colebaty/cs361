@@ -1,5 +1,21 @@
+/**
+ * @file ship.h
+ * @author your name (you@domain.com)
+ * @brief ship class for shipping port assignment spring 22 CS 361
+ * @version 0.1
+ * @date 2022-02-06
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ * _cargo is a 2d data structure with _width rows and _length columns. individual
+ * containers are accessed by (row, column).
+ * 
+ */
 #ifndef __SHIP_H__
 #define __SHIP_H__
+
+// uncomment for more info in display()
+#define DEBUG
 
 #include <vector>
 #include <stack>
@@ -16,18 +32,27 @@ class ship {
     private:
         int _id;
         int _capacity;
+        int _numLoadedConts;
         
         //super private instance variables just for debugging
         int _numLevels;
         int _contsPerLevel;
+        /**
+         * @brief column
+         * 
+         */
         int _width;
+        /**
+         * @brief row
+         * 
+         */
         int _length;
 
         /**
          * @brief a 2D vector of stacks of containers. a 2D vector of stacks 
          * eliminates the need to access any container below the topmost 
          */
-        vector<vector<stack<container>>> * _cargo;
+        vector<stack<container>> * _cargo;
         //private methods
 
         /**
@@ -35,7 +60,11 @@ class ship {
          * generated with incrementing IDs and pseud-randomly generated 
          * destination codes
          */
-        // vector<vector<stack<container>>> fillCargo();
+        void fillCargo();
+
+        #ifdef DEBUG
+        void displayCargoInfo();
+        #endif
 
     public:
         /**
@@ -57,8 +86,12 @@ class ship {
         ship(int id, int capacity = getRand(MIN_CAPACITY, MAX_CAPACITY));
 
         int getID() { return _id; }
-
+        int getWidth() { return _width; }
+        int getLength() { return _length; }
+        int getNumLoadedConts() { return _numLoadedConts; }
         int getCapacity() { return _capacity; }
+
+        container& getCont(int row, int col);
 
         void display();
 };

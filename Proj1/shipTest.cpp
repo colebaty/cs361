@@ -47,6 +47,20 @@ int main(int argc, char** argv)
     shipptr->display();
     cout << "----------------------------" << endl;
 
+    cout << "removing container at (1, 1)...";
+    container * contptr;
+    *contptr = shipptr->getCont(1, 1);
+    cout << "done" << endl;
+
+    cout << "----------------------------" << endl;
+    cout << "removed container:" << endl;
+    contptr->display();
+    cout << "----------------------------" << endl;
+
+    cout << "----------------------------" << endl;
+    assert(shipptr->getNumLoadedConts() == (shipptr->getCapacity() - 1));
+    shipptr->display();
+    cout << "----------------------------" << endl;
     //housekeeping
 
     delete shipptr;

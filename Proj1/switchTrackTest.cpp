@@ -30,7 +30,6 @@ int main()
 
     cout << "passing container to crane" << endl;
     craneptr->load(*contptr);
-    delete contptr;
 
     cout << "----------------------------" << endl;
     craneptr->display();
@@ -48,5 +47,39 @@ int main()
     switchptr->display();
     cout << "----------------------------" << endl;
 
+    cout << "filling switching track from ship" << endl;
+    cout << "----------------------------" << endl;
+    cout << "before" << endl;
+    cout << "----------------------------" << endl;
+    shipptr->display();
+    cout << "----------------------------" << endl;
+
+    int row = 0;
+    int col = 0;
+    int width = shipptr->getWidth();
+    int length = shipptr->getLength();
+    while (!switchptr->full())
+    {
+        craneptr->load(*shipptr->getCont(row++ % width, col++ % length));
+        switchptr->push(craneptr->unload());
+    }
+    
+    cout << "----------------------------" << endl;
+    cout << "after" << endl;
+    cout << "----------------------------" << endl;
+    shipptr->display();
+    cout << "----------------------------" << endl;
+    cout << "----------------------------" << endl;
+    switchptr->display();
+    cout << "----------------------------" << endl;
+    craneptr->display();
+    cout << "----------------------------" << endl;
+
+    //housekeeping
+    // delete contptr;
+    delete craneptr;
+    delete shipptr;
+    delete switchptr;
+    
     return 0;
 }

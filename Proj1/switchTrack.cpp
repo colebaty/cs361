@@ -14,7 +14,7 @@ switchTrack::switchTrack()
 
 bool switchTrack::full()
 {
-    return _track.size() < _max;
+    return !(_track.size() < _max);
 }
 
 void switchTrack::push(container cont)

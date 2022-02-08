@@ -60,7 +60,7 @@ CFLAGS=-g
 #  Do NOT list .h files. For example, if you are building a program from 
 #  source files foo.c, foo.h, bar.cpp, baz.cc, and bam.h you would use
 #      OBJS1=foo.o bar.o baz.o
-OBJS=container.o shiputils.o crane.o ship.o
+OBJS=container.o shiputils.o crane.o ship.o switchTrack.o
 
 #  What program should be used to link this program? If the program is
 #  even partly C++, use g++.  If it is entirely C, use gcc.

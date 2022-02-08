@@ -12,18 +12,19 @@ class switchTrack {
         queue<container> _track;
         stack<container> _siding;
 
-        int _maxOnTrack;
-        int _maxOnSiding;
+        int _max;
 
         //private methods
+        void pushToSiding(container cont);
+
     public:
         switchTrack();
-        switchTrack(int maxOnTrack = 40, int maxOnSiding = 39);
         //public methods
 
         bool full();
 
         void push(container cont);
+        void display();
 };
 
 

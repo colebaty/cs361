@@ -27,6 +27,7 @@ class switchTrack {
         void push(container cont);
         void display();
         int getID() { return _id ; }
+        int size() { return _track.size(); }
 };
 
 

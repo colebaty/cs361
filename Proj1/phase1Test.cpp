@@ -18,14 +18,22 @@
 #include "crane.h"
 #include "ship.h"
 #include "switchTrack.h"
+#include "shiputils.h"
 
 using namespace std;
 
 int main()
 {
+    //seed srand
+    srand(time(NULL));
+    
     //create shipyard
-    ship * shipptr = new ship(0);
+    cout << "****** creating shipyard ******" << endl;
+    cout << "creating ship with id 1" << endl;
+    ship * shipptr = new ship(1);
+    assert(shipptr->getID() == 1);
 
+    cout << "creating vector of 9 cranes" << endl;
     vector<crane> cranes;
     crane * craneptr;
     for (int i = 0; i < 9; i++)
@@ -33,7 +41,9 @@ int main()
         craneptr = new crane(i);
         cranes.push_back(*craneptr);
     }
+    assert(cranes.size() == 9);
 
+    cout << "creating vector of 5 switch tracks" << endl;
     vector<switchTrack> switchTracks;
     switchTrack * swtrptr;
     for (int i = 0; i < 5; i++)
@@ -41,15 +51,32 @@ int main()
         swtrptr = new switchTrack(i);
         switchTracks.push_back(*swtrptr);
     }
+    assert(switchTracks.size() == 5);
+
+    //fill tracks to nearly full
+    container * contptr;
+    for (int i = 0; i < switchTracks.size(); i++)
+    {
+        for (int j = 0; j < getRand(35,38); j++)
+        {
+            contptr = new container((j+1) * 10000);
+            switchTracks[i].push(*contptr);
+        }
+        assert(35 <= switchTracks[i].size() && switchTracks[i].size() <= 38);
+    }
+    cout << "********************************" << endl;
 
     //begin timestep
     bool done = false;
     int counter = 0;
     
     //pointer to switch track to start with on next timestep
-    switchTrack * next = &switchTracks[0];
+    switchTrack * nextTrack = &switchTracks[switchTracks.size() - 1];
+    int index = 0;
+    int contID = shipptr->getID() * 10000;
     while (!done)
     {
+        cout << "timestep " << counter << endl;
         cout << "--------------------" << endl;
         //cranes
         for (int i = 0; i < cranes.size(); i++)
@@ -57,20 +84,31 @@ int main()
             //all unloaded cranes collect one container from ship
             if (cranes[i].empty())
             {
-                //get next container from ship
-                cout << "crane " << cranes[i].getID() << " loaded" << endl;
+                cout << "crane " << cranes[i].getID() << " empty; loading container from ship" << endl;
+                contptr = new container(contID++);
+                contptr->display();
+                cranes[i].load(*contptr);
+                assert(contptr->getID() == cranes[i].getContID());
+                assert(!cranes[i].empty());
             }
-            else //all loaded cranes deposit container to next available track
+            else
             {
-                int start = next->getID();
-                for (int t = 0; t < switchTracks.size(); t++)
+                cout << "crane " << cranes[i].getID() << " loaded with container "
+                     << cranes[i].getContID() << endl;
+
+                while (nextTrack->full())
                 {
-                    switchTracks[start % switchTracks.size()].push(craneptr[i].unload());
-                    cout << "crane " << cranes[i].getID() << " added container to track " 
-                         << switchTracks[start % switchTracks.size()].getID() << endl;
-                    start++;
+                    cout << "track " << nextTrack->getID() << " full; skipping" << endl;
+                    nextTrack = &switchTracks[++index % switchTracks.size()];
                 }
-                next = &switchTracks[start];
+                
+                *contptr = cranes[i].unload();
+                nextTrack->push(*contptr);
+                cout << "crane " << cranes[i].getID() << " unloaded to track "
+                    << nextTrack->getID() << endl;
+                nextTrack = &switchTracks[index % switchTracks.size()];
+                
+                index++;
             }
         }
         cout << "--------------------" << endl;
@@ -79,9 +117,9 @@ int main()
         counter++;
         //prompt to continue every 10 timesteps
         char ans;
-        if (counter % 10 == 0)
+        if (counter % 5 == 0)
         {
-            cout << "advance 10 more timesteps? (y/n) ";
+            cout << "advance 5 more timesteps? (y/n) ";
             cin >> ans;
             if (ans == 'n') done = true;
         }

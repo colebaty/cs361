@@ -10,8 +10,8 @@ using namespace std;
 class switchTrack {
     private:
         queue<container> _track;
-        stack<container> _siding;
 
+        int _id;
         int _max;
 
         //private methods
@@ -19,12 +19,14 @@ class switchTrack {
 
     public:
         switchTrack();
+        switchTrack(int id) { _id = id; _max = 40; }
         //public methods
 
         bool full();
 
         void push(container cont);
         void display();
+        int getID() { return _id ; }
 };
 
 

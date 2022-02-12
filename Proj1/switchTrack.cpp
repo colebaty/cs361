@@ -29,17 +29,8 @@ void switchTrack::push(container cont)
     }
 }
 
-void switchTrack::pushToSiding(container cont)
-{
-    if (_siding.size() < _max - 1)
-    {
-        _siding.push(cont);
-    }
-}
-
 void switchTrack::display()
 {
     cout << "num trains on track: " << _track.size() << endl
-         << "num trains on siding: " << _siding.size() << endl
          << "full:\t" << full() << endl;
 }

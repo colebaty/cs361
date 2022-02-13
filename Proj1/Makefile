@@ -52,7 +52,7 @@ CFLAGS=-g
  
 #  What is the name of the program you want to create?  (See below for notes
 #     on using this makefile to generate multiple programs.)
-#TARGET=vectorTest
+TARGET=main
 
 #  List the object code files to be produced by compilation. Normally this 
 #  list will include one ".o" file for each C++ file (with names ending in 
@@ -106,8 +106,8 @@ all: $(TARGET)
 $(TARGET): $(TARGET).cpp $(OBJS)
 	$(LINK) $(FLAGS) -o $(TARGET) $(TARGET).cpp $(OBJS) $(LFLAGS)
 
-#$(TARGET).cpp: $(OBJS)
-#	$(LINK) $(FLAGS) -o $(TARGET) $(TARGET).cpp $(OBJS) $(LFLAGS)
+# $(TARGET).cpp: $(OBJS)
+# 	$(LINK) $(FLAGS) -o $(TARGET) $(TARGET).cpp $(OBJS) $(LFLAGS)
 
 clean:
 	-rm -f $(TARGET) $(OBJS) $(DEPENDENCIES) make.dep

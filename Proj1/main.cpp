@@ -1,5 +1,5 @@
 /**
- * @file phase1Test.cpp
+ * @file main.cpp
  * @author Cole Baty (tbaty002@odu.edu)
  * @brief main driver for phase 1 deliverable
  * @version 0.1
@@ -44,7 +44,6 @@ int main()
     assert(cranes.size() == 9);
 
     cout << "pre-loading cranes 0, 3, 4" << endl;
-    container * contptr;
     cranes[0].load(*new container(1));
     cranes[3].load(*new container(2));
     cranes[4].load(*new container(3));
@@ -60,6 +59,7 @@ int main()
     assert(switchTracks.size() == 5);
 
     //uncomment to fill tracks to nearly full
+    // container * contptr;
     // cout << "filling tracks to nearly full" << endl;
     // for (int i = 0; i < switchTracks.size(); i++)
     // {

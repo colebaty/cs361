@@ -40,7 +40,7 @@ int main()
     craneptr->display();
     cout << "--------------------" << endl;
     
-    craneptr->getNext(shipptr);
+    craneptr->load(shipptr->getNext());
     craneptr->display();
     cout << "--------------------" << endl;
 

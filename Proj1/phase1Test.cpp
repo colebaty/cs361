@@ -44,7 +44,7 @@ int main()
     assert(cranes.size() == 9);
 
     cout << "pre-loading cranes 0, 3, 4" << endl;
-    // container * contptr;
+    container * contptr;
     cranes[0].load(*new container(1));
     cranes[3].load(*new container(2));
     cranes[4].load(*new container(3));
@@ -59,17 +59,17 @@ int main()
     }
     assert(switchTracks.size() == 5);
 
-    // //fill tracks to nearly full
-    // cout << "filling tracks to nearly full" << endl;
-    // for (int i = 0; i < switchTracks.size(); i++)
-    // {
-    //     for (int j = 0; j < getRand(35, 39); j++)
-    //     {
-    //         contptr = new container((j+1) * 10000);
-    //         switchTracks[i].push(*contptr);
-    //     }
-    //     assert(35 <= switchTracks[i].size() && switchTracks[i].size() <= 39);
-    // }
+    //fill tracks to nearly full
+    cout << "filling tracks to nearly full" << endl;
+    for (int i = 0; i < switchTracks.size(); i++)
+    {
+        for (int j = 0; j < getRand(35, 39); j++)
+        {
+            contptr = new container((j+1) * 10000);
+            switchTracks[i].push(*contptr);
+        }
+        assert(35 <= switchTracks[i].size() && switchTracks[i].size() <= 39);
+    }
 
     cout << "********** tracks ***************" << endl;
 
@@ -101,7 +101,7 @@ int main()
             if (cranes[i].empty())
             {
                 cout << "crane " << cranes[i].getID() << " empty; loading container from ship" << endl;
-                cranes[i].getNext(shipptr);
+                cranes[i].load(shipptr->getNext());
                 cout << "crane " << cranes[i].getID() << " loaded container " 
                      << cranes[i].getContID() << endl << endl;
                 assert(!cranes[i].empty());
@@ -123,7 +123,7 @@ int main()
                 {
                     cout << "all tracks full; quitting" << endl;
                     done = true;
-                    continue;
+                    break;
                 }
         
                 cout << "crane " << cranes[i].getID() << " loaded with container "

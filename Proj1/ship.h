@@ -33,6 +33,8 @@ class ship {
         int _id;
         int _capacity;
         int _numLoadedConts;
+
+        int _lastX, _lastY;
         
         //super private instance variables just for debugging
         int _numLevels;
@@ -90,6 +92,7 @@ class ship {
         int getID() { return _id; }
         int getWidth() { return _width; }
         int getLength() { return _length; }
+        int getNumLevels() { return _numLevels; }
         int getNumLoadedConts() { return _numLoadedConts; }
         int getCapacity() { return _capacity; }
 
@@ -108,6 +111,19 @@ class ship {
          * @return container* returns nullptr if cargo is empty
          */
         container& getCont(int row, int col);
+    
+        /**
+         * @brief stub for getting next container. cargo is 2D vector of stacks 
+         * accessed by [x][y].top(). need to figure out some way of keeping 
+         * track of which stack was last visited, so that I can determine 
+         * whether or not it's empty.
+         * 
+         * for now, returns a reference to a container with randomly generated 
+         * destination code.
+         * 
+         * @return container& 
+         */
+        container& getNext();
 
         bool empty() { return _cargo.empty(); }
 

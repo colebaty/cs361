@@ -63,12 +63,3 @@ void crane::display()
         _cont->display();
     }
 }
-
-void crane::getNext(ship * ship)
-{
-    if (!ship->empty())
-    {
-        /* code */
-    }
-    
-}

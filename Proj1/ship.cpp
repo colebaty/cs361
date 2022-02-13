@@ -15,6 +15,8 @@ ship::ship()
     _numLevels = 0;
     _width = 0;
     _length = 0;
+    _lastX = 0;
+    _lastY = 0;
 }
 
 ship::ship(int id, int capacity)
@@ -28,6 +30,8 @@ ship::ship(int id, int capacity)
     _numLevels = _capacity / _contsPerLevel;
     _width = _contsPerLevel * 0.1;
     _length = _contsPerLevel / _width;
+    _lastX = _width - 1;
+    _lastY = _length -1;
 
     fillCargo();
 }
@@ -103,5 +107,11 @@ container& ship::getCont(int row, int col)
         _numLoadedConts--;
     }
 
+    return *cont;
+}
+
+container& ship::getNext()
+{
+    container * cont = new container((_id * 10000) + getRand(100, 999));
     return *cont;
 }

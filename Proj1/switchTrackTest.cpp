@@ -60,7 +60,7 @@ int main()
     int length = shipptr->getLength();
     while (!switchptr->full())
     {
-        craneptr->getNext(shipptr);
+        craneptr->load(shipptr->getNext());
         switchptr->push(craneptr->unload());
     }
     

@@ -50,8 +50,6 @@ class crane {
          */
         int getContID();
 
-        void getNext(ship * ship);
-
         void display();
 };
 

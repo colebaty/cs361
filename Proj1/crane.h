@@ -32,7 +32,7 @@ class crane {
          * 
          * @param cont a pointer to the container to load into the crane
          */
-        void load(container cont) ;
+        void load(container& cont);
 
         /**
          * @brief unloads the container, sets state to not loaded

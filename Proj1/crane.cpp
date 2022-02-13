@@ -24,7 +24,7 @@ int crane::getContID()
     else return _cont->getID();
 }
 
-void crane::load(container cont)
+void crane::load(container& cont)
 { 
     if (_empty)
     {

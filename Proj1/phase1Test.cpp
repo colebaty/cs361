@@ -85,11 +85,12 @@ int main()
             if (cranes[i].empty())
             {
                 cout << "crane " << cranes[i].getID() << " empty; loading container from ship" << endl;
-                contptr = new container(contID++);
+                contptr = new container(contID);
                 contptr->display();
                 cranes[i].load(*contptr);
                 assert(contptr->getID() == cranes[i].getContID());
                 assert(!cranes[i].empty());
+                contID++;
             }
             else
             {
@@ -124,6 +125,12 @@ int main()
             if (ans == 'n') done = true;
         }
     }
+
+    //housekeeping
+    delete shipptr;
+    delete craneptr;
+    delete swtrptr;
+    delete contptr;
     
     return 0;
 }

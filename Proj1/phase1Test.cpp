@@ -54,6 +54,7 @@ int main()
     assert(switchTracks.size() == 5);
 
     //fill tracks to nearly full
+    cout << "filling tracks to nearly full" << endl;
     container * contptr;
     for (int i = 0; i < switchTracks.size(); i++)
     {
@@ -78,6 +79,7 @@ int main()
     {
         cout << "timestep " << counter << endl;
         cout << "--------------------" << endl;
+
         //cranes
         for (int i = 0; i < cranes.size(); i++)
         {
@@ -94,12 +96,30 @@ int main()
             }
             else
             {
+
+                //if all tracks are full, we're done
+                int numFull = 0;
+                for (int i = 0; i < switchTracks.size(); i++)
+                {
+                    if (switchTracks[i].full())
+                    {
+                        numFull++;
+                    }
+                }
+                if (numFull == switchTracks.size())
+                {
+                    cout << "all tracks full; quitting" << endl;
+                    done = true;
+                    break;
+                }
+        
                 cout << "crane " << cranes[i].getID() << " loaded with container "
                      << cranes[i].getContID() << endl;
 
                 while (nextTrack->full())
                 {
-                    cout << "track " << nextTrack->getID() << " full; skipping" << endl;
+                    cout << "***track " << nextTrack->getID() 
+                         << " full; skipping***" << endl;
                     nextTrack = &switchTracks[++index % switchTracks.size()];
                 }
                 
@@ -107,6 +127,8 @@ int main()
                 nextTrack->push(*contptr);
                 cout << "crane " << cranes[i].getID() << " unloaded to track "
                     << nextTrack->getID() << endl;
+                cout << "track " << nextTrack->getID() << " contains " 
+                     << nextTrack->size() << " containers" << endl;
                 nextTrack = &switchTracks[index % switchTracks.size()];
                 
                 index++;
@@ -124,6 +146,9 @@ int main()
             cin >> ans;
             if (ans == 'n') done = true;
         }
+        
+        
+        
     }
 
     //housekeeping

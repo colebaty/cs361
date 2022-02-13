@@ -10,8 +10,8 @@ crane::crane()
     _id = 0;
     _empty = true;
     _cont = nullptr;
-    _lastX = 0;
-    _lastY = 0;
+    _row = _id;
+    _col = 0;
 }
 
 crane::crane(int id)
@@ -19,8 +19,8 @@ crane::crane(int id)
     _id = id; 
     _empty = true;
     _cont = nullptr;
-    _lastX = 0;
-    _lastY = 0;
+    _row = _id;
+    _col = 0;
 }
 
 int crane::getContID()
@@ -42,10 +42,10 @@ void crane::load(container& cont)
     }
 }
 
-container crane::unload()
+container& crane::unload()
 {
     _empty = true;
-    container cont = *_cont;
+    container &cont = *_cont;
     _cont = nullptr;
     return cont;
 }
@@ -66,7 +66,9 @@ void crane::display()
 
 void crane::getNext(ship * ship)
 {
-    *_cont = ship->getCont(_lastX % ship->getWidth(), _lastY % ship->getLength());
-    _lastX++;
-    _lastY++;
+    if (!ship->empty())
+    {
+        /* code */
+    }
+    
 }

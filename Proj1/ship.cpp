@@ -93,12 +93,12 @@ void ship::displayCargoInfo()
 }
 #endif
 
-container ship::getCont(int row, int col)
+container& ship::getCont(int row, int col)
 {
     container * cont;
     if (!_cargo.empty())
     {
-        *cont = _cargo[row][col].top();
+        cont = &_cargo[row][col].top();
         _cargo[row][col].pop();
         _numLoadedConts--;
     }

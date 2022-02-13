@@ -107,7 +107,7 @@ class ship {
          * @param col 
          * @return container* returns nullptr if cargo is empty
          */
-        container getCont(int row, int col);
+        container& getCont(int row, int col);
 
         bool empty() { return _cargo.empty(); }
 

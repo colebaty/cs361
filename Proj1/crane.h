@@ -8,7 +8,7 @@ class crane {
     private:
         int _id;
         bool _empty;
-        int _lastX, _lastY;
+        int _row, _col;
 
         container * _cont;
 
@@ -41,7 +41,7 @@ class crane {
          * 
          * @return container 
          */
-        container unload();
+        container& unload();
 
         /**
          * @brief if unloaded, returns 0; else returns ID of loaded container

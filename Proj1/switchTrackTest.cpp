@@ -23,7 +23,7 @@ int main()
     container * contptr;
 
     cout << "removing container from ship" << endl;
-    contptr = shipptr->getCont(2, 2);
+    contptr = &shipptr->getCont(2, 2);
     cout << "----------------------------" << endl;
     contptr->display();
     cout << "----------------------------" << endl;
@@ -60,7 +60,7 @@ int main()
     int length = shipptr->getLength();
     while (!switchptr->full())
     {
-        craneptr->load(*shipptr->getCont(row++ % width, col++ % length));
+        craneptr->getNext(shipptr);
         switchptr->push(craneptr->unload());
     }
     

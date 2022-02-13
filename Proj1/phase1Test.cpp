@@ -43,6 +43,12 @@ int main()
     }
     assert(cranes.size() == 9);
 
+    cout << "pre-loading cranes 0, 3, 4" << endl;
+    container * contptr;
+    cranes[0].load(*new container(1));
+    cranes[3].load(*new container(2));
+    cranes[4].load(*new container(3));
+
     cout << "creating vector of 5 switch tracks" << endl;
     vector<switchTrack> switchTracks;
     switchTrack * swtrptr;
@@ -55,16 +61,24 @@ int main()
 
     //fill tracks to nearly full
     cout << "filling tracks to nearly full" << endl;
-    container * contptr;
     for (int i = 0; i < switchTracks.size(); i++)
     {
-        for (int j = 0; j < getRand(35,38); j++)
+        for (int j = 0; j < getRand(35, 39); j++)
         {
             contptr = new container((j+1) * 10000);
             switchTracks[i].push(*contptr);
         }
-        assert(35 <= switchTracks[i].size() && switchTracks[i].size() <= 38);
+        assert(35 <= switchTracks[i].size() && switchTracks[i].size() <= 39);
     }
+
+    cout << "********** tracks ***************" << endl;
+
+    for (int i = 0; i < switchTracks.size(); i++)
+    {
+        cout << switchTracks[i].getID() << ": ";
+        switchTracks[i].display();
+    }
+    
     cout << "********************************" << endl;
 
     //begin timestep
@@ -89,6 +103,7 @@ int main()
                 cout << "crane " << cranes[i].getID() << " empty; loading container from ship" << endl;
                 contptr = new container(contID);
                 contptr->display();
+                cout << endl;
                 cranes[i].load(*contptr);
                 assert(contptr->getID() == cranes[i].getContID());
                 assert(!cranes[i].empty());
@@ -128,7 +143,7 @@ int main()
                 cout << "crane " << cranes[i].getID() << " unloaded to track "
                     << nextTrack->getID() << endl;
                 cout << "track " << nextTrack->getID() << " contains " 
-                     << nextTrack->size() << " containers" << endl;
+                     << nextTrack->size() << " containers" << endl << endl;
                 nextTrack = &switchTracks[index % switchTracks.size()];
                 
                 index++;
@@ -140,9 +155,9 @@ int main()
         counter++;
         //prompt to continue every 10 timesteps
         char ans;
-        if (counter % 5 == 0)
+        if (counter % 10 == 0)
         {
-            cout << "advance 5 more timesteps? (y/n) ";
+            cout << "advance 10 more timesteps? (y/n) ";
             cin >> ans;
             if (ans == 'n') done = true;
         }

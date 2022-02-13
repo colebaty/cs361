@@ -10,12 +10,17 @@ crane::crane()
     _id = 0;
     _empty = true;
     _cont = nullptr;
+    _lastX = 0;
+    _lastY = 0;
 }
+
 crane::crane(int id)
 { 
     _id = id; 
     _empty = true;
     _cont = nullptr;
+    _lastX = 0;
+    _lastY = 0;
 }
 
 int crane::getContID()
@@ -57,4 +62,11 @@ void crane::display()
         cout << " loaded with container" << endl;
         _cont->display();
     }
+}
+
+void crane::getNext(ship * ship)
+{
+    *_cont = ship->getCont(_lastX % ship->getWidth(), _lastY % ship->getLength());
+    _lastX++;
+    _lastY++;
 }

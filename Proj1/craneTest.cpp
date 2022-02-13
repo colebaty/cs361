@@ -19,6 +19,7 @@
 
 #include "container.h"
 #include "crane.h"
+#include "ship.h"
 
 using namespace std;
 
@@ -96,8 +97,18 @@ int main(int argc, char** argv)
     assert(contents.empty());
     cout << "done" << endl;
 
+    cout << "--------------------------" << endl;
+    ship * shipptr = new ship(1);
+    cout << "--------------------------" << endl;
+
+    cout << "crane " << crane.getID() << " getting next cont from ship" << endl;
+    crane.getNext(shipptr);
+    assert(!crane.empty());
+    crane.display();
+
     //housekeeping
     delete contptr;
+    delete shipptr;
 
     return 0;
 }

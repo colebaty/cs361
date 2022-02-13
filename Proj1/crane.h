@@ -2,11 +2,13 @@
 #define __CRANE_H__
 
 #include "container.h"
+#include "ship.h"
 
 class crane {
     private:
         int _id;
         bool _empty;
+        int _lastX, _lastY;
 
         container * _cont;
 
@@ -47,6 +49,8 @@ class crane {
          * @return int 
          */
         int getContID();
+
+        void getNext(ship * ship);
 
         void display();
 };

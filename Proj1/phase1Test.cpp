@@ -44,7 +44,6 @@ int main()
     assert(cranes.size() == 9);
 
     cout << "pre-loading cranes 0, 3, 4" << endl;
-    container * contptr;
     cranes[0].load(*new container(1));
     cranes[3].load(*new container(2));
     cranes[4].load(*new container(3));
@@ -60,6 +59,7 @@ int main()
     assert(switchTracks.size() == 5);
 
     //uncomment to fill tracks to nearly full
+    // container * contptr;
     // cout << "filling tracks to nearly full" << endl;
     // for (int i = 0; i < switchTracks.size(); i++)
     // {
@@ -88,7 +88,7 @@ int main()
     //pointer to switch track to start with on next timestep
     switchTrack * nextTrack = &switchTracks[switchTracks.size() - 1];
     int index = 0;
-    int contID = shipptr->getID() * 10000;
+    // int contID = shipptr->getID() * 10000;
     while (!done)
     {
         cout << "timestep " << counter << endl;
@@ -105,7 +105,7 @@ int main()
                 cout << "crane " << cranes[i].getID() << " loaded container " 
                      << cranes[i].getContID() << endl << endl;
                 assert(!cranes[i].empty());
-                contID++;
+                // contID++;
             }
             else
             {

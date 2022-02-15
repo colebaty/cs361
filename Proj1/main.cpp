@@ -101,7 +101,10 @@ int main()
             if (cranes[i].empty())
             {
                 cout << "crane " << cranes[i].getID() << " empty; loading container from ship" << endl;
-                cranes[i].load(shipptr->getNext());
+                if (shipptr->hasNext())
+                {
+                    cranes[i].load(shipptr->getNext());
+                } 
                 cout << "crane " << cranes[i].getID() << " loaded container " 
                      << cranes[i].getContID() << endl << endl;
                 assert(!cranes[i].empty());

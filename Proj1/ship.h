@@ -113,6 +113,14 @@ class ship {
         container& getCont(int row, int col);
     
         /**
+         * @brief returns false if cargo hold is empty; otherwise returns true
+         * 
+         * @return true 
+         * @return false 
+         */
+        bool hasNext();
+
+        /**
          * @brief stub for getting next container. cargo is 2D vector of stacks 
          * accessed by [x][y].top(). need to figure out some way of keeping 
          * track of which stack was last visited, so that I can determine 

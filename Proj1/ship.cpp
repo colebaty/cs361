@@ -117,11 +117,6 @@ container& ship::getNext()
     _cargo[0][0].pop();
     _numLoadedConts--;
 
-    return *cont;
-}
-
-bool ship::hasNext()
-{
     if (_cargo[0][0].empty())
     {
         _cargo[0].erase(_cargo[0].begin());
@@ -132,5 +127,10 @@ bool ship::hasNext()
         _cargo.erase(_cargo.begin());
     }
 
+    return *cont;
+}
+
+bool ship::hasNext()
+{
     return !(_cargo.empty() || _cargo[0].empty() || _cargo[0][0].empty()); 
 }

@@ -102,7 +102,7 @@ int main(int argc, char** argv)
     cout << "--------------------------" << endl;
 
     cout << "crane " << crane.getID() << " getting next cont from ship" << endl;
-    crane.getNext(shipptr);
+    crane.load(shipptr->getNext());
     assert(!crane.empty());
     crane.display();
 

@@ -59,17 +59,17 @@ int main()
     assert(switchTracks.size() == 5);
 
     //uncomment to fill tracks to nearly full
-    container * contptr;
-    cout << "filling tracks to nearly full" << endl;
-    for (int i = 0; i < switchTracks.size(); i++)
-    {
-        for (int j = 0; j < getRand(35, 39); j++)
-        {
-            contptr = new container((j+1) * 10000);
-            switchTracks[i].push(*contptr);
-        }
-        assert(35 <= switchTracks[i].size() && switchTracks[i].size() <= 39);
-    }
+    // container * contptr;
+    // cout << "filling tracks to nearly full" << endl;
+    // for (int i = 0; i < switchTracks.size(); i++)
+    // {
+    //     for (int j = 0; j < getRand(35, 39); j++)
+    //     {
+    //         contptr = new container((j+1) * 10000);
+    //         switchTracks[i].push(*contptr);
+    //     }
+    //     assert(35 <= switchTracks[i].size() && switchTracks[i].size() <= 39);
+    // }
 
     cout << "********** tracks ***************" << endl;
 

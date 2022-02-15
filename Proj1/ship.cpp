@@ -112,6 +112,20 @@ container& ship::getCont(int row, int col)
 
 container& ship::getNext()
 {
-    container * cont = new container((_id * 10000) + getRand(100, 999));
+    if (_cargo[0][0].empty())
+    {
+        _cargo[0].erase(_cargo[0].begin());
+    }
+
+    if (_cargo[0].empty())
+    {
+        _cargo.erase(_cargo.begin());
+    }
+
+    container * cont;
+    cont = &_cargo[0][0].top();
+    _cargo[0][0].pop();
+    _numLoadedConts--;
+
     return *cont;
 }

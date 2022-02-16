@@ -54,3 +54,10 @@ load unload algorithm
             //crane finds next container
         //else wait for free switching track
 ```
+
+# TODO
+- address bug w/ `vector::erase()`
+- make siding track
+- make shipping track
+    - TTL: if (shiptrack.ready()) then leave
+- investigate that random number generator from the class examples

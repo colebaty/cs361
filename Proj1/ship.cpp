@@ -53,7 +53,6 @@ void ship::fillCargo()
             for (int i = 0; i < _numLevels; i++)
             {
                 contptr = new container(contID++);
-                contID++;
                 column->push(*contptr);
                 _numLoadedConts++;
             }

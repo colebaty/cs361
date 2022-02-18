@@ -102,7 +102,7 @@ container& ship::getCont(int row, int col)
     container * cont;
     if (!_cargo.empty())
     {
-        cont = &_cargo[row][col].top();
+        cont = new container(_cargo[row][col].top());
         _cargo[row][col].pop();
         _numLoadedConts--;
     }
@@ -113,7 +113,7 @@ container& ship::getCont(int row, int col)
 container& ship::getNext()
 {
     container * cont;
-    cont = &_cargo[0][0].top();
+    cont = new container(_cargo[0][0].top());
     _cargo[0][0].pop();
     _numLoadedConts--;
 

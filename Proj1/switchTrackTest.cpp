@@ -12,43 +12,13 @@ using namespace std;
 
 int main()
 {
-    //seed srand
-    srand(time(NULL));
-
-    container * cont;
-    switchTrack track;
-
-    cout << "filling track to capacity with containers" << endl;
-    int contID = 10000;
-    while (!track.full())
-    {
-        cont = new container(contID++);
-        track.push(*cont);
-    }
-    cout << "--------------------" << endl;
-    track.display();
-    cout << "--------------------" << endl;
-
-    cout << "emptying track" << endl;
-    while (!track.empty())
-    {
-        cout << "getting next container from track" << endl;
-        *cont = track.getNext();
-
-        cout << "container " << cont->getID() << " goes to shipping line " 
-            << cont->getDest() / 100 << endl;
-        cout << "--------------------" << endl;
-        
-        track.display();
-        cout << "--------------------" << endl;
-    }
-
     cout << "creating new track" << endl;
 
     switchTrack track2;
 
     cout << "filling track to capacity with containers" << endl;
-    contID = 20000;
+    int contID = 20000;
+    container * cont;
     while (!track2.full())
     {
         cont = new container(contID++);
@@ -58,21 +28,21 @@ int main()
     cout << "--------------------" << endl;
     cout << "sorting containers to shipping tracks" << endl;
     
-    int shipTrackSize = 3;
+    int shipTrackSize = 5;
     queue<container> shipTracks[shipTrackSize];
 
     while (!track2.empty())
     {
-        
         if ((track2.getNextDest() / 100 ) - 1 < shipTrackSize)
         {
+            cout << "pushing onto shipping train" << endl;
             shipTracks[(track2.getNextDest() / 100) - 1].push(track2.getNext());
         }
         else
         {
+            cout << "pushing onto siding" << endl;
             track2.pushToSiding(track2.getNext());
         }
-        
     }
 
     for (int i = 0; i < shipTrackSize; i++)

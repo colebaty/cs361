@@ -10,13 +10,10 @@ ship::ship()
 {
     _id = 0;
     _capacity = 0;
-    _numLoadedConts = 0;
     _contsPerLevel = 0;
     _numLevels = 0;
     _width = 0;
     _length = 0;
-    _lastX = 0;
-    _lastY = 0;
 }
 
 ship::ship(int id, int capacity)
@@ -30,8 +27,6 @@ ship::ship(int id, int capacity)
     _numLevels = _capacity / _contsPerLevel;
     _width = _contsPerLevel * 0.1;
     _length = _contsPerLevel / _width;
-    _lastX = _width - 1;
-    _lastY = _length -1;
 
     fillCargo();
 }
@@ -54,7 +49,6 @@ void ship::fillCargo()
             {
                 contptr = new container(contID++);
                 column->push(*contptr);
-                _numLoadedConts++;
             }
             layer->push_back(*column);
         }
@@ -62,7 +56,7 @@ void ship::fillCargo()
     }
 
     #ifdef DEBUG
-    std::cout << "loaded " << _numLoadedConts << " containers into ship " << _id << endl;
+    std::cout << "loaded " << getNumLoadedConts() << " containers into ship " << _id << endl;
     #endif
 }
 
@@ -70,7 +64,7 @@ void ship::display()
 {
     std::cout << "ship:\t\t" << _id << endl
          << "capacity:\t" << _capacity << endl
-         << "numLoaded:\t" << _numLoadedConts << endl;
+         << "numLoaded:\t" << getNumLoadedConts() << endl;
     #ifdef DEBUG
         std::cout << "cont/lvl:\t" << _contsPerLevel << endl
              << "width:\t\t" << _width << endl
@@ -101,7 +95,6 @@ container& ship::getNext()
     container * cont;
     cont = new container(_cargo[0][0].top());
     _cargo[0][0].pop();
-    _numLoadedConts--;
 
     if (_cargo[0][0].empty())
     {
@@ -119,4 +112,25 @@ container& ship::getNext()
 bool ship::hasNext()
 {
     return !(_cargo.empty() || _cargo[0].empty() || _cargo[0][0].empty()); 
+}
+
+int ship::getNumLoadedConts()
+{
+    int sum = 0;
+
+    vector<vector<stack<container>>>::iterator lit = _cargo.begin();
+    vector<stack<container>>::iterator sit;
+
+    while (lit != _cargo.end())
+    {
+        sit = lit->begin();
+        while (sit != lit->end())
+        {
+            sum += sit->size();
+            sit = next(sit);
+        }
+        lit = next(lit);
+    }
+    
+    return sum;
 }

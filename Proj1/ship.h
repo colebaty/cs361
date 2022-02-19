@@ -14,9 +14,6 @@
 #ifndef __SHIP_H__
 #define __SHIP_H__
 
-// uncomment for more info in display()
-#define DEBUG
-
 #include <vector>
 #include <stack>
 
@@ -32,10 +29,7 @@ class ship {
     private:
         int _id;
         int _capacity;
-        int _numLoadedConts;
 
-        int _lastX, _lastY;
-        
         //super private instance variables just for debugging
         int _numLevels;
         int _contsPerLevel;
@@ -93,7 +87,7 @@ class ship {
         int getWidth() { return _width; }
         int getLength() { return _length; }
         int getNumLevels() { return _numLevels; }
-        int getNumLoadedConts() { return _numLoadedConts; }
+        int getNumLoadedConts();
         int getCapacity() { return _capacity; }
 
         /**

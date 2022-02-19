@@ -106,6 +106,9 @@ all: $(TARGET)
 $(TARGET): $(TARGET).cpp $(OBJS)
 	$(LINK) $(FLAGS) -o $(TARGET) $(TARGET).cpp $(OBJS) $(LFLAGS)
 
+debug: $(TARGET).cpp $(OBJS)
+	$(LINK) $(FLAGS) -DDEBUG -o $(TARGET) $(TARGET).cpp $(OBJS) $(LFLAGS)
+
 # $(TARGET).cpp: $(OBJS)
 # 	$(LINK) $(FLAGS) -o $(TARGET) $(TARGET).cpp $(OBJS) $(LFLAGS)
 

@@ -28,9 +28,15 @@ class switchTrack {
 
     public:
         switchTrack();
-        switchTrack(int id) { _id = id; _max = 40; }
+        switchTrack(int id, int max = 40);
         //public methods
 
+        /**
+         * @brief switch track is full when both the main track is full. 
+         * 
+         * @return true 
+         * @return false 
+         */
         bool full();
         bool empty();
 
@@ -43,12 +49,12 @@ class switchTrack {
         void push(container cont);
 
         /**
-         * @brief push the container to the "siding" track. called when the 
-         * destination code doesn't match any available shipping track
+         * @brief push the container at the head of the main track to the
+         * siding track
          * 
          * @param cont 
          */
-        void pushToSiding(container cont);
+        void pushToSiding();
 
         /**
          * @brief returns a reference to the container at the head of the 

@@ -104,15 +104,6 @@ class ship {
 
 
         /**
-         * @brief returns a pointer to a container declared on the heap
-         * 
-         * @param row 
-         * @param col 
-         * @return container* returns nullptr if cargo is empty
-         */
-        container& getCont(int row, int col);
-    
-        /**
          * @brief returns false if cargo hold is empty; otherwise returns true
          * 
          * @return true 

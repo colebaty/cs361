@@ -33,7 +33,7 @@ void shipTrack::push(container cont)
     
     #ifdef DEBUG
     else
-        cerr << "error: track " << _id << " full" << endl;
+        cerr << "error: shipping track " << _id << " full" << endl;
     #endif
 }
 

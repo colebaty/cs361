@@ -9,13 +9,20 @@ using namespace std;
 
 switchTrack::switchTrack()
 {
-    _max = 40;
+    _max = 0;
+    _maxSiding = 0;
+}
+
+switchTrack::switchTrack(int id, int max)
+{
+    _id = id; 
+    _max = 40; 
     _maxSiding = _max - 1;
 }
 
 bool switchTrack::full()
 {
-    return !(_track.size() < _max);
+    return _track.size() >= _max;
 }
 
 bool switchTrack::empty()
@@ -25,7 +32,7 @@ bool switchTrack::empty()
 
 bool switchTrack::sidingFull()
 {
-    return !(_siding.size() < _maxSiding);
+    return _siding.size() >+ _maxSiding;
 }
 
 void switchTrack::push(container cont)
@@ -34,17 +41,31 @@ void switchTrack::push(container cont)
     {
         _track.push(cont);
     }
+    #ifdef DEBUG
+    else
+        cerr << "error: switch strack " << _id << " full" << endl;
+    #endif
 }
 
-void switchTrack::pushToSiding(container cont)
+void switchTrack::pushToSiding()
 {
-    _siding.push(cont);
+    container * cont;
+    if (!sidingFull())
+    {
+        cont = &_track.front();
+        _track.pop();
+        _siding.push(*cont);
+    }
+    #ifdef DEBUG
+    else
+        cerr << "error: switch strack " << _id << " full" << endl;
+    #endif
 }
 
 void switchTrack::display()
 {
-    cout << "num trains on track: " << _track.size() << endl
-         << "\tnum trains on siding: " << _siding.size() << endl
+    cout << "num containers on track: " << _track.size() << endl
+         << "\tnum containers on siding: " << _siding.size() << endl
          << "\tfull:\t" << full() << endl;
 }
 

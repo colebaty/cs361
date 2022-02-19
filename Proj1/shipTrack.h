@@ -1,8 +1,6 @@
 #ifndef __SHIPTRACK_H__
 #define __SHIPTRACK_H__
 
-#define DEBUG
-
 #include <queue>
 #include "container.h"
 

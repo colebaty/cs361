@@ -16,35 +16,36 @@ int main()
     srand(time(NULL));
 
     cout << "creating new track" << endl;
-
-    switchTrack track2;
+    switchTrack swtr(1);
+    swtr.display();
+    cout << "--------------------" << endl;
 
     cout << "filling track to capacity with containers" << endl;
     int contID = 20000;
     container * cont;
-    while (!track2.full())
+    while (!swtr.full())
     {
         cont = new container(contID++);
-        track2.push(*cont);
+        swtr.push(*cont);
     }
-    track2.display();
+    swtr.display();
     cout << "--------------------" << endl;
     cout << "sorting containers to shipping tracks" << endl;
     
     int shipTrackSize = 5;
     queue<container> shipTracks[shipTrackSize];
 
-    while (!track2.empty())
+    while (!swtr.empty())
     {
-        if ((track2.getNextDest() / 100 ) - 1 < shipTrackSize)
+        if ((swtr.getNextDest() / 100 ) - 1 < shipTrackSize)
         {
             cout << "pushing onto shipping train" << endl;
-            shipTracks[(track2.getNextDest() / 100) - 1].push(track2.getNext());
+            shipTracks[(swtr.getNextDest() / 100) - 1].push(swtr.getNext());
         }
         else
         {
             cout << "pushing onto siding" << endl;
-            track2.pushToSiding(track2.getNext());
+            swtr.pushToSiding();
         }
     }
 
@@ -59,11 +60,10 @@ int main()
     }
 
     cout << sum << " containers loaded onto 9 tracks " << endl;
-    track2.display();
+    swtr.display();
     
     cout << "--------------------" << endl;
 
-    delete cont;
 
     return 0;
 }

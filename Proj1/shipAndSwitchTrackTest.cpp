@@ -53,17 +53,24 @@ int main()
     {
         for (int i = 0; i < switchYard.size(); i++)
         {
-            if (switchYard[i].getNextDest() / 100 == s.getDest())
+            if (!switchYard[i].empty())
             {
-                cout << "switch track " << switchYard[i].getID() << " gives to "
-                     << s.getID() << endl;
-                s.push(switchYard[i].getNext());
+                if (switchYard[i].getNextDest() / 100 == s.getDest())
+                {
+                    cout << "switch track " << switchYard[i].getID() << " gives to "
+                        << s.getID() << endl;
+                    s.push(switchYard[i].getNext());
+                }
+                else
+                {
+                    cout << "track " << switchYard[i].getID() << " no match: pushing to siding" 
+                        << endl; 
+                    switchYard[i].pushToSiding();
+                }
             }
             else
             {
-                cout << "track " << switchYard[i].getID() << " no match: pushing to siding" 
-                     << endl; 
-                switchYard[i].pushToSiding();
+                cout << "track " << switchYard[i].getID() << " empty" << endl;
             }
 
             #ifdef DEBUG

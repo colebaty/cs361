@@ -2,6 +2,9 @@
 #define __SHIPTRACK_H__
 
 #include <queue>
+
+#include "shiputils.h"
+
 #include "container.h"
 
 using namespace std;
@@ -33,7 +36,7 @@ class shipTrack {
          * @param ttl 
          * @param cap 
          */
-        shipTrack(int id, int ttl = 100, int cap = 100);
+        shipTrack(int id, int ttl = 100, int cap = 100, int dest = getRand(1,9));
 
         //public methods
         void push(container cont);
@@ -46,6 +49,10 @@ class shipTrack {
          * 
          */
         void update();
+
+        int getID() {return _id; }
+        int getDest() { return _dest; }
+        int getTTL() { return _ttl; }
 };
 
 

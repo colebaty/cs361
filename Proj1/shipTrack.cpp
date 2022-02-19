@@ -16,12 +16,12 @@ shipTrack::shipTrack()
     _dest = 0;
 }
 
-shipTrack::shipTrack(int id, int ttl, int cap)
+shipTrack::shipTrack(int id, int ttl, int cap, int dest)
 {
     _id = id;
     _ttl = ttl;
     _cap = cap;
-    _dest = getRand(1,9);
+    _dest = dest;
 }
 
 void shipTrack::push(container cont)
@@ -44,12 +44,13 @@ bool shipTrack::full()
 
 bool shipTrack::ready()
 {
-    return _ttl < 0 || full();
+    return _ttl < 1 || full();
 }
 
 void shipTrack::display()
 {
     cout << "track no: " << _id << endl
+         << "\tdest: " << _dest * 100 << endl
          << "\tttl: " << _ttl << endl
          << "\tloaded: " << _contents.size() << endl
          << "\tcap: " << _cap << endl

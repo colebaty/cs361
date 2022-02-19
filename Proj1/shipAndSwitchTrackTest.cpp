@@ -61,7 +61,7 @@ int main()
             }
             else
             {
-                cout << "track " << switchYard[i].getID() << " match: pushing to siding" 
+                cout << "track " << switchYard[i].getID() << " no match: pushing to siding" 
                      << endl; 
                 switchYard[i].pushToSiding();
             }
@@ -126,7 +126,7 @@ int main()
     {
         for (int i = 0; i < switchYard2.size(); i++)
         {
-            if (switchYard2[i].getNextDest() / 100 == s.getDest())
+            if (switchYard2[i].getNextDest() / 100 == s2.getDest())
             {
                 cout << "switch track " << switchYard2[i].getID() << " gives to "
                      << s2.getID() << endl;

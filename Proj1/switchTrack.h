@@ -62,7 +62,7 @@ class switchTrack {
          * 
          * @return container& 
          */
-        container& getNext();
+        container getNext();
         int getNextDest();
 
         void display();

@@ -64,7 +64,7 @@ void switchTrack::pushToSiding()
 
 void switchTrack::display()
 {
-    cout << "num containers on track: " << _track.size() << endl
+    cout << "num containers on track: " << (_track.empty() ? 0 : _track.size()) << endl
          << "\tnum containers on siding: " << _siding.size() << endl
          << "\tfull:\t" << full() << endl;
 }
@@ -74,10 +74,10 @@ int switchTrack::getNextDest()
     return _track.front().getDest();
 }
 
-container& switchTrack::getNext()
+container switchTrack::getNext()
 {
     container * cont;
-    cont = &_track.front();
+    cont = new container(_track.front());
     _track.pop();
     return *cont;
 }

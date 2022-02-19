@@ -13,7 +13,7 @@ container::container()
 container::container(int id)
 {
     _id = id;
-   _dest = getRand(100, 900);
+   _dest = getRand(100, 999);
 }
 
 container::container(const container& other)

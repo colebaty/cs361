@@ -49,8 +49,12 @@ int main()
 
     cout << "sorting containers" << endl;
 
+    int counter = 1;
     while(!s.ready())
     {
+        cout << "-------------------------" << endl;
+        cout << "timestep " << counter++ << endl;
+        cout << "-------------------------" << endl;
         for (int i = 0; i < switchYard.size(); i++)
         {
             if (!switchYard[i].empty())
@@ -129,8 +133,12 @@ int main()
 
     cout << "sorting containers" << endl;
 
+    counter = 1;
     while(!s2.ready())
     {
+        cout << "-------------------------" << endl;
+        cout << "timestep " << counter++ << endl;
+        cout << "-------------------------" << endl;
         for (int i = 0; i < switchYard2.size(); i++)
         {
             if (switchYard2[i].getNextDest() / 100 == s2.getDest())

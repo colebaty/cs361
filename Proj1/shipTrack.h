@@ -40,6 +40,13 @@ class shipTrack {
 
         //public methods
         void push(container cont);
+        /**
+         * @brief returns true IF train has reached capacity OR train ttl has
+         * expired but capcity is >= 80% full
+         * 
+         * @return true 
+         * @return false 
+         */
         bool ready();
         bool full();
 

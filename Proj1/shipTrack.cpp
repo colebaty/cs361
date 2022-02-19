@@ -44,7 +44,7 @@ bool shipTrack::full()
 
 bool shipTrack::ready()
 {
-    return _ttl < 1 || full();
+    return full() || (_ttl < 1 && _contents.size() >= _cap * 0.8);
 }
 
 void shipTrack::display()

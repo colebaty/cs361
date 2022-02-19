@@ -1,6 +1,8 @@
 #ifndef __SHIPTRACK_H__
 #define __SHIPTRACK_H__
 
+#define DEBUG
+
 #include <queue>
 #include "container.h"
 
@@ -36,8 +38,16 @@ class shipTrack {
         shipTrack(int id, int ttl = 100, int cap = 100);
 
         //public methods
+        void push(container cont);
         bool ready();
         bool full();
+
+        void display();
+        /**
+         * @brief updates ttl by decrementing
+         * 
+         */
+        void update();
 };
 
 

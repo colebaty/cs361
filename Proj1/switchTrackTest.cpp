@@ -12,6 +12,9 @@ using namespace std;
 
 int main()
 {
+    //seed srand
+    srand(time(NULL));
+
     cout << "creating new track" << endl;
 
     switchTrack track2;

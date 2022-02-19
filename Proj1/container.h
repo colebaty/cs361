@@ -1,6 +1,10 @@
 #ifndef __CONTAINER_H__
 #define __CONTAINER_H__
 
+const int CONT_MIN_DEST = 100;
+const int CONT_MAX_DEST = 999;
+const int CONT_BASE_ID = 10000;
+
 class container
 {
     private:

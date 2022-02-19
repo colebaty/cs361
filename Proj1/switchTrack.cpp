@@ -16,7 +16,7 @@ switchTrack::switchTrack()
 switchTrack::switchTrack(int id, int max)
 {
     _id = id; 
-    _max = 40; 
+    _max = max;
     _maxSiding = _max - 1;
 }
 
@@ -32,7 +32,7 @@ bool switchTrack::empty()
 
 bool switchTrack::sidingFull()
 {
-    return _siding.size() >+ _maxSiding;
+    return _siding.size() >= _maxSiding;
 }
 
 void switchTrack::push(container cont)
@@ -74,10 +74,23 @@ int switchTrack::getNextDest()
     return _track.front().getDest();
 }
 
+int switchTrack::getNextSidingDest()
+{
+    return _siding.top().getDest();
+}
+
 container switchTrack::getNext()
 {
     container * cont;
     cont = new container(_track.front());
     _track.pop();
+    return *cont;
+}
+
+container switchTrack::getNextFromSiding()
+{
+    container * cont;
+    cont = new container(_siding.top());
+    _siding.pop();
     return *cont;
 }

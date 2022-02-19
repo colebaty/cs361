@@ -38,7 +38,7 @@ ship::ship(int id, int capacity)
 
 void ship::fillCargo()
 {
-    int contID = _id * 10000 + 1;
+    int contID = _id * CONT_BASE_ID + 1;
 
     container * contptr;                    
     stack<container> * column;

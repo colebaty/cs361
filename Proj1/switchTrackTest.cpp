@@ -63,7 +63,46 @@ int main()
     swtr.display();
     
     cout << "--------------------" << endl;
+    cout << "********** siding testing **********" << endl;
+    switchTrack swtr2(2, 10);
 
+    cout << "filling track" << endl;
+    while (!swtr2.full())
+    {
+        swtr2.push(*new container(contID++));
+        swtr2.pushToSiding();
+    }
+
+    swtr2.display();
+
+    cout << "--------------------" << endl;
+
+    cout << "emptying track" << endl;
+
+    queue<container> q;
+
+    while (swtr2.hasNext())
+    {
+        cout << "from main track" << endl;
+        *cont = swtr2.getNext();
+        cont->display();
+        q.push(*cont);
+
+        cout << endl;
+
+        cout << "from siding" << endl;
+        *cont = swtr2.getNextFromSiding();
+        cont->display();
+        q.push(*cont);
+
+        cout << endl;
+    }
+
+    cout << "--------------------" << endl;
+
+    swtr2.display();
+
+    cout << "--------------------" << endl;
 
     return 0;
 }

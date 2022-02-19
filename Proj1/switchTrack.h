@@ -7,6 +7,8 @@
 
 using namespace std;
 
+const int SWITCH_TRACK_MAX_CAP = 40;
+
 class switchTrack {
     private:
         queue<container> _track;
@@ -28,7 +30,15 @@ class switchTrack {
 
     public:
         switchTrack();
-        switchTrack(int id, int max = 40);
+        /**
+         * @brief creates a new switchtrack with given id and default main
+         * track capcity of 40. siding track capacity is one less than main
+         * track capacity.
+         * 
+         * @param id 
+         * @param max 
+         */
+        switchTrack(int id, int max = SWITCH_TRACK_MAX_CAP);
         //public methods
 
         /**
@@ -39,6 +49,14 @@ class switchTrack {
          */
         bool full();
         bool empty();
+        /**
+         * @brief returns true if main track is not empty and siding track is
+         * not empty
+         * 
+         * @return true 
+         * @return false 
+         */
+        bool hasNext() { return !_track.empty() && !_siding.empty(); }
 
         /**
          * @brief if track not full, push container to track.
@@ -63,7 +81,9 @@ class switchTrack {
          * @return container& 
          */
         container getNext();
+        container getNextFromSiding();
         int getNextDest();
+        int getNextSidingDest();
 
         void display();
         int getID() { return _id ; }

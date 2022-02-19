@@ -25,8 +25,8 @@
 
 using namespace std;
 
-const int MAX_CAPACITY = 1000;
-const int MIN_CAPACITY = 750;
+const int SHIP_MAX_CAPACITY = 1000;
+const int SHIP_MIN_CAPACITY = 750;
 
 class ship {
     private:
@@ -87,7 +87,7 @@ class ship {
          * @param min 
          * @param max 
          */
-        ship(int id, int capacity = getRand(MIN_CAPACITY, MAX_CAPACITY));
+        ship(int id, int capacity = getRand(SHIP_MIN_CAPACITY, SHIP_MAX_CAPACITY));
 
         int getID() { return _id; }
         int getWidth() { return _width; }

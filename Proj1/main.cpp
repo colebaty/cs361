@@ -18,6 +18,7 @@
 #include "crane.h"
 #include "ship.h"
 #include "switchTrack.h"
+#include "shipTrack.h"
 #include "shiputils.h"
 
 using namespace std;
@@ -26,151 +27,139 @@ int main()
 {
     //seed srand
     srand(time(NULL));
-    
-    //create shipyard
-    cout << "****** creating shipyard ******" << endl;
-    cout << "creating ship with id 1" << endl;
-    ship * shipptr = new ship(1);
-    assert(shipptr->getID() == 1);
 
-    cout << "creating vector of 9 cranes" << endl;
-    vector<crane> cranes;
-    crane * craneptr;
+    cout << "********* setup **********" << endl;
+    //ship
+    ship * shipptr = new ship(1);
+    cout << "--------------------------" << endl;
+    cout << "ship" << endl;
+    shipptr->display();
+    cout << "--------------------------" << endl;
+
+    //cranes
+    vector<crane> dock;
+    int craneID = 1;
     for (int i = 0; i < 9; i++)
     {
-        craneptr = new crane(i);
-        cranes.push_back(*craneptr);
+        dock.push_back(*new crane(craneID++));
     }
-    assert(cranes.size() == 9);
+    cout << "--------------------------" << endl;
+    cout << "cranes" << endl;
+    for (int i = 0; i < dock.size(); i++)
+    {
+        dock[i].display();
+    }
+    
+    cout << "--------------------------" << endl;
 
-    cout << "pre-loading cranes 0, 3, 4" << endl;
-    cranes[0].load(*new container(1));
-    cranes[3].load(*new container(2));
-    cranes[4].load(*new container(3));
-
-    cout << "creating vector of 5 switch tracks" << endl;
-    vector<switchTrack> switchTracks;
-    switchTrack * swtrptr;
+    //switchyard
+    vector<switchTrack> switchYard;
+    int swtrID = 1;
     for (int i = 0; i < 5; i++)
     {
-        swtrptr = new switchTrack(i);
-        switchTracks.push_back(*swtrptr);
+        switchYard.push_back(*new switchTrack(swtrID++));
     }
-    assert(switchTracks.size() == 5);
-
-    //uncomment to fill tracks to nearly full
-    // container * contptr;
-    // cout << "filling tracks to nearly full" << endl;
-    // for (int i = 0; i < switchTracks.size(); i++)
-    // {
-    //     for (int j = 0; j < getRand(35, 39); j++)
-    //     {
-    //         contptr = new container((j+1) * 10000);
-    //         switchTracks[i].push(*contptr);
-    //     }
-    //     assert(35 <= switchTracks[i].size() && switchTracks[i].size() <= 39);
-    // }
-
-    cout << "********** tracks ***************" << endl;
-
-    for (int i = 0; i < switchTracks.size(); i++)
+    cout << "--------------------------" << endl;
+    cout << "switchyard" << endl;
+    for (int i = 0; i < switchYard.size(); i++)
     {
-        cout << switchTracks[i].getID() << ": ";
-        switchTracks[i].display();
+        switchYard[i].display();
     }
-    
-    cout << "********************************" << endl;
+    cout << "--------------------------" << endl;
 
-    //begin timestep
-    bool done = false;
+    //shipping yard
+    vector<shipTrack> shipYard;
+    int shptrID = 1;
+    for (int i = 0; i < 5; i++)
+    {
+        shipYard.push_back(*new shipTrack(shptrID++));
+    }
+    cout << "--------------------------" << endl;
+    cout << "shiptrack" << endl;
+    for (int i = 0; i < shipYard.size(); i++)
+    {
+        shipYard[i].display();
+    }
+    cout << "--------------------------" << endl;
+
+    //main loop
+
+    cout << "--------------------------" << endl;
+    cout << "loading container from ship into crane 0" << endl;
+    dock[0].load(shipptr->getNext());
+    shipptr->display();
+    dock[0].display();
+    cout << "--------------------------" << endl;
+    cout << "unloading container from crane 0 into switch track 0" << endl;
+    switchYard[0].push(dock[0].unload());
+    dock[0].display();
+    switchYard[0].display();
+    cout << "--------------------------" << endl;
+    cout << "pushing container to ship track 0" << endl;
+    shipYard[0].push(switchYard[0].getNext());
+    switchYard[0].display();
+    shipYard[0].display();
+    cout << "--------------------------" << endl;
+    shipptr->display();
+    dock[0].display();
+    switchYard[0].display();
+    shipYard[0].display();
+    cout << "--------------------------" << endl;
+
     int counter = 0;
-    
-    //pointer to switch track to start with on next timestep
-    switchTrack * nextTrack = &switchTracks[switchTracks.size() - 1];
-    int index = 0;
-    // int contID = shipptr->getID() * 10000;
+    bool done = false;
+    vector<switchTrack>::iterator swtrit = switchYard.begin();
     while (!done)
     {
-        cout << "timestep " << counter << endl;
-        cout << "--------------------" << endl;
-
         //cranes
-        for (int i = 0; i < cranes.size(); i++)
+        for (int i = 0; i < dock.size(); i++)
         {
-            //all unloaded cranes collect one container from ship
-            if (cranes[i].empty())
+            if (dock[i].empty())
             {
-                cout << "crane " << cranes[i].getID() << " empty; loading container from ship" << endl;
-                if (shipptr->hasNext())
-                {
-                    cranes[i].load(shipptr->getNext());
-                } 
-                cout << "crane " << cranes[i].getID() << " loaded container " 
-                     << cranes[i].getContID() << endl << endl;
-                assert(!cranes[i].empty());
-                // contID++;
+                dock[i].load(shipptr->getNext());
+                cout << "crane " << dock[i].getID() << " loaded container "
+                     << dock[i].getContID() << endl;
             }
             else
             {
-
-                //if all tracks are full, we're done
-                int numFull = 0;
-                for (int i = 0; i < switchTracks.size(); i++)
+                while (swtrit->full())
                 {
-                    if (switchTracks[i].full())
-                    {
-                        numFull++;
-                    }
+                    if (next(swtrit) == switchYard.end())
+                        swtrit = switchYard.begin();
+                    else
+                        swtrit = next(swtrit);
                 }
-                if (numFull == switchTracks.size())
-                {
-                    cout << "all tracks full; quitting" << endl;
-                    done = true;
-                    break;
-                }
-        
-                cout << "crane " << cranes[i].getID() << " loaded with container "
-                     << cranes[i].getContID() << endl;
-
-                while (nextTrack->full())
-                {
-                    cout << "***track " << nextTrack->getID() 
-                         << " full; skipping***" << endl;
-                    nextTrack = &switchTracks[++index % switchTracks.size()];
-                }
-                
-                nextTrack->push(cranes[i].unload());
-                cout << "crane " << cranes[i].getID() << " unloaded to track "
-                    << nextTrack->getID() << endl;
-                cout << "track " << nextTrack->getID() << " contains " 
-                     << nextTrack->size() << " containers" << endl << endl;
-                nextTrack = &switchTracks[index % switchTracks.size()];
-                
-                index++;
+                cout << "crane " << dock[i].getID() << " unloaded container "
+                     << dock[i].getContID() << " to switch track " << swtrit->getID() << endl;
+                swtrit->push(dock[i].unload());
+                swtrit == switchYard.end() ? swtrit = switchYard.begin()
+                                           : swtrit = next(swtrit);
             }
         }
-        cout << "--------------------" << endl;
+        cout << "--------------------------" << endl;
+        
+        
 
-        //timestep housekeeping
-        counter++;
-        //prompt to continue every 10 timesteps
-        char ans;
+        counter ++;
         if (counter % 10 == 0)
         {
-            cout << "advance 10 more timesteps? (y/n) ";
+            char ans;
+            cout << "advance 10 timesteps? (y/n) ";
             cin >> ans;
-            if (ans == 'n') done = true;
+            if (ans == 'n')
+            {
+                done = true;
+            }
+            
         }
-        
-        
+        if (!shipptr->hasNext())
+        {
+            done = true;
+        }
         
     }
 
     //housekeeping
-    delete shipptr;
-    delete craneptr;
-    delete swtrptr;
-    // delete contptr;
     
     return 0;
 }

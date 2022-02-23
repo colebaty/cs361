@@ -49,7 +49,7 @@ bool shipTrack::ready()
 
 void shipTrack::display()
 {
-    cout << "track no: " << _id << endl
+    cout << "ship track: " << _id << endl
          << "\tdest: " << _dest * 100 << endl
          << "\tttl: " << _ttl << endl
          << "\tloaded: " << _contents.size() << endl

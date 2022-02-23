@@ -8,6 +8,7 @@
 #include "container.h"
 #include "shiputils.h"
 #include "ship.h"
+#include "crane.h"
 
 using namespace std;
 
@@ -71,8 +72,19 @@ int main()
     cout << "sum: " << count << endl;
     cout << "--------------------" << endl;
     
-    ship ship(1);
-    ship.display();
+    cout << "********** iterators and pointers *********" << endl;
+    vit = v.begin();
+    vector<crane> c;
+    c.push_back(*new crane(1));
+
+    cout << "--------------------" << endl;
+    c[0].display();
+    cout << "--------------------" << endl;
+    cout << "loading container into crane" << endl;
+
+    c[0].load(*vit);
+    c[0].display();
+
     
     return 0;
 }

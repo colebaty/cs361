@@ -10,8 +10,6 @@ crane::crane()
     _id = 0;
     _empty = true;
     _cont = nullptr;
-    _row = _id;
-    _col = 0;
 }
 
 crane::crane(int id)
@@ -19,8 +17,6 @@ crane::crane(int id)
     _id = id; 
     _empty = true;
     _cont = nullptr;
-    _row = _id;
-    _col = 0;
 }
 
 int crane::getContID()
@@ -45,9 +41,10 @@ void crane::load(container& cont)
 container& crane::unload()
 {
     _empty = true;
-    container &cont = *_cont;
+    container * cont;
+    *cont = *_cont;
     _cont = nullptr;
-    return cont;
+    return *cont;
 }
 
 void crane::display()

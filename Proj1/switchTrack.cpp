@@ -64,7 +64,8 @@ void switchTrack::pushToSiding()
 
 void switchTrack::display()
 {
-    cout << "num containers on track: " << (_track.empty() ? 0 : _track.size()) << endl
+    cout << "switch track: " << _id << endl
+         << "num containers on track: " << (_track.empty() ? 0 : _track.size()) << endl
          << "\tnum containers on siding: " << _siding.size() << endl
          << "\tfull:\t" << full() << endl;
 }

@@ -1,9 +1,9 @@
 /**
- * @file phase1Test.cpp
+ * @file main.cpp
  * @author Cole Baty (tbaty002@odu.edu)
- * @brief main driver for phase 1 deliverable
+ * @brief shipyard simulation for CS 361 Spring '22 at ODU
  * @version 0.1
- * @date 2022-02-11
+ * @date 2022-02-21
  * 
  * @copyright Copyright (c) 2022
  * 
@@ -93,23 +93,63 @@ int main()
 
     bool done = false;
     int counter = 0;
+    vector<switchTrack>::iterator currSwTr = switchYard.begin();
+
     while (!done)
     {
         cout << "-------------------------" << endl;
         cout << "timestep " << counter << endl;
         cout << "-------------------------" << endl;
 
+        //load cranes
+        for (int i = 0; i < dock.size(); i++)
+        {
+            if (dock[i].empty())
+            {
+                dock[i].load(shipptr->getNext());
+                cout << "crane " << dock[i].getID() << " loaded container " 
+                     << dock[i].getContID() << endl;
+            }
+            else
+            {
+                //find next non-full switch track
+                while (currSwTr->full())
+                {
+                    (currSwTr == switchYard.end()) ? currSwTr = switchYard.begin() 
+                                                   : currSwTr = next(currSwTr);
+                }
 
+                //unload crane to track
+                cout << "crane " << dock[i].getID() << " unloads container "
+                     << dock[i].getContID() << " to switch track " << currSwTr->getID() << endl;
+                currSwTr->push(dock[i].unload());
+                //advance iterator (round robin)
+                next(currSwTr) == switchYard.end() ? currSwTr = switchYard.begin()
+                                                   : currSwTr = next(currSwTr);
+            }
+            
+        }
+
+        //load switch tracks
+        
+
+        //load ship tracks
 
         //check if done
         counter++;
-        if (counter % 10 == 0)
+        if (counter % 2 == 0)
         {
             char ans;
             cout << "advance 10 timesteps? (y/n) ";
             cin >> ans;
             ans == 'n' ? done = true : done = false;
         }
+        else if (!shipptr->hasNext())
+        {
+            cout << "ship empty; quitting" << endl;
+            done = true;
+        }
+        
         
     }
 

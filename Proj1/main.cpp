@@ -106,9 +106,38 @@ int main()
     shipYard[0].display();
     cout << "--------------------------" << endl;
 
+    //begin main loop variable declarations
+    /**
+     * @brief timestep counter
+     * 
+     */
     int counter = 0;
+    /**
+     * @brief whether the program should terminate. conditions should be
+     * tested at the end of each iteration of main while loop
+     * 
+     */
     bool done = false;
-    vector<switchTrack>::iterator swtrit = switchYard.begin();
+
+    /**
+     * @brief iterator for cranes unloading to switch tracks
+     * 
+     */
+    vector<switchTrack>::iterator craneUnloadIt = switchYard.begin();
+    
+    /**
+     * @brief iterator for passing containers from switching yard 
+     * to shipping tracks
+     * 
+     */
+    vector<switchTrack>::iterator sw2shpit = switchYard.begin();
+    /**
+     * @brief iterator for passing containers from switching yard 
+     * to shipping tracks
+     * 
+     */
+    vector<shipTrack>::iterator shpit;
+
     while (!done)
     {
         //cranes
@@ -122,23 +151,39 @@ int main()
             }
             else
             {
-                while (swtrit->full())
+                while (craneUnloadIt->full())
                 {
-                    if (next(swtrit) == switchYard.end())
-                        swtrit = switchYard.begin();
+                    if (next(craneUnloadIt) == switchYard.end())
+                        craneUnloadIt = switchYard.begin();
                     else
-                        swtrit = next(swtrit);
+                        craneUnloadIt = next(craneUnloadIt);
                 }
                 cout << "crane " << dock[i].getID() << " unloaded container "
-                     << dock[i].getContID() << " to switch track " << swtrit->getID() << endl;
-                swtrit->push(dock[i].unload());
-                swtrit == switchYard.end() ? swtrit = switchYard.begin()
-                                           : swtrit = next(swtrit);
+                     << dock[i].getContID() << " to switch track " 
+                     << craneUnloadIt->getID() << endl;
+                     
+                craneUnloadIt->push(dock[i].unload());
+
+                next(craneUnloadIt) == switchYard.end() 
+                    ? craneUnloadIt = switchYard.begin()
+                    : craneUnloadIt = next(craneUnloadIt);
             }
         }
         cout << "--------------------------" << endl;
-        
-        
+
+        while (sw2shpit != switchYard.end())
+        {
+            shpit = shipYard.begin();
+            while (shpit != shipYard.end())
+            {
+                if (sw2shpit->getNextDest() / 100 == shpit->getDest())           
+                {
+                    shpit->push(sw2shpit->getNext());
+                }
+                shpit = next(shpit);
+            }
+            sw2shpit = next(sw2shpit);
+        }
 
         counter ++;
         if (counter % 10 == 0)
@@ -154,6 +199,8 @@ int main()
         }
         if (!shipptr->hasNext())
         {
+            cout << "ship empty; quitting" << endl;
+            shipptr->display();
             done = true;
         }
         

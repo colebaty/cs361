@@ -113,27 +113,27 @@ int main()
 
     //main loop
 
-    cout << "--------------------------" << endl;
-    cout << "loading container from ship into crane 0" << endl;
-    dock[0].load(shipptr->getNext());
-    shipptr->display();
-    dock[0].display();
-    cout << "--------------------------" << endl;
-    cout << "unloading container from crane 0 into switch track 0" << endl;
-    switchYard[0].push(dock[0].unload());
-    dock[0].display();
-    switchYard[0].display();
-    cout << "--------------------------" << endl;
-    cout << "pushing container to ship track 0" << endl;
-    shipYard[0].push(switchYard[0].getNext());
-    switchYard[0].display();
-    shipYard[0].display();
-    cout << "--------------------------" << endl;
-    shipptr->display();
-    dock[0].display();
-    switchYard[0].display();
-    shipYard[0].display();
-    cout << "--------------------------" << endl;
+    // cout << "--------------------------" << endl;
+    // cout << "loading container from ship into crane 0" << endl;
+    // dock[0].load(shipptr->getNext());
+    // shipptr->display();
+    // dock[0].display();
+    // cout << "--------------------------" << endl;
+    // cout << "unloading container from crane 0 into switch track 0" << endl;
+    // switchYard[0].push(dock[0].unload());
+    // dock[0].display();
+    // switchYard[0].display();
+    // cout << "--------------------------" << endl;
+    // cout << "pushing container to ship track 0" << endl;
+    // shipYard[0].push(switchYard[0].getNext());
+    // switchYard[0].display();
+    // shipYard[0].display();
+    // cout << "--------------------------" << endl;
+    // shipptr->display();
+    // dock[0].display();
+    // switchYard[0].display();
+    // shipYard[0].display();
+    // cout << "--------------------------" << endl;
 
     //begin main loop variable declarations
     /**
@@ -153,6 +153,12 @@ int main()
      * 
      */
     vector<switchTrack>::iterator craneUnloadIt = switchYard.begin();
+
+    /**
+     * @brief iterator for crane selection
+     * 
+     */
+    vector<crane>::iterator craneIt;
     
     /**
      * @brief iterator for passing containers from switching yard 
@@ -173,35 +179,40 @@ int main()
         cout <<" timestep " << counter++ << endl;;
         cout << "--------------------------" << endl;
         //cranes
-        for (int i = 0; i < dock.size(); i++)
+        craneIt = dock.begin();
+        while (craneIt != dock.end())
         {
-            if (dock[i].empty())
+            if (craneIt->empty())
             {
-                dock[i].load(shipptr->getNext());
-                cout << "crane " << dock[i].getID() << " loaded container "
-                     << dock[i].getContID() << endl;
+                craneIt->load(shipptr->getNext());
+                cout << "crane " << craneIt->getID() << " loaded container "
+                     << craneIt->getContID() 
+                     << " from ship " << shipptr->getID() << endl;
             }
             else
             {
+                //find next empty switch track
                 while (craneUnloadIt->full())
                 {
-                    if (next(craneUnloadIt) == switchYard.end())
-                        craneUnloadIt = switchYard.begin();
-                    else
-                        craneUnloadIt = next(craneUnloadIt);
+                    next(craneUnloadIt) == switchYard.end()
+                        ? craneUnloadIt = switchYard.begin()
+                        : craneUnloadIt = next(craneUnloadIt);
                 }
-                cout << "crane " << dock[i].getID() << " unloaded container "
-                     << dock[i].getContID() << " to switch track " 
-                     << craneUnloadIt->getID() << endl;
-                     
-                craneUnloadIt->push(dock[i].unload());
 
-                next(craneUnloadIt) == switchYard.end() 
+                cout << "crane " << craneIt->getID() << " unloaded container "
+                     << craneIt->getContID() << " to switch track " 
+                     << craneUnloadIt->getID() << endl;
+                craneUnloadIt->push(craneIt->unload());
+
+                //advance crane unload iterator, with wraparound
+                next(craneUnloadIt) == switchYard.end()
                     ? craneUnloadIt = switchYard.begin()
                     : craneUnloadIt = next(craneUnloadIt);
-            }
-        }
 
+            }
+            craneIt = next(craneIt);
+        }
+        
         //switch yard -> ship yard
         while (sw2shpit != switchYard.end())
         {
@@ -221,7 +232,7 @@ int main()
                 shpit = next(shpit);
             }
 
-            if (!match)
+            if (!sw2shpit->empty() && !match)
             {
                 cout << "switch track " << sw2shpit->getID() << " found no match; "
                      << " pushing container " << sw2shpit->getNextContID()

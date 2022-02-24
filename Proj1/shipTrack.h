@@ -35,7 +35,7 @@ class shipTrack {
          * @param ttl 
          * @param cap 
          */
-        shipTrack(int id, int ttl = 100, int cap = 100, int dest = getRand(1,9));
+        shipTrack(int id, int dest = getRand(1,9), int ttl = 100, int cap = 100);
 
         //public methods
         void push(container cont);
@@ -59,6 +59,8 @@ class shipTrack {
         int getID() {return _id; }
         int getDest() { return _dest; }
         int getTTL() { return _ttl; }
+
+        void depart();
 };
 
 

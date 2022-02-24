@@ -89,6 +89,13 @@ class switchTrack {
         void display();
         int getID() { return _id ; }
         int size() { return _track.size(); }
+
+        /**
+         * @brief repopulates main track with containers from
+         * siding track
+         * 
+         */
+        void refresh();
 };
 
 

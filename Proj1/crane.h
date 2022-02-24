@@ -8,7 +8,6 @@ class crane {
     private:
         int _id;
         bool _empty;
-        int _row, _col;
 
         container * _cont;
 

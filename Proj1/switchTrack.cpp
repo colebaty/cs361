@@ -100,3 +100,17 @@ int switchTrack::getNextContID()
 {
     return _track.front().getID();
 }
+
+void switchTrack::refresh()
+{
+    container * cont;
+    if (empty())
+    {
+        while(!_siding.empty())
+        {
+            cont = &_siding.top();
+            _siding.pop();
+            _track.push(*cont);
+        }
+    }
+}

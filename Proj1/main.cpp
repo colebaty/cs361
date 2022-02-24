@@ -45,11 +45,6 @@ int main()
     }
     cout << "--------------------------" << endl;
     cout << "cranes" << endl;
-    for (int i = 0; i < dock.size(); i++)
-    {
-        dock[i].display();
-    }
-
     cout << "preloading cranes 1, 4, 7, 8" << endl;
     vector<crane>::iterator crit = dock.begin();
     while (crit != dock.end())
@@ -78,6 +73,14 @@ int main()
 
         crit = next(crit);
     }
+
+    crit = dock.begin();
+    while (crit != dock.end())
+    {
+        crit->display();
+        crit = next(crit);
+    }
+
     
     cout << "--------------------------" << endl;
 
@@ -99,7 +102,7 @@ int main()
     //shipping yard
     vector<shipTrack> shipYard;
     int shptrID = 1;
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 4; i++)
     {
         shipYard.push_back(*new shipTrack(shptrID++));
     }
@@ -112,29 +115,6 @@ int main()
     cout << "--------------------------" << endl;
 
     //main loop
-
-    // cout << "--------------------------" << endl;
-    // cout << "loading container from ship into crane 0" << endl;
-    // dock[0].load(shipptr->getNext());
-    // shipptr->display();
-    // dock[0].display();
-    // cout << "--------------------------" << endl;
-    // cout << "unloading container from crane 0 into switch track 0" << endl;
-    // switchYard[0].push(dock[0].unload());
-    // dock[0].display();
-    // switchYard[0].display();
-    // cout << "--------------------------" << endl;
-    // cout << "pushing container to ship track 0" << endl;
-    // shipYard[0].push(switchYard[0].getNext());
-    // switchYard[0].display();
-    // shipYard[0].display();
-    // cout << "--------------------------" << endl;
-    // shipptr->display();
-    // dock[0].display();
-    // switchYard[0].display();
-    // shipYard[0].display();
-    // cout << "--------------------------" << endl;
-
     //begin main loop variable declarations
     /**
      * @brief timestep counter
@@ -153,6 +133,7 @@ int main()
      * 
      */
     vector<switchTrack>::iterator craneUnloadIt = switchYard.begin();
+    vector<switchTrack>::iterator swtrit;
 
     /**
      * @brief iterator for crane selection
@@ -165,7 +146,7 @@ int main()
      * to shipping tracks
      * 
      */
-    vector<switchTrack>::iterator sw2shpit = switchYard.begin();
+    vector<switchTrack>::iterator sw2shpit;
     /**
      * @brief iterator for passing containers from switching yard 
      * to shipping tracks
@@ -178,6 +159,26 @@ int main()
         cout << "--------------------------" << endl;
         cout <<" timestep " << counter++ << endl;;
         cout << "--------------------------" << endl;
+
+        //check that all switch tracks are not full
+        int swydFullCount = 0;
+        vector<switchTrack>::iterator swit = switchYard.begin();
+        while (swit != switchYard.end())
+        {
+            if (swit->full())
+            {
+                swydFullCount++;
+            }
+            swit++;
+        }
+
+        if (swydFullCount == switchYard.size())
+        {
+            cout << "all switch tracks full; quitting" << endl;
+            done = true;
+            continue;//restart loop
+        }
+                
         //cranes
         craneIt = dock.begin();
         while (craneIt != dock.end())
@@ -191,6 +192,7 @@ int main()
             }
             else
             {
+
                 //find next empty switch track
                 while (craneUnloadIt->full())
                 {
@@ -214,8 +216,16 @@ int main()
         }
         
         //switch yard -> ship yard
+        sw2shpit = switchYard.begin();
         while (sw2shpit != switchYard.end())
         {
+            //find next populated switch track
+            if (sw2shpit->empty())
+            {
+                sw2shpit = next(sw2shpit);
+                continue;
+            }
+            
             shpit = shipYard.begin();
             bool match = false;
             while (shpit != shipYard.end() && !match)
@@ -232,14 +242,43 @@ int main()
                 shpit = next(shpit);
             }
 
-            if (!sw2shpit->empty() && !match)
+            if (!match)
             {
                 cout << "switch track " << sw2shpit->getID() << " found no match; "
-                     << " pushing container " << sw2shpit->getNextContID()
+                     << "pushing container " << sw2shpit->getNextContID()
                      << " to siding" << endl;
                 sw2shpit->pushToSiding();
             }
             sw2shpit = next(sw2shpit);
+        }
+
+        cout << "refreshing switchyard" << endl;
+        swtrit = switchYard.begin();
+        while (swtrit != switchYard.end())
+        {
+            swtrit->refresh();
+            swtrit++;
+        }
+        
+        //shipping trains
+        shpit = shipYard.begin();
+        while (shpit != shipYard.end())
+        {
+            if (shpit->ready())
+            {
+                cout << "shipping train " << shpit->getID() << " ready; departing" << endl;
+                shpit->depart();
+                shipYard.erase(shpit);
+                shipYard.emplace(shpit, *new shipTrack(shptrID++, switchYard.front().getNextDest() / 100));
+                cout << "\treplaced with new shipping train " << endl
+                     << "\t\tid: " << shpit->getID() << endl
+                     << "\t\tdest: " << shpit->getDest() << endl;
+            }
+            else
+            {
+                cout << "shipping train " << shpit->getID() << " not ready" << endl;
+            }
+            shpit = next(shpit);
         }
 
         cout << "--------------------------" << endl;
@@ -258,7 +297,7 @@ int main()
         }
         if (!shipptr->hasNext())
         {
-            cout << "ship empty; quitting" << endl;
+            cout << "ship empty; departing" << endl;
             shipptr->display();
             done = true;
         }

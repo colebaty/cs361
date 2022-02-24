@@ -10,8 +10,6 @@ crane::crane()
     _id = 0;
     _empty = true;
     _cont = nullptr;
-    _row = _id;
-    _col = 0;
 }
 
 crane::crane(int id)
@@ -19,8 +17,6 @@ crane::crane(int id)
     _id = id; 
     _empty = true;
     _cont = nullptr;
-    _row = _id;
-    _col = 0;
 }
 
 int crane::getContID()

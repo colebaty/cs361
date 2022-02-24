@@ -16,7 +16,7 @@ shipTrack::shipTrack()
     _dest = 0;
 }
 
-shipTrack::shipTrack(int id, int ttl, int cap, int dest)
+shipTrack::shipTrack(int id, int dest, int ttl, int cap)
 {
     _id = id;
     _ttl = ttl;
@@ -61,4 +61,14 @@ void shipTrack::display()
 void shipTrack::update()
 {
     _ttl--;
+}
+
+void shipTrack::depart()
+{
+    container * cont;
+    while (_contents.size() > 0)
+    {
+        _contents.pop();
+    }
+    
 }

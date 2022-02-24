@@ -77,7 +77,14 @@ int switchTrack::getNextDest()
 
 int switchTrack::getNextSidingDest()
 {
-    return _siding.top().getDest();
+    if (!_siding.empty()) return _siding.top().getDest();
+
+    return 0;
+}
+
+int switchTrack::getNextSidingID()
+{
+    return _siding.top().getID();
 }
 
 container switchTrack::getNext()
@@ -104,7 +111,7 @@ int switchTrack::getNextContID()
 void switchTrack::refresh()
 {
     container * cont;
-    if (empty())
+    if (!full())
     {
         while(!_siding.empty())
         {

@@ -56,7 +56,8 @@ class switchTrack {
          * @return true 
          * @return false 
          */
-        bool hasNext() { return !_track.empty() && !_siding.empty(); }
+        bool hasNext() { return !_track.empty(); }
+        bool hasNextSiding() { return !_siding.empty(); }
 
         /**
          * @brief if track not full, push container to track.
@@ -84,6 +85,7 @@ class switchTrack {
         container getNextFromSiding();
         int getNextDest();
         int getNextSidingDest();
+        int getNextSidingID();
         int getNextContID();
 
         void display();

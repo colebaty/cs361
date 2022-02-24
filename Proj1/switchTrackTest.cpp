@@ -103,6 +103,38 @@ int main()
     swtr2.display();
 
     cout << "--------------------" << endl;
+    cout << "testing switchTrack::refresh()" << endl;
+
+    switchTrack swtr3(3, 10);
+    cout << "filling track" << endl;
+    while (!swtr3.full())
+    {
+        swtr3.push(*new container(contID++));
+    }
+
+    swtr3.display();
+
+    cout << "pushing half to siding" << endl;
+    for (int i = 0; i < 5; i++)
+    {
+        swtr3.pushToSiding();
+    }
+    swtr3.display();
+
+    cout << "emptying main track" << endl;
+    while (!swtr3.empty())
+    {
+        swtr3.getNext();
+    }
+
+    swtr3.display();
+
+    cout << "refreshing track" << endl;
+    swtr3.refresh();
+    swtr3.display();
+    
+    cout << "--------------------" << endl;
+
 
     return 0;
 }

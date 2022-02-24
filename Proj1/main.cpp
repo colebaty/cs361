@@ -23,6 +23,9 @@
 
 using namespace std;
 
+void preLoadCranes(vector<crane>& dock, int& craneID);
+bool switchYardFull(vector<switchTrack>& switchYard);
+
 int main()
 {
     //seed srand
@@ -30,7 +33,8 @@ int main()
 
     cout << "********* setup **********" << endl;
     //ship
-    ship * shipptr = new ship(1);
+    int shipID = 1;
+    ship * shipptr = new ship(shipID++);
     cout << "--------------------------" << endl;
     cout << "ship" << endl;
     shipptr->display();
@@ -45,42 +49,7 @@ int main()
     }
     cout << "--------------------------" << endl;
     cout << "cranes" << endl;
-    cout << "preloading cranes 1, 4, 7, 8" << endl;
-    vector<crane>::iterator crit = dock.begin();
-    while (crit != dock.end())
-    {
-        switch (crit->getID())
-        {
-        case 1:
-            crit->load(*new container(craneID++));
-            break;
-        case 4:
-            crit->load(*new container(craneID++));
-            break;
-        
-        case 7:
-            crit->load(*new container(craneID++));
-            break;
-        
-        case 8:
-            crit->load(*new container(craneID++));
-            break;
-        
-        
-        default:
-            break;
-        }
-
-        crit = next(crit);
-    }
-
-    crit = dock.begin();
-    while (crit != dock.end())
-    {
-        crit->display();
-        crit = next(crit);
-    }
-
+    preLoadCranes(dock, craneID);
     
     cout << "--------------------------" << endl;
 
@@ -104,7 +73,7 @@ int main()
     int shptrID = 1;
     for (int i = 0; i < 4; i++)
     {
-        shipYard.push_back(*new shipTrack(shptrID++));
+        shipYard.push_back(*new shipTrack(shptrID++, getRand(1, 9)));
     }
     cout << "--------------------------" << endl;
     cout << "shiptrack" << endl;
@@ -161,27 +130,16 @@ int main()
         cout << "--------------------------" << endl;
 
         //check that all switch tracks are not full
-        int swydFullCount = 0;
-        vector<switchTrack>::iterator swit = switchYard.begin();
-        while (swit != switchYard.end())
-        {
-            if (swit->full())
-            {
-                swydFullCount++;
-            }
-            swit++;
-        }
-
-        if (swydFullCount == switchYard.size())
+        if (switchYardFull(switchYard))
         {
             cout << "all switch tracks full; quitting" << endl;
             done = true;
-            continue;//restart loop
+            continue;
         }
-                
+        
         //cranes
         craneIt = dock.begin();
-        while (craneIt != dock.end())
+        while (craneIt != dock.end() && !switchYardFull(switchYard))
         {
             if (craneIt->empty())
             {
@@ -192,8 +150,7 @@ int main()
             }
             else
             {
-
-                //find next empty switch track
+                //find next switch track with space available
                 while (craneUnloadIt->full())
                 {
                     next(craneUnloadIt) == switchYard.end()
@@ -207,6 +164,7 @@ int main()
                 craneUnloadIt->push(craneIt->unload());
 
                 //advance crane unload iterator, with wraparound
+                //skipping last switch track here somehow?
                 next(craneUnloadIt) == switchYard.end()
                     ? craneUnloadIt = switchYard.begin()
                     : craneUnloadIt = next(craneUnloadIt);
@@ -219,13 +177,6 @@ int main()
         sw2shpit = switchYard.begin();
         while (sw2shpit != switchYard.end())
         {
-            //find next populated switch track
-            if (sw2shpit->empty())
-            {
-                sw2shpit = next(sw2shpit);
-                continue;
-            }
-            
             shpit = shipYard.begin();
             bool match = false;
             while (shpit != shipYard.end() && !match)
@@ -283,7 +234,6 @@ int main()
 
         cout << "--------------------------" << endl;
 
-        counter ++;
         if (counter % 10 == 0)
         {
             char ans;
@@ -299,7 +249,10 @@ int main()
         {
             cout << "ship empty; departing" << endl;
             shipptr->display();
-            done = true;
+            delete shipptr;
+            shipptr = new ship(shipID++);
+            cout << "--------------------------" << endl;
+            shipptr->display();
         }
         
     }
@@ -307,4 +260,60 @@ int main()
     //housekeeping
     
     return 0;
+}
+
+void preLoadCranes(vector<crane>& dock, int& craneID)
+{
+    cout << "preloading cranes 1, 4, 7, 8" << endl;
+    vector<crane>::iterator crit = dock.begin();
+    while (crit != dock.end())
+    {
+        switch (crit->getID())
+        {
+        case 1:
+            crit->load(*new container(craneID++));
+            break;
+        case 4:
+            crit->load(*new container(craneID++));
+            break;
+        
+        case 7:
+            crit->load(*new container(craneID++));
+            break;
+        
+        case 8:
+            crit->load(*new container(craneID++));
+            break;
+        
+        default:
+            break;
+        }
+
+        crit = next(crit);
+    }
+
+    crit = dock.begin();
+    while (crit != dock.end())
+    {
+        crit->display();
+        crit = next(crit);
+    }
+}
+
+bool switchYardFull(vector<switchTrack>& switchYard)
+{
+    int swydFullCount = 0;
+    vector<switchTrack>::iterator swit = switchYard.begin();
+    while (swit != switchYard.end())
+    {
+        if (swit->full())
+        {
+            swydFullCount++;
+        }
+        swit++;
+    }
+
+    if (swydFullCount == switchYard.size()) return true;
+
+    return false;
 }

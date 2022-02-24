@@ -8,6 +8,9 @@
 
 using namespace std;
 
+const int SHIPTRACK_TTL = 20;
+const int SHIPTRACK_CAP = 20;
+
 class shipTrack {
     private:
         int _id;
@@ -35,7 +38,7 @@ class shipTrack {
          * @param ttl 
          * @param cap 
          */
-        shipTrack(int id, int dest = getRand(1,9), int ttl = 100, int cap = 100);
+        shipTrack(int id, int dest = getRand(1,9), int ttl = SHIPTRACK_TTL, int cap = SHIPTRACK_CAP);
 
         //public methods
         void push(container cont);

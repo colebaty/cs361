@@ -84,6 +84,7 @@ class switchTrack {
         container getNextFromSiding();
         int getNextDest();
         int getNextSidingDest();
+        int getNextContID();
 
         void display();
         int getID() { return _id ; }

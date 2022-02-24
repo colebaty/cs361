@@ -1,8 +1,6 @@
 #ifndef __CONTAINER_H__
 #define __CONTAINER_H__
 
-#include "shipTrack.h"
-
 const int CONT_MIN_DEST = 100;
 const int CONT_MAX_DEST = 999;
 const int CONT_BASE_ID = 10000;
@@ -35,8 +33,6 @@ class container
         void setDest(int dest) { dest = _dest; }
 
         void display(std::ostream& out = std::cout);
-
-        bool operator== (const shipTrack& rtside) const;
 };
 
 #endif //__CONTAINER_H__

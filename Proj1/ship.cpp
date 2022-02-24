@@ -134,10 +134,3 @@ int ship::getNumLoadedConts()
     
     return sum;
 }
-
-bool container::operator== (const shipTrack& rtside) const
-{
-    shipTrack* shptr;
-    *shptr = rtside;
-    return _dest / 100 == shptr->getDest();
-}

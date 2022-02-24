@@ -49,6 +49,35 @@ int main()
     {
         dock[i].display();
     }
+
+    cout << "preloading cranes 1, 4, 7, 8" << endl;
+    vector<crane>::iterator crit = dock.begin();
+    while (crit != dock.end())
+    {
+        switch (crit->getID())
+        {
+        case 1:
+            crit->load(*new container(craneID++));
+            break;
+        case 4:
+            crit->load(*new container(craneID++));
+            break;
+        
+        case 7:
+            crit->load(*new container(craneID++));
+            break;
+        
+        case 8:
+            crit->load(*new container(craneID++));
+            break;
+        
+        
+        default:
+            break;
+        }
+
+        crit = next(crit);
+    }
     
     cout << "--------------------------" << endl;
 
@@ -140,6 +169,9 @@ int main()
 
     while (!done)
     {
+        cout << "--------------------------" << endl;
+        cout <<" timestep " << counter++ << endl;;
+        cout << "--------------------------" << endl;
         //cranes
         for (int i = 0; i < dock.size(); i++)
         {
@@ -169,21 +201,37 @@ int main()
                     : craneUnloadIt = next(craneUnloadIt);
             }
         }
-        cout << "--------------------------" << endl;
 
+        //switch yard -> ship yard
         while (sw2shpit != switchYard.end())
         {
             shpit = shipYard.begin();
-            while (shpit != shipYard.end())
+            bool match = false;
+            while (shpit != shipYard.end() && !match)
             {
                 if (sw2shpit->getNextDest() / 100 == shpit->getDest())           
                 {
+                    cout << "switch track " << sw2shpit->getID() 
+                         << " gave container " << sw2shpit->getNextContID()
+                         << " with dest " << sw2shpit->getNextDest()
+                         << " to ship track " << shpit->getID() << endl;
                     shpit->push(sw2shpit->getNext());
+                    match = true;
                 }
                 shpit = next(shpit);
             }
+
+            if (!match)
+            {
+                cout << "switch track " << sw2shpit->getID() << " found no match; "
+                     << " pushing container " << sw2shpit->getNextContID()
+                     << " to siding" << endl;
+                sw2shpit->pushToSiding();
+            }
             sw2shpit = next(sw2shpit);
         }
+
+        cout << "--------------------------" << endl;
 
         counter ++;
         if (counter % 10 == 0)

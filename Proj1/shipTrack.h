@@ -4,7 +4,6 @@
 #include <queue>
 
 #include "shiputils.h"
-
 #include "container.h"
 
 using namespace std;

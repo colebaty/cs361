@@ -95,3 +95,8 @@ container switchTrack::getNextFromSiding()
     _siding.pop();
     return *cont;
 }
+
+int switchTrack::getNextContID()
+{
+    return _track.front().getID();
+}

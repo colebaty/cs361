@@ -228,7 +228,6 @@ int main()
             else
             {
                 cout << "shipping train " << shpit->getID() << " not ready" << endl;
-                shpit->display();
             }
             //update shipping track
             shpit->update();

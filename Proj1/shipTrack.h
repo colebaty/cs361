@@ -8,8 +8,8 @@
 
 using namespace std;
 
-const int SHIPTRACK_TTL = 30;
-const int SHIPTRACK_CAP = 100;
+const int SHIPTRACK_TTL = 20;
+const int SHIPTRACK_CAP = 20;
 
 class shipTrack {
     private:

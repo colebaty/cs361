@@ -60,3 +60,8 @@ To me, this was the most straightforward way of drawing containers from the carg
 since vectors and stacks keep track of themselves.
 
 The cargo hold is not necessarily filled to capacity.
+
+### `container`
+
+Container IDs are of the form `shipID * 10000 + n`, which would (hypothetically)
+allow us to identify which ship a given container came from.

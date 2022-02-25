@@ -2,9 +2,21 @@
 
 by Cole Baty, UIN 01187002, tbaty002@odu.edu
 
-## Compiling
+## Compiling and Running
 
 Running the command `make` will produce an executable file named `main`.
+
+Included in the `.zip` fle is a file named `in`, which simply contains the character
+`y` many times (captured by piping the output of `yes` run for approximately 1 second).
+It is therefore possible to automatically supply an affirmative answer at the 
+prompt to continue which occurs every ten timesteps by running the command
+
+```bash
+./main < in | less
+```
+
+The pipe to `less` will capture the output in the pager, allowing you to
+examine the results in more detail.
 
 ## Notes
 
@@ -14,21 +26,36 @@ behaved as expected.
 This program increments in timesteps of 10, prompting the user to continue after
 every 10 timesteps.  The program terminates when all `switchTrack`s are full.
 
-During testing with the given , I found that the `switchTrack`s would fill 
+### `shipTrack`
 
-Additionally, `crane`s 0, 3, and 4 are pre-loaded with `container`s, in order
-to better simulate in-progress unloading.
+Assignment instructions specified that the `shipTrack`s should have a maximum
+capacity of 100, and an unspecified depart time.
 
-The `ship` object does instantiate a cargo element full of dynamically
-allocated `container` objects with randomly assigned destination codes. The cargo
-element is a 2-D vector of stacks. I haven't yet developed a method to keep
-track of which stack was visited last (in order to determine whether it is empty), 
-so that the "next" container can be fed from the `ship` to the `crane`.
+I chose to implement the depart time like the ICMP 'time to live' or TTL parameter.
+I chose a default TTL of 20 for each train, based on the best-case scenario of 
+all five `switchTrack`s unloading one container per timestep to any given `shipTrack`;
+i.e. 100 / 5 = 20.
 
-To this end, I have created a stub for `ship::getNext()` that produces a dynamically
-allocated `container` each time it is called. For the time being, this is the proof
-of concept for passing a `container` generated on the heap along the following path:
+However, during testing with the prescribed `shipTrack` parameters, I found that 
+the `switchTrack`s would fill (and thus terminate the program) before any train
+had a chance to depart. 
 
-```
-generated on ship -> loaded into crane -> unloaded onto track
-```
+Therefore, I recommend changing the values of the constants found in `shipTrack.h`
+as follows:
+
+- `SHIPTRACK_TTL = 20`
+- `SHIPTRACK_CAP = 20`
+
+Compiled with these values, I found trains were departing with more frequency.
+
+### `crane`
+
+By default, `crane`s 1, 4, 7, and 8 are pre-loaded with `container`s, in order
+to better simulate in-progress unloading. Commenting out line 53 will prevent this.
+
+### `ship`
+
+The cargo hold of a `ship` is a 2D vector of stacks. `ship::getNext()` will 
+retrieve the element at `_cargo[0][0]` until there are no more containers in the hold.
+To me, this was the most straightforward way of drawing containers from the cargo hold,
+since vectors and stacks keep track of themselves.

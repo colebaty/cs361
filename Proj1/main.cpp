@@ -49,6 +49,7 @@ int main()
     }
     cout << "--------------------------" << endl;
     cout << "cranes" << endl;
+    //comment out this line for no preloading
     preLoadCranes(dock, craneID);
     
     cout << "--------------------------" << endl;

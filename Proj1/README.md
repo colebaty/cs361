@@ -1,14 +1,13 @@
 # Shipyard: Phase 2 Deliverable - CS 360 with Prof. Jay D. Morris
 
-by Cole Baty, UIN 01187002, tbaty002@odu.edu
+## by Cole Baty, UIN 01187002, tbaty002@odu.edu
 
 ## Compiling and Running
 
 Running the command `make` will produce an executable file named `main`.
 
 Included in the `.zip` fle is a file named `in`, which simply contains the character
-`y` many times (captured by piping the output of `yes` run for approximately 1 second).
-It is therefore possible to automatically supply an affirmative answer at the 
+`y` 1000 times. It is therefore possible to automatically supply an affirmative answer at the 
 prompt to continue which occurs every ten timesteps by running the command
 
 ```bash
@@ -59,3 +58,5 @@ The cargo hold of a `ship` is a 2D vector of stacks. `ship::getNext()` will
 retrieve the element at `_cargo[0][0]` until there are no more containers in the hold.
 To me, this was the most straightforward way of drawing containers from the cargo hold,
 since vectors and stacks keep track of themselves.
+
+The cargo hold is not necessarily filled to capacity.

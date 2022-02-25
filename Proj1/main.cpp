@@ -91,7 +91,7 @@ int main()
      */
     int counter = 0;
     /**
-     * @brief whether the program should terminate. conditions should be
+     * @brief whether the program should terminate. conditions generally
      * tested at the end of each iteration of main while loop
      * 
      */
@@ -165,10 +165,9 @@ int main()
 
                 //advance crane unload iterator, with wraparound
                 //skipping last switch track here somehow?
-                next(craneUnloadIt) == switchYard.end()
-                    ? craneUnloadIt = switchYard.begin()
-                    : craneUnloadIt = next(craneUnloadIt);
-
+                craneUnloadIt = (next(craneUnloadIt) == switchYard.end())
+                                ? switchYard.begin()
+                                : next(craneUnloadIt);
             }
             craneIt = next(craneIt);
         }
@@ -181,7 +180,8 @@ int main()
             bool match = false;
             while (shpit != shipYard.end() && !match)
             {
-                if (sw2shpit->getNextDest() / 100 == shpit->getDest())           
+                if (sw2shpit->hasNext() &&
+                     sw2shpit->getNextDest() / 100 == shpit->getDest())           
                 {
                     cout << "switch track " << sw2shpit->getID() 
                          << " gave container " << sw2shpit->getNextContID()
@@ -193,7 +193,7 @@ int main()
                 shpit = next(shpit);
             }
 
-            if (!match)
+            if (sw2shpit->hasNext() && !match)
             {
                 cout << "switch track " << sw2shpit->getID() << " found no match; "
                      << "pushing container " << sw2shpit->getNextContID()
@@ -203,12 +203,12 @@ int main()
             sw2shpit = next(sw2shpit);
         }
 
-        cout << "refreshing switchyard" << endl;
         swtrit = switchYard.begin();
-        while (swtrit != switchYard.end())
+        while (swtrit != switchYard.end() && !swtrit->full() && counter % 5 == 0)
         {
+            cout << "refreshing switchyard " <<  swtrit->getID() << endl;
             swtrit->refresh();
-            swtrit++;
+            swtrit = next(swtrit);
         }
         
         //shipping trains
@@ -220,7 +220,7 @@ int main()
                 cout << "shipping train " << shpit->getID() << " ready; departing" << endl;
                 shpit->depart();
                 shipYard.erase(shpit);
-                shipYard.emplace(shpit, *new shipTrack(shptrID++, switchYard.front().getNextDest() / 100));
+                shipYard.emplace(shpit, *new shipTrack(shptrID++, switchYard[counter % switchYard.size()].getNextDest() / 100));
                 cout << "\treplaced with new shipping train " << endl
                      << "\t\tid: " << shpit->getID() << endl
                      << "\t\tdest: " << shpit->getDest() << endl;
@@ -228,7 +228,11 @@ int main()
             else
             {
                 cout << "shipping train " << shpit->getID() << " not ready" << endl;
+                shpit->display();
             }
+            //update shipping track
+            shpit->update();
+            //advance iterator
             shpit = next(shpit);
         }
 
@@ -258,6 +262,7 @@ int main()
     }
 
     //housekeeping
+    delete shipptr;
     
     return 0;
 }
@@ -313,7 +318,6 @@ bool switchYardFull(vector<switchTrack>& switchYard)
         swit++;
     }
 
-    if (swydFullCount == switchYard.size()) return true;
 
-    return false;
+    return swydFullCount == switchYard.size();
 }

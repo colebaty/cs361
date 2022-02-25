@@ -26,7 +26,7 @@ int main()
     while (!shipptr->ready())
     {
         shipptr->push(*new container(contID++));
-        shipptr->update();
+        
     }
 
     shipptr->display();
@@ -49,7 +49,7 @@ int main()
     while (!shipptr->ready())
     {
         shipptr->push(*new container(contID++));
-        shipptr->update();
+        
     }
 
     shipptr->display();
@@ -67,7 +67,7 @@ int main()
     while (!shipptr->ready())
     {
         shipptr->push(*new container(contID++));
-        shipptr->update();
+        
     }
 
     shipptr->display();
@@ -108,7 +108,7 @@ int main()
 
     while (!shipptr->ready())
     {
-        shipptr->update();
+        
 
         if (shipptr->getTTL() % 10 == 0)
             cout << "ttl " << shipptr->getTTL() << endl;

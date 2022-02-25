@@ -111,13 +111,10 @@ int switchTrack::getNextContID()
 void switchTrack::refresh()
 {
     container * cont;
-    if (!full())
+    while(!full() && !_siding.empty())
     {
-        while(!_siding.empty())
-        {
-            cont = &_siding.top();
-            _siding.pop();
-            _track.push(*cont);
-        }
+        cont = &_siding.top();
+        _siding.pop();
+        _track.push(*cont);
     }
 }

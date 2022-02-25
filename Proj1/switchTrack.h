@@ -19,15 +19,6 @@ class switchTrack {
         int _maxSiding;
 
         //private methods
-        /**
-         * @brief returns true if siding track size is less than max allowable 
-         * siding capacity
-         * 
-         * @return true 
-         * @return false 
-         */
-        bool sidingFull();
-
     public:
         switchTrack();
         /**
@@ -49,6 +40,16 @@ class switchTrack {
          */
         bool full();
         bool empty();
+
+        /**
+         * @brief returns true if siding track size is less than max allowable 
+         * siding capacity
+         * 
+         * @return true 
+         * @return false 
+         */
+        bool sidingFull();
+
         /**
          * @brief returns true if main track is not empty and siding track is
          * not empty
@@ -93,7 +94,7 @@ class switchTrack {
         int size() { return _track.size(); }
 
         /**
-         * @brief repopulates main track with containers from
+         * @brief if siding repopulates main track with containers from
          * siding track
          * 
          */

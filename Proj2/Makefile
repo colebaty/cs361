@@ -52,7 +52,7 @@ CFLAGS=-g
  
 #  What is the name of the program you want to create?  (See below for notes
 #     on using this makefile to generate multiple programs.)
-TARGET=main
+# TARGET=main
 
 #  List the object code files to be produced by compilation. Normally this 
 #  list will include one ".o" file for each C++ file (with names ending in 
@@ -60,7 +60,7 @@ TARGET=main
 #  Do NOT list .h files. For example, if you are building a program from 
 #  source files foo.c, foo.h, bar.cpp, baz.cc, and bam.h you would use
 #      OBJS1=foo.o bar.o baz.o
-OBJS=container.o shiputils.o crane.o ship.o switchTrack.o shipTrack.o
+OBJS=module.o
 
 #  What program should be used to link this program? If the program is
 #  even partly C++, use g++.  If it is entirely C, use gcc.

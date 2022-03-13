@@ -11,6 +11,8 @@ class module {
     protected:
         int _id;
         char _type = _BASE;
+
+        
         //private methods
     public:
         /*constructor*/

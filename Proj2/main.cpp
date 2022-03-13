@@ -26,6 +26,7 @@ int main()
         case 'g':
         case 'G':
         default:
+            done = true;
             break;
         }
     } while (!done);

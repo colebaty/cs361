@@ -15,7 +15,12 @@ enum types:char {_BASE};
 const double DEFAULT_DIAG_DIST = sqrt(50);
 
 /**
- * @brief base module type
+ * @brief base module type. corners are indexed from bottom-left, proceeding
+ * CCW; that is
+ *  bottom-left:    _corners[0][0] and _corners[0][1]
+ *  bottom-right:   _corners[1][0] and _corners[1][1]
+ *  top-right:      _corners[2][0] and _corners[2][1]
+ *  top-left:       _corners[3][0] and _corners[3][1]
  * 
  */
 class module {
@@ -30,7 +35,8 @@ class module {
          */
         void initialize();
         /**
-         * @brief fills each corner using the given diagonal distance
+         * @brief uses the Pythagorean theorem to fill each corner using the 
+         * given diagonal distance 
          * 
          * @param diag 
          */

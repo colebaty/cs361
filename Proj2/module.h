@@ -38,14 +38,11 @@ enum corners:char {_BL, _BR, _TR, _TL};
  */
 enum types:char {_BASE};
 
+enum dirs:int {_N = 0, _W, _S, _E};
+
 
 /**
- * @brief base module type. corners are indexed from bottom-left, proceeding
- * CCW; that is
- *  bottom-left:    _corners[0][0] and _corners[0][1]
- *  bottom-right:   _corners[1][0] and _corners[1][1]
- *  top-right:      _corners[2][0] and _corners[2][1]
- *  top-left:       _corners[3][0] and _corners[3][1]
+ * @brief base module type. corners are indexed from bottom-left, proceeding CCW
  * 
  */
 class module {
@@ -53,6 +50,7 @@ class module {
         int _id;
         char _type;
         map<char, pair<double, double>> _corners;
+        map<int, pair<pair<double, double>*, pair<double, double>*>> _walls;
 
         /**
          * @brief [0, 1, 2, 3] -> [N, W, E, S]
@@ -96,6 +94,14 @@ class module {
 
         bool hasAvailable();
 
+        /**
+         * @brief connects two modules. sets pointer at specified direction to 
+         * address of connecting module. 
+         * 
+         * @param dir 
+         * @param mod 
+         */
+        void connect(int dir, module mod);
 };
 
 

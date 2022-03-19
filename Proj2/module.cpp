@@ -16,11 +16,40 @@ module::module()
 
 void module::initialize()
 {
+    //corners
     _corners.insert(make_pair(_BL, make_pair(0.0, 0.0)));
     _corners.insert(make_pair(_BR, make_pair(HALLWAY_LEN, 0.0)));
     _corners.insert(make_pair(_TR, make_pair(HALLWAY_LEN, HALLWAY_WID)));
     _corners.insert(make_pair(_TL, make_pair(0.0, HALLWAY_WID)));
 
+    //walls
+    map<char, pair<double, double>>::iterator mit;
+
+    pair<double, double> * start;
+    pair<double, double> * end;
+
+    mit = _corners.begin();
+    int wall = 0;
+
+    while (mit != _corners.end())
+    {
+        start = &mit->second;
+
+        if(next(mit) == _corners.end())
+        {
+            end = &_corners.begin()->second;
+        }
+        else
+        {
+            end = &next(mit)->second;
+        }
+
+        _walls.insert(make_pair(wall++, make_pair(start, end)));
+
+        mit++;
+    }
+
+    //connections
     for (int i = 0; i < 4; i++)
     {
         _connections[i] = nullptr;
@@ -54,6 +83,7 @@ void module::display()
     cout << "type: ";
     printType();
     cout << endl;
+
     cout << "corners: ";
     map<char, pair<double, double>>::iterator mit = _corners.begin();
     while (mit != _corners.end())
@@ -62,6 +92,27 @@ void module::display()
         mit++;
     }
     cout << endl;
+    
+    map<int, pair<pair<double, double>*, pair<double, double>*>>::iterator wit = _walls.begin();
+    pair<double, double> * start;
+    pair<double, double> * end;
+    cout << "walls: " << endl;
+    while(wit != _walls.end())
+    {
+        start = wit->second.first;
+        end = wit->second.second;
+
+        cout << "\twall " << wit->first << ": (" 
+             << start->first << ", " << start->second
+             << ") to ("
+             << end->first << ", " << end->second
+             << ")" << endl;
+
+        wit++;
+    }
+
+    cout << endl;
+
     cout << "connections available? ";
     hasAvailable() ? cout << "y" : cout << "n";
     cout << endl;
@@ -91,4 +142,11 @@ bool module::hasAvailable()
     }
     
     return false;
+}
+
+void module::connect(int dir, module mod)
+{
+    _connections[dir] = &mod;
+
+
 }

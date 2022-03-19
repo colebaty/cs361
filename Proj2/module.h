@@ -19,6 +19,12 @@ const double HALLWAY_LEN = 5.0;
 const double HALLWAY_WID = 5.0;
 
 /**
+ * @brief maximum number of connections to a hallway module
+ * 
+ */
+const int HALLWAY_MAX_CONNECTIONS = 4;
+
+/**
  * @brief unique <map> keys for module corners. helpful to print in the same order
  * implied by enum; items stored in <map>s are sorted upon insertion. this enum
  * ensures traversal of the map occurs in ccw fashion starting from bottom-left
@@ -31,6 +37,7 @@ enum corners:char {_BL, _BR, _TR, _TL};
  * 
  */
 enum types:char {_BASE};
+
 
 /**
  * @brief base module type. corners are indexed from bottom-left, proceeding
@@ -51,7 +58,7 @@ class module {
          * @brief [0, 1, 2, 3] -> [N, W, E, S]
          * 
          */
-        module * _connections[4];
+        module **_connections;
 
         /**
          * @brief initializes a 5x5 hallway module with id set to 0 and 

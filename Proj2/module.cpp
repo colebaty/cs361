@@ -10,6 +10,7 @@ module::module()
 {
     _id = 0;
     _type = _BASE;
+    _connections = new module*[HALLWAY_MAX_CONNECTIONS];
     initialize();
 }
 
@@ -31,6 +32,7 @@ module::module(int id, double x, double y)
 {
     _id = id;
     _type = _BASE;
+    _connections = new module*[HALLWAY_MAX_CONNECTIONS];
     initialize();//set corners
     move(x, y);
 }

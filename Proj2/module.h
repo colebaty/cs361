@@ -1,18 +1,25 @@
 #ifndef __MODULE_H__
 #define __MODULE_H__
 
-#include <cmath>
+#include <utility>
+#include <map>
 
 using namespace std;
 
-enum types:char {_BASE};
+const double HALLWAY_LEN = 5.0;
+const double HALLWAY_WID = 5.0;
+
 /**
- * @brief the default distance between bottom-left and top-right
- * corners for a 5x5 "base"/hallway module. Used to plot the other corners
- * of the module.
+ * @brief unique <map> keys for module corners
  * 
  */
-const double DEFAULT_DIAG_DIST = sqrt(50);
+enum corners:char {_BL, _BR, _TR, _TL};
+
+/**
+ * @brief unique module types for inheritance purposes
+ * 
+ */
+enum types:char {_BASE};
 
 /**
  * @brief base module type. corners are indexed from bottom-left, proceeding
@@ -27,21 +34,14 @@ class module {
     protected:
         int _id;
         char _type;
-        double _corners[4][2];
+        map<char, pair<double, double>> _corners;
 
         /**
-         * @brief initializes corners to (0,0)
+         * @brief initializes a 5x5 hallway module with bottom-left corner at (0,0)
          * 
          */
         void initialize();
-        /**
-         * @brief uses the Pythagorean theorem to fill each corner using the 
-         * given diagonal distance 
-         * 
-         * @param diag 
-         */
-        void fillCorners(double diag = DEFAULT_DIAG_DIST);
-        
+
         //private methods
     public:
         module();
@@ -53,10 +53,8 @@ class module {
          * @param id 
          * @param x x coord for bottom left corner 
          * @param y y coord for bottom left corner
-         * @param diag the diagonal distance between bottom-left and top-right
-         *             corners
          */
-        module(int id, double x, double y, double diag = DEFAULT_DIAG_DIST);
+        module(int id, double x = 0.0, double y = 0.0);
         //public methods
 };
 

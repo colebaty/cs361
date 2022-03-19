@@ -3,14 +3,25 @@
 
 #include <utility>
 #include <map>
+#include <list>
 
 using namespace std;
 
+/**
+ * @brief along x-axis
+ * 
+ */
 const double HALLWAY_LEN = 5.0;
+/**
+ * @brief along y-axis
+ * 
+ */
 const double HALLWAY_WID = 5.0;
 
 /**
- * @brief unique <map> keys for module corners
+ * @brief unique <map> keys for module corners. helpful to print in the same order
+ * implied by enum; items stored in <map>s are sorted upon insertion. this enum
+ * ensures traversal of the map occurs in ccw fashion starting from bottom-left
  * 
  */
 enum corners:char {_BL, _BR, _TR, _TL};
@@ -37,18 +48,30 @@ class module {
         map<char, pair<double, double>> _corners;
 
         /**
-         * @brief initializes a 5x5 hallway module with bottom-left corner at (0,0)
+         * @brief [0, 1, 2, 3] -> [N, W, E, S]
+         * 
+         */
+        module * _connections[4];
+
+        /**
+         * @brief initializes a 5x5 hallway module with id set to 0 and 
+         * bottom-left corner at (0,0)
          * 
          */
         void initialize();
 
         //private methods
     public:
-        module();
-        module(int id);
         /**
-         * @brief Construct a new "base"/hallway module at the given (x,y) 
-         * coordinate pair, which describes the lower left corner of the module.
+         * @brief Default constructor - id set to zero, bottom-left corner at
+         * (0,0)
+         * 
+         */
+        module();
+        /**
+         * @brief Construct a new "base"/hallway module with the given ID 
+         * at the given (x,y) coordinate pair, which describes the bottom-left 
+         * corner of the module.
          * 
          * @param id 
          * @param x x coord for bottom left corner 
@@ -56,6 +79,16 @@ class module {
          */
         module(int id, double x = 0.0, double y = 0.0);
         //public methods
+
+        void move(double dx, double dy);
+        void display();
+        void printType();
+
+        char getType() { return _type; };
+        int getID() { return _id; };
+
+        bool hasAvailable();
+
 };
 
 

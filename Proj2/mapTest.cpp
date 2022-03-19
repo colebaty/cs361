@@ -51,6 +51,7 @@ void printMap(map<char, pair<int, int>>& _map)
     {
         //proof that enum types work
         assert(mit->first == _BL || mit->first == _BR || mit->first == _TR || mit->first == _TL);
+
         cout << mit->first << " " << mit->second.first << " " << mit->second.second << endl;
         mit++;
     }

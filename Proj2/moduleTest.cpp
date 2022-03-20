@@ -25,6 +25,8 @@ int main()
     module m1(1, 1.0, 1.0);
     assert(m1.getID() == 1);
     m1.display();
+
+    return 0;
     
 }
 

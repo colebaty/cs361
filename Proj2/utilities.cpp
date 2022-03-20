@@ -6,7 +6,3 @@
 #include "module.h"
 
 using namespace std;
-
-void writeData(module mod)
-{
-}

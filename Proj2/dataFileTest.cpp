@@ -4,6 +4,7 @@
 #include <cstdlib>
 
 #include "module.h"
+#include "utilities.h"
 
 using namespace std;
 
@@ -32,8 +33,8 @@ int main()
     ofstream drout("commands.dat");
     drout << "set xlabel \"stuff\"" << endl
         << "set ylabel \"other stuff\"" << endl
-        << "set xrange [-5:25]" << endl
-        << "set yrange [-5:25]" << endl
+        << "set xrange [0:40]" << endl
+        << "set yrange [0:40]" << endl
         << "set terminal png" << endl
         << "set output \"output.png\"" << endl
         << "plot 'm1.dat' with lines linecolor rgb \"#9ACD32\"" << endl
@@ -41,8 +42,38 @@ int main()
 
     drout.close();
 
-    cout << "drawing plot...";
+    cout << "drawing plot for m1...";
     system("gnuplot commands.dat");
+    cout << "done" << endl;
+
+    cout << "----------------------" << endl;
+    cout << "creating new default module m0" << endl;
+
+    module m0;
+    m0.display();
+
+    cout << "----------------------" << endl;
+    cout << "creating datafile for m0" << endl;
+
+    //data out
+    ofstream ddout("m0.dat");
+    m0.writeDataFile(ddout);
+    ddout.close();
+
+    ofstream ddrout("commands2.dat");
+    ddrout << "set xlabel \"stuff\"" << endl
+        << "set ylabel \"other stuff\"" << endl
+        << "set xrange [0:40]" << endl
+        << "set yrange [0:40]" << endl
+        << "set terminal png" << endl
+        << "set output \"output2.png\"" << endl
+        << "plot 'm0.dat' with lines linecolor rgb \"#336699\"" << endl
+        << "pause -1" << endl;
+
+    ddrout.close();
+
+    cout << "drawing plot for m1...";
+    system("gnuplot commands2.dat");
     cout << "done" << endl;
 
     return 0;

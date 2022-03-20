@@ -8,6 +8,9 @@
 
 using namespace std;
 
+const string DATA_FILE_EXT = ".dat";
+const string COMMAND_FILE_EXT = ".gpc"; //gnuplot command
+
 void writeData(module mod);
 
 #endif //__UTILITIES_H__

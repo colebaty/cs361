@@ -114,6 +114,12 @@ class module {
         char getType() { return _type; };
         int getID() { return _id; };
 
+        /**
+         * @brief writes corners to data file specified by given <ofstream> param.
+         * 
+         * 
+         * @param out 
+         */
         void writeDataFile(ofstream& out);
         
         bool hasAvailable();

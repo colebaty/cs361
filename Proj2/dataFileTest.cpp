@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdio>
 #include <fstream>
+#include <cstdlib>
 
 #include "module.h"
 
@@ -21,20 +22,28 @@ int main()
     cout << "----------------------" << endl;
     cout << "creating datafile for m1" << endl;
 
-    ofstream out("m1.dat");
-    m1.writeDataFile(out);
+    //data out
+    ofstream dout("m1.dat");
+    m1.writeDataFile(dout);
+    dout.close();
     
     //boilerplate
-    out << "set xlabel \"stuff\"" << endl
+    //draw commands out
+    ofstream drout("commands.dat");
+    drout << "set xlabel \"stuff\"" << endl
         << "set ylabel \"other stuff\"" << endl
         << "set xrange [-5:25]" << endl
         << "set yrange [-5:25]" << endl
         << "set terminal png" << endl
         << "set output \"output.png\"" << endl
-        << "plot 'm1.dat' with rectangles leinecolor rgb \"#9ACD32\" fill solid noborder" << endl
+        << "plot 'm1.dat' with lines linecolor rgb \"#9ACD32\"" << endl
         << "pause -1" << endl;
 
-    out.close();
+    drout.close();
+
+    cout << "drawing plot...";
+    system("gnuplot commands.dat");
+    cout << "done" << endl;
 
     return 0;
 }

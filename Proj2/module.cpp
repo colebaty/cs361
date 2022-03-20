@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <utility>
 #include <map>
 
@@ -142,6 +143,20 @@ bool module::hasAvailable()
     }
     
     return false;
+}
+
+void module::writeDataFile(ofstream& out)
+{
+    map<char, pair<double, double>>::iterator cit = _corners.begin();
+
+    while (cit != _corners.end())
+    {
+        out << cit->second.first << " " << cit->second.second << endl;
+        cit++;
+    }
+    out << _corners.begin()->second.first << " " 
+        << _corners.begin()->second.second << endl;
+ 
 }
 
 // void module::connect(int srcWall, module& target, int targetWall)

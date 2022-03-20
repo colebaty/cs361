@@ -38,6 +38,10 @@ enum corners:char {_BL, _BR, _TR, _TL};
  */
 enum types:char {_BASE};
 
+/**
+ * @brief wall directions, North-indexed, proceeding CCW
+ * 
+ */
 enum dirs:int {_N = 0, _W, _S, _E};
 
 
@@ -110,6 +114,8 @@ class module {
         char getType() { return _type; };
         int getID() { return _id; };
 
+        void writeDataFile(ofstream& out);
+        
         bool hasAvailable();
 
         /**

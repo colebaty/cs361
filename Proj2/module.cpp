@@ -144,9 +144,17 @@ bool module::hasAvailable()
     return false;
 }
 
-void module::connect(int dir, module mod)
-{
-    _connections[dir] = &mod;
+// void module::connect(int srcWall, module& target, int targetWall)
+// {
+//     _connections[srcWall] = &target;
+//     target._connections[targetWall] = this;
+//     map<int, pair<pair<double, double>*, pair<double, double>*>>::iterator srcit;
+//     srcit = _walls.find(srcWall);
+
+//     map<int, pair<pair<double, double>*, pair<double, double>*>>::iterator dstit;
+//     dstit = target._walls.find(targetWall);
+
+//     pair<int, int> * conn = &make_pair(srcWall, targetWall);
 
 
-}
+// }

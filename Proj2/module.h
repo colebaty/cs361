@@ -65,6 +65,24 @@ class module {
          */
         void initialize();
 
+        /**
+         * @brief swap top and bottom pairs of x coords to reverse over
+         * y-axis
+         * 
+         */
+        void reverse();
+        /**
+         * @brief swap top and bottom pairs of y coords to flip over x-axis
+         * 
+         */
+        void flip();
+        /**
+         * @brief rotate from x-axis deg degrees. deg > 0 => ccw
+         * 
+         * @param deg 
+         */
+        void rotate(int deg);
+
         //private methods
     public:
         /**
@@ -95,13 +113,14 @@ class module {
         bool hasAvailable();
 
         /**
-         * @brief connects two modules. sets pointer at specified direction to 
-         * address of connecting module. 
+         * @brief connect this.wall to target.wall.  assumption is that target
+         * is already attached to space station. verb is transitive.
          * 
-         * @param dir 
-         * @param mod 
+         * @param srcWall 
+         * @param target 
+         * @param targetWall 
          */
-        void connect(int dir, module mod);
+        // void connect(int srcWall, module& target, int targetWall);
 };
 
 

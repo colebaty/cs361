@@ -66,8 +66,8 @@ int main()
 
     *fout << "set xlabel \"stuff\"" << endl
           << "set ylabel \"other stuff\"" << endl
-          << "set xrange [0:40]" << endl
-          << "set yrange [0:40]" << endl
+          << "set xrange [-5:45]" << endl
+          << "set yrange [-5:45]" << endl
           << "set terminal png" << endl
           << "set output \"output2.png\"" << endl
           << "plot 'm1.dat' with lines linecolor rgb \"#336699\", \\" << endl

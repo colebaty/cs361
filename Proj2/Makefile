@@ -60,7 +60,7 @@ TARGET=main
 #  Do NOT list .h files. For example, if you are building a program from 
 #  source files foo.c, foo.h, bar.cpp, baz.cc, and bam.h you would use
 #      OBJS1=foo.o bar.o baz.o
-OBJS=menuOptions.o module.o
+OBJS=menuOptions.o module.o utilities.o
 
 #  What program should be used to link this program? If the program is
 #  even partly C++, use g++.  If it is entirely C, use gcc.
@@ -113,7 +113,7 @@ debug: $(TARGET).cpp $(OBJS)
 # 	$(LINK) $(FLAGS) -o $(TARGET) $(TARGET).cpp $(OBJS) $(LFLAGS)
 
 clean:
-	-rm -f $(TARGET) $(OBJS) $(DEPENDENCIES) *Test *.png make.dep
+	-rm -f $(TARGET) $(OBJS) $(DEPENDENCIES) *Test *.png *.dat *.gpc make.dep
 
 
 make.dep: $(DEPENDENCIES)

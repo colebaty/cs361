@@ -45,7 +45,7 @@ void module::initialize()
             end = &next(mit)->second;
         }
 
-        _walls.insert(make_pair(wall++, make_pair(start, end)));
+        _walls.insert(make_pair(wall++, make_pair(*start, *end)));
 
         mit++;
     }
@@ -56,6 +56,33 @@ void module::initialize()
         _connections[i] = nullptr;
     }
     
+}
+
+void module::updateWalls()
+{
+    //walls
+    map<char, pair<double, double>>::iterator cit;
+    map<int, pair<pair<double, double>, pair<double, double>>>::iterator wit;
+
+    cit = _corners.begin();
+    wit = _walls.begin();
+    // int wall = 0;
+
+    while (wit != _walls.end())
+    {
+        wit->second.first = cit->second;
+        if (next(cit) == _corners.end())
+        {
+            wit->second.second = _corners.begin()->second;
+        }
+        else
+        {
+            wit->second.second = next(cit)->second;
+        }
+
+        cit++;
+        wit++;
+    }
 }
 
 module::module(int id, double x, double y)
@@ -76,6 +103,7 @@ void module::move(double dx, double dy)
         mit->second.second += dy;
         mit++;
     }
+    updateWalls();
 }
 
 void module::display()
@@ -94,14 +122,14 @@ void module::display()
     }
     cout << endl;
     
-    map<int, pair<pair<double, double>*, pair<double, double>*>>::iterator wit = _walls.begin();
+    map<int, pair<pair<double, double>, pair<double, double>>>::iterator wit = _walls.begin();
     pair<double, double> * start;
     pair<double, double> * end;
     cout << "walls: " << endl;
     while(wit != _walls.end())
     {
-        start = wit->second.first;
-        end = wit->second.second;
+        start = &wit->second.first;
+        end = &wit->second.second;
 
         cout << "\twall " << wit->first << ": (" 
              << start->first << ", " << start->second
@@ -163,10 +191,10 @@ void module::writeDataFile(ofstream& out)
 // {
 //     _connections[srcWall] = &target;
 //     target._connections[targetWall] = this;
-//     map<int, pair<pair<double, double>*, pair<double, double>*>>::iterator srcit;
+//     map<int, pair<pair<double, double>, pair<double, double>>>::iterator srcit;
 //     srcit = _walls.find(srcWall);
 
-//     map<int, pair<pair<double, double>*, pair<double, double>*>>::iterator dstit;
+//     map<int, pair<pair<double, double>, pair<double, double>>>::iterator dstit;
 //     dstit = target._walls.find(targetWall);
 
 //     pair<int, int> * conn = &make_pair(srcWall, targetWall);

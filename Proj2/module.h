@@ -54,10 +54,10 @@ class module {
         int _id;
         char _type;
         map<char, pair<double, double>> _corners;
-        map<int, pair<pair<double, double>*, pair<double, double>*>> _walls;
+        map<int, pair<pair<double, double>, pair<double, double>>> _walls;
 
         /**
-         * @brief [0, 1, 2, 3] -> [N, W, E, S]
+         * @brief [0, 1, 2, 3] -> [N, W, S, E]
          * 
          */
         module **_connections;
@@ -68,6 +68,12 @@ class module {
          * 
          */
         void initialize();
+
+        /**
+         * @brief updates walls map after a call to module::move
+         * 
+         */
+        void updateWalls();
 
         /**
          * @brief swap top and bottom pairs of x coords to reverse over

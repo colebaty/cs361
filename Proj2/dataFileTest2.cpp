@@ -27,6 +27,7 @@ int main()
     for (int i = 0; i < modlist.size(); i++)
     {
         modlist[i].display();
+        cout << endl;
     }
 
     cout << "--------------------------" << endl;
@@ -41,6 +42,7 @@ int main()
     while (mit != modlist.end())
     {
         mit->display();
+        cout << endl;
         mit++;
     }
     
@@ -68,13 +70,13 @@ int main()
           << "set ylabel \"other stuff\"" << endl
           << "set xrange [-5:45]" << endl
           << "set yrange [-5:45]" << endl
-          << "set terminal png" << endl
-          << "set output \"output2.png\"" << endl
+          << "set terminal svg" << endl
+          << "set output \"output2" << IMAGE_FILE_EXT << "\"" << endl
           << "plot 'm1.dat' with lines linecolor rgb \"#336699\", \\" << endl
           << "\t'm2.dat' with lines linecolor rgb \"#669933\", \\" << endl
           << "\t'm3.dat' with lines linecolor rgb \"#993366\", \\" << endl
-          << "\t'm4.dat' with lines linecolor rgb \"#369369\"," << endl
-          << "pause -1" << endl;
+          << "\t'm4.dat' with lines linecolor rgb \"#369369\"," << endl;
+        //   << "pause -1" << endl;
 
     fout->close();
     cout << "done" << endl;

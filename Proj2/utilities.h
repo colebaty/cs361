@@ -10,6 +10,8 @@ using namespace std;
 
 const string DATA_FILE_EXT = ".dat";
 const string COMMAND_FILE_EXT = ".gpc"; //gnuplot command
+const string IMAGE_FILE_EXT = ".svg";
+const string CONF_FILE_EXT = ".conf";
 
 void writeData(module mod);
 

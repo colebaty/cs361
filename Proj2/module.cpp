@@ -24,7 +24,7 @@ void module::initialize()
     _corners.insert(make_pair(_TL, make_pair(0.0, HALLWAY_WID)));
 
     //walls
-    map<char, pair<double, double>>::iterator mit;
+    map<corners, pair<double, double>>::iterator mit;
 
     pair<double, double> * start;
     pair<double, double> * end;
@@ -45,7 +45,7 @@ void module::initialize()
             end = &next(mit)->second;
         }
 
-        _walls.insert(make_pair(wall++, make_pair(*start, *end)));
+        _walls.insert(make_pair(getWall(wall++), make_pair(*start, *end)));
 
         mit++;
     }
@@ -58,11 +58,39 @@ void module::initialize()
     
 }
 
+dirs module::getWall(int i)
+{
+    switch (i)
+    {
+    case 0:
+        return _N;
+        break;
+    
+    case 1:
+        return _W;
+        break;
+    
+    case 2:
+        return _S;
+        break;
+    
+    case 3:
+        return _E;
+        break;
+    
+    default:
+        break;
+    }
+
+    return _LAST;
+}
+
+
 void module::updateWalls()
 {
     //walls
-    map<char, pair<double, double>>::iterator cit;
-    map<int, pair<pair<double, double>, pair<double, double>>>::iterator wit;
+    map<corners, pair<double, double>>::iterator cit;
+    map<dirs, pair<pair<double, double>, pair<double, double>>>::iterator wit;
 
     cit = _corners.begin();
     wit = _walls.begin();
@@ -96,7 +124,7 @@ module::module(int id, double x, double y)
 
 void module::move(double dx, double dy)
 {
-    map<char, pair<double, double>>::iterator mit = _corners.begin();
+    map<corners, pair<double, double>>::iterator mit = _corners.begin();
     while (mit != _corners.end())
     {
         mit->second.first += dx;
@@ -114,7 +142,7 @@ void module::display()
     cout << endl;
 
     cout << "corners: ";
-    map<char, pair<double, double>>::iterator mit = _corners.begin();
+    map<corners, pair<double, double>>::iterator mit = _corners.begin();
     while (mit != _corners.end())
     {
         cout << "(" << mit->second.first << ", " << mit->second.second << ") ";
@@ -122,7 +150,7 @@ void module::display()
     }
     cout << endl;
     
-    map<int, pair<pair<double, double>, pair<double, double>>>::iterator wit = _walls.begin();
+    map<dirs, pair<pair<double, double>, pair<double, double>>>::iterator wit = _walls.begin();
     pair<double, double> * start;
     pair<double, double> * end;
     cout << "walls: " << endl;
@@ -175,7 +203,7 @@ bool module::hasAvailable()
 
 void module::writeDataFile(ofstream& out)
 {
-    map<char, pair<double, double>>::iterator cit = _corners.begin();
+    map<corners, pair<double, double>>::iterator cit = _corners.begin();
 
     while (cit != _corners.end())
     {

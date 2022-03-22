@@ -82,6 +82,7 @@ int main()
     system("gnuplot datFileTest2.gpc");
     //housekeeping
     delete fout;
+    delete mptr;
 
     return 0;
 }

@@ -42,7 +42,7 @@ enum types:char {_BASE};
  * @brief wall directions, North-indexed, proceeding CCW
  * 
  */
-enum dirs:int {_N = 0, _W, _S, _E};
+enum dirs:int {_N = 0, _W, _S, _E, _LAST};
 
 
 /**
@@ -53,8 +53,8 @@ class module {
     protected:
         int _id;
         char _type;
-        map<char, pair<double, double>> _corners;
-        map<int, pair<pair<double, double>, pair<double, double>>> _walls;
+        map<corners, pair<double, double>> _corners;
+        map<dirs, pair<pair<double, double>, pair<double, double>>> _walls;
 
         /**
          * @brief [0, 1, 2, 3] -> [N, W, S, E]
@@ -62,6 +62,7 @@ class module {
          */
         module **_connections;
 
+        //private methods
         /**
          * @brief initializes a 5x5 hallway module with id set to 0 and 
          * bottom-left corner at (0,0)
@@ -93,7 +94,9 @@ class module {
          */
         void rotate(int deg);
 
-        //private methods
+        //shitty utility function to convert int into <dirs> enum type
+        dirs getWall(int i);
+
     public:
         /**
          * @brief Default constructor - id set to zero, bottom-left corner at

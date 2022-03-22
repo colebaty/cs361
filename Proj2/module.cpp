@@ -11,7 +11,6 @@ module::module()
 {
     _id = 0;
     _type = _BASE;
-    _connections = new module*[HALLWAY_MAX_CONNECTIONS];
     initialize();
 }
 
@@ -50,11 +49,6 @@ void module::initialize()
         mit++;
     }
 
-    //connections
-    for (int i = 0; i < 4; i++)
-    {
-        _connections[i] = nullptr;
-    }
     
 }
 
@@ -113,11 +107,11 @@ void module::updateWalls()
     }
 }
 
+//TODO - redo connections initialization
 module::module(int id, double x, double y)
 {
     _id = id;
     _type = _BASE;
-    _connections = new module*[HALLWAY_MAX_CONNECTIONS];
     initialize();//set corners
     move(x, y);
 }
@@ -188,17 +182,30 @@ void module::printType()
     }
 }
 
+//TODO - redo
 bool module::hasAvailable()
 {
-    for (int i = 0; i < 4; i++)
-    {
-        if (_connections[i] == nullptr)
-        {
-            return true;
-        }
-    }
     
     return false;
+}
+
+//TODO flesh out - need to work on connections first
+void module::writeConfFile(ofstream& out)
+{
+    out << _type << endl << endl
+        << _id << endl << endl;
+
+    map<corners, pair<double, double>>::iterator cit = _corners.begin();
+
+    while (cit != _corners.end())
+    {
+        out << cit->second.first << ", " << cit->second.second;
+        if (next(cit) != _corners.end()) out << ", ";
+        cit++;
+    }
+
+    out << endl;
+
 }
 
 void module::writeDataFile(ofstream& out)
@@ -215,17 +222,7 @@ void module::writeDataFile(ofstream& out)
  
 }
 
-// void module::connect(int srcWall, module& target, int targetWall)
-// {
-//     _connections[srcWall] = &target;
-//     target._connections[targetWall] = this;
-//     map<int, pair<pair<double, double>, pair<double, double>>>::iterator srcit;
-//     srcit = _walls.find(srcWall);
+void module::connect(dirs srcWall, module& target, dirs targetWall)
+{
 
-//     map<int, pair<pair<double, double>, pair<double, double>>>::iterator dstit;
-//     dstit = target._walls.find(targetWall);
-
-//     pair<int, int> * conn = &make_pair(srcWall, targetWall);
-
-
-// }
+}

@@ -36,7 +36,7 @@ enum corners:char {_BL, _BR, _TR, _TL};
  * @brief unique module types for inheritance purposes
  * 
  */
-enum types:char {_BASE};
+enum types:int {_BASE};
 
 /**
  * @brief wall directions, North-indexed, proceeding CCW
@@ -52,15 +52,10 @@ enum dirs:int {_N = 0, _W, _S, _E, _LAST};
 class module {
     protected:
         int _id;
-        char _type;
+        types _type;
         map<corners, pair<double, double>> _corners;
         map<dirs, pair<pair<double, double>, pair<double, double>>> _walls;
-
-        /**
-         * @brief [0, 1, 2, 3] -> [N, W, S, E]
-         * 
-         */
-        module **_connections;
+        map<dirs, module&> _connections;
 
         //private methods
         /**
@@ -130,6 +125,14 @@ class module {
          * @param out 
          */
         void writeDataFile(ofstream& out);
+
+        //TODO expand this - need to make ofstream appendable?
+        /**
+         * @brief stub for writing to conf file
+         * 
+         * @param out 
+         */
+        void writeConfFile(ofstream& out);
         
         bool hasAvailable();
 
@@ -141,7 +144,7 @@ class module {
          * @param target 
          * @param targetWall 
          */
-        // void connect(int srcWall, module& target, int targetWall);
+        void connect(dirs srcWall, module& target, dirs targetWall);
 };
 
 

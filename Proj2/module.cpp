@@ -48,8 +48,6 @@ void module::initialize()
 
         mit++;
     }
-
-    
 }
 
 dirs module::getWall(int i)
@@ -224,5 +222,5 @@ void module::writeDataFile(ofstream& out)
 
 void module::connect(dirs srcWall, module& target, dirs targetWall)
 {
-
+    
 }

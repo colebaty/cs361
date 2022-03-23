@@ -42,7 +42,7 @@ enum types:int {_BASE};
  * @brief wall directions, North-indexed, proceeding CCW
  * 
  */
-enum dirs:int {_N = 0, _W, _S, _E, _LAST};
+enum dirs:char {_N = 'N', _W = 'W', _S = 'S', _E = 'E', _LAST};
 
 
 /**
@@ -55,7 +55,9 @@ class module {
         types _type;
         map<corners, pair<double, double>> _corners;
         map<dirs, pair<pair<double, double>, pair<double, double>>> _walls;
-        map<dirs, module&> _connections;
+        map<dirs, module> _connections;
+
+        int _maxConnections;
 
         //private methods
         /**
@@ -136,15 +138,8 @@ class module {
         
         bool hasAvailable();
 
-        /**
-         * @brief connect this.wall to target.wall.  assumption is that target
-         * is already attached to space station. verb is transitive.
-         * 
-         * @param srcWall 
-         * @param target 
-         * @param targetWall 
-         */
-        void connect(dirs srcWall, module& target, dirs targetWall);
+        void connect(dirs srcWall, module& dst, dirs dstWall);
+
 };
 
 

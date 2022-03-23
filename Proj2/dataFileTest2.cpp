@@ -70,7 +70,7 @@ int main()
           << "set ylabel \"other stuff\"" << endl
           << "set xrange [-5:45]" << endl
           << "set yrange [-5:45]" << endl
-          << "set terminal svg" << endl
+          << "set terminal png" << endl
           << "set output \"output2" << IMAGE_FILE_EXT << "\"" << endl
           << "plot 'm1.dat' with lines linecolor rgb \"#336699\", \\" << endl
           << "\t'm2.dat' with lines linecolor rgb \"#669933\", \\" << endl

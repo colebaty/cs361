@@ -11,6 +11,7 @@ module::module()
 {
     _id = 0;
     _type = _BASE;
+    _maxConnections = HALLWAY_MAX_CONNECTIONS;
     initialize();
 }
 
@@ -110,6 +111,7 @@ module::module(int id, double x, double y)
 {
     _id = id;
     _type = _BASE;
+    _maxConnections = HALLWAY_MAX_CONNECTIONS;
     initialize();//set corners
     move(x, y);
 }
@@ -165,6 +167,17 @@ void module::display()
     cout << "connections available? ";
     hasAvailable() ? cout << "y" : cout << "n";
     cout << endl;
+
+    if (!_connections.empty())
+    {
+        cout << "connections:" << endl;
+        map<dirs, module>::iterator connit = _connections.begin();
+        while (connit != _connections.end())
+        {
+            cout << "\twall " << connit->first << " to module " << connit->second.getID() << endl;
+            connit++;
+        }
+    }
 }
 
 void module::printType()
@@ -180,11 +193,9 @@ void module::printType()
     }
 }
 
-//TODO - redo
 bool module::hasAvailable()
 {
-    
-    return false;
+    return _connections.size() < _maxConnections;
 }
 
 //TODO flesh out - need to work on connections first
@@ -220,7 +231,30 @@ void module::writeDataFile(ofstream& out)
  
 }
 
-void module::connect(dirs srcWall, module& target, dirs targetWall)
+void module::connect(dirs srcWall, module& dst, dirs dstWall)
 {
+    //check for available connections
+    if (dst.hasAvailable())
+    {
+        //check that target wall is not already connected
+        if (dst._connections.find(dstWall) == dst._connections.end())
+        {
+            cout << "connecting src wall " << srcWall << " of module " << _id
+                << " to dst wall " << dstWall << " of module " << dst._id << endl;
+            //connect this to other
+            _connections.insert(make_pair(srcWall, dst));
+            
+            //connect other to this
+            dst._connections.insert(make_pair(dstWall, *this));
+        }
+        else
+        {
+            cerr << "error: dst wall " << dstWall << " of module " << dst._id << " already connected " << endl;
+        }
+    }
+    else
+    {
+        cerr << "error: dst has no available connections" << endl;
+    }
     
 }

@@ -106,7 +106,6 @@ void module::updateWalls()
     }
 }
 
-//TODO - redo connections initialization
 module::module(int id, double x, double y)
 {
     _id = id;

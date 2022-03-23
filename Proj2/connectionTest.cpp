@@ -67,10 +67,10 @@ int main()
     src->connect(_S, modlist[2], _N);
     src->connect(_E, modlist[3], _W);
 
-    src->display();
 
     cout << "--------------------------" << endl;
     cout << "displaying module 100" << endl;
+    src->display();
 
     cout << "--------------------------" << endl;
     cout << "attempting to connect to already connected wall" << endl;
@@ -82,9 +82,10 @@ int main()
     dst->display();
 
     cout << endl;
+    cout << "--------------------------" << endl;
     cout << "104W is already connected" << endl
          << "attempting to connect 105E to 104W" << endl;
-    cout << endl;
+    cout << "--------------------------" << endl;
     
     src->connect(_E, *dst, _W);
 

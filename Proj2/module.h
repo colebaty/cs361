@@ -4,6 +4,7 @@
 #include <utility>
 #include <map>
 #include <list>
+#include <vector>
 
 using namespace std;
 
@@ -42,7 +43,7 @@ enum types:int {_BASE};
  * @brief wall directions, North-indexed, proceeding CCW
  * 
  */
-enum dirs:char {_N = 'N', _W = 'W', _S = 'S', _E = 'E', _LAST};
+enum dirs:char {_N = '1', _W, _S, _E, _LAST};
 
 
 /**
@@ -137,8 +138,26 @@ class module {
         void writeConfFile(ofstream& out);
         
         bool hasAvailable();
+        /**
+         * @brief a list of walls with no connections. if no available connections
+         * returns an empty vector
+         * 
+         * @return vector<dirs> 
+         */
+        vector<dirs> getAvailable();
 
+        //TODO sort out how to begin?
+        /**
+         * @brief connects this module to dst module. assumes dst module is
+         * already attached to space station, and this module is not.
+         * 
+         * 
+         * @param srcWall 
+         * @param dst 
+         * @param dstWall 
+         */
         void connect(dirs srcWall, module& dst, dirs dstWall);
+
 
 };
 

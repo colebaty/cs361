@@ -166,6 +166,25 @@ void module::display()
     cout << "connections available? ";
     hasAvailable() ? cout << "y" : cout << "n";
     cout << endl;
+    if (hasAvailable())
+    {
+        vector<dirs> * avail = new vector<dirs>(getAvailable());
+        if (avail->size() == _maxConnections)
+        {
+            cout << "\tall walls available for connection" << endl;
+        }
+        else
+        {
+            cout << "\tavailable walls : ";
+            vector<dirs>::iterator connit = avail->begin();
+            while (connit != avail->end())
+            {
+                cout << (char) *connit << " ";
+                connit++;
+            }
+            cout << endl;
+        }
+    }
 
     if (!_connections.empty())
     {
@@ -195,6 +214,18 @@ void module::printType()
 bool module::hasAvailable()
 {
     return _connections.size() < _maxConnections;
+}
+
+vector<dirs> module::getAvailable()
+{
+    vector<dirs> * avail = new vector<dirs>;
+
+    if (_connections.find(_N) == _connections.end()) avail->push_back(_N);
+    if (_connections.find(_W) == _connections.end()) avail->push_back(_W);
+    if (_connections.find(_S) == _connections.end()) avail->push_back(_S);
+    if (_connections.find(_E) == _connections.end()) avail->push_back(_E);
+
+    return *avail;
 }
 
 //TODO flesh out - need to work on connections first
@@ -239,7 +270,7 @@ void module::connect(dirs srcWall, module& dst, dirs dstWall)
         if (dst._connections.find(dstWall) == dst._connections.end())
         {
             cout << "connecting src wall " << (char) srcWall << " of module " << _id
-                << " to dst wall " << (char) dstWall << " of module " << dst._id << endl;
+                 << " to dst wall " << (char) dstWall << " of module " << dst._id << endl;
             //connect this to other
             _connections.insert(make_pair(srcWall, dst));
             

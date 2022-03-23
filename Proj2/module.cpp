@@ -152,7 +152,7 @@ void module::display()
         start = &wit->second.first;
         end = &wit->second.second;
 
-        cout << "\twall " << wit->first << ": (" 
+        cout << "\twall " << (char) wit->first << ": (" 
              << start->first << ", " << start->second
              << ") to ("
              << end->first << ", " << end->second
@@ -173,7 +173,7 @@ void module::display()
         map<dirs, module>::iterator connit = _connections.begin();
         while (connit != _connections.end())
         {
-            cout << "\twall " << connit->first << " to module " << connit->second.getID() << endl;
+            cout << "\twall " << (char) connit->first << " to module " << connit->second.getID() << endl;
             connit++;
         }
     }
@@ -238,8 +238,8 @@ void module::connect(dirs srcWall, module& dst, dirs dstWall)
         //check that target wall is not already connected
         if (dst._connections.find(dstWall) == dst._connections.end())
         {
-            cout << "connecting src wall " << srcWall << " of module " << _id
-                << " to dst wall " << dstWall << " of module " << dst._id << endl;
+            cout << "connecting src wall " << (char) srcWall << " of module " << _id
+                << " to dst wall " << (char) dstWall << " of module " << dst._id << endl;
             //connect this to other
             _connections.insert(make_pair(srcWall, dst));
             
@@ -248,7 +248,7 @@ void module::connect(dirs srcWall, module& dst, dirs dstWall)
         }
         else
         {
-            cerr << "error: dst wall " << dstWall << " of module " << dst._id << " already connected " << endl;
+            cerr << "error: dst wall " << (char) dstWall << " of module " << dst._id << " already connected " << endl;
         }
     }
     else

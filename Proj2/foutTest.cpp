@@ -8,7 +8,7 @@ void second(ofstream& out);
 
 int main()
 {
-    cout << "testing whether state is preserved when fstream"
+    cout << "testing whether state is preserved when fstream" << endl
          << "object is passed as param through multiple functions" << endl;
 
     cout << "------------------------------------------" << endl;

@@ -47,7 +47,10 @@ enum dirs:char {_N = '1', _W, _S, _E, _LAST};
 
 
 /**
- * @brief base module type. corners are indexed from bottom-left, proceeding CCW
+ * @brief base module type. corners are indexed from bottom-left, proceeding CCW.
+ * for purposes of flip, reverse, rotate, modules are always oriented from 
+ * their North wall; that is, N-S is aligned with y-axis, and E-W is aligned 
+ * with x-axis
  * 
  */
 class module {

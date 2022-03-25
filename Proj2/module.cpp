@@ -152,12 +152,10 @@ void module::display()
         start = &wit->second.first;
         end = &wit->second.second;
 
-        cout << "\twall " << (char) wit->first << ": (" 
-             << start->first << ", " << start->second
-             << ") to ("
-             << end->first << ", " << end->second
-             << ")" << endl;
-
+        cout << "\twall " << (char) wit->first 
+             << ": (" << start->first << ", " << start->second
+             << ") to (" << end->first << ", " << end->second << ")" 
+             << endl;
         wit++;
     }
 
@@ -276,6 +274,7 @@ void module::connect(dirs srcWall, module& dst, dirs dstWall)
             
             //connect other to this
             dst._connections.insert(make_pair(dstWall, *this));
+            align(srcWall, dst, dstWall);
         }
         else
         {
@@ -287,4 +286,9 @@ void module::connect(dirs srcWall, module& dst, dirs dstWall)
         cerr << "error: dst has no available connections" << endl;
     }
     
+}
+
+void module::align(dirs& srcWall, module& dst, dirs& dstWall)
+{
+
 }

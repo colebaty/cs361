@@ -13,6 +13,7 @@ using namespace std;
  * 
  */
 const double HALLWAY_LEN = 5.0;
+
 /**
  * @brief along y-axis
  * 
@@ -95,8 +96,23 @@ class module {
          */
         void rotate(int deg);
 
-        //shitty utility function to convert int into <dirs> enum type
+        /**
+         * @brief shitty utility function to convert int into <dirs> enum type
+         * 
+         * @param i 
+         * @return dirs 
+         */
         dirs getWall(int i);
+
+        /**
+         * @brief arrange src corners to align with dst corners according to the
+         * given src, dst walls. See README.md
+         * 
+         * @param srcWall 
+         * @param dst 
+         * @param dstWall 
+         */
+        void align(dirs& srcWall, module& dst, dirs& dstWall);
 
     public:
         /**

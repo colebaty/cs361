@@ -41,10 +41,11 @@ enum corners:char {_BL, _BR, _TR, _TL};
 enum types:int {_BASE};
 
 /**
- * @brief wall directions, North-indexed, proceeding CCW
+ * @brief handy references to individual module walls.  _BOW corresponds
+ * to heading module-north. _SB => starboard
  * 
  */
-enum dirs:char {_N = '1', _W, _S, _E, _LAST};
+enum dirs:char {_BOW, _STERN, _SB, _PORT, _LAST};
 
 
 /**

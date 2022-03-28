@@ -56,19 +56,19 @@ dirs module::getWall(int i)
     switch (i)
     {
     case 0:
-        return _N;
+        return _BOW;
         break;
     
     case 1:
-        return _W;
+        return _PORT;
         break;
     
     case 2:
-        return _S;
+        return _STERN;
         break;
     
     case 3:
-        return _E;
+        return _SB;
         break;
     
     default:
@@ -218,10 +218,10 @@ vector<dirs> module::getAvailable()
 {
     vector<dirs> * avail = new vector<dirs>;
 
-    if (_connections.find(_N) == _connections.end()) avail->push_back(_N);
-    if (_connections.find(_W) == _connections.end()) avail->push_back(_W);
-    if (_connections.find(_S) == _connections.end()) avail->push_back(_S);
-    if (_connections.find(_E) == _connections.end()) avail->push_back(_E);
+    if (_connections.find(_BOW) == _connections.end()) avail->push_back(_BOW);
+    if (_connections.find(_PORT) == _connections.end()) avail->push_back(_PORT);
+    if (_connections.find(_STERN) == _connections.end()) avail->push_back(_STERN);
+    if (_connections.find(_SB) == _connections.end()) avail->push_back(_SB);
 
     return *avail;
 }

@@ -1,35 +1,49 @@
 #include <iostream>
+#include <map>
+#include <cctype>
 
 #include "menuOptions.h"
+#include "module.h"
+#include "station.h"
+#include "utilities.h"
 
 using namespace std;
 
 int main()
 {
     displayHeader();
-
-    bool done = false;
     char choice;
+    bool done = false;
+    int modID = 100;
+
+    station station;
+
     do
     {
-        displayMenu();
-        cin >> choice;
-        switch (choice)
+        choice = displayMenu();
+        switch (tolower(choice))
         {
-        case 'a':
-        case 'A':
-            displayAddModMenu();
-            cin >> choice;
-            done = true;
+        case _ADD:
+            addMod(station);
             break;
         
-        case 'g':
-        case 'G':
+        case _EXIT:
+            break;
         default:
-            done = true;
+            cout << "Invalid selection. Please try again." << endl;
             break;
         }
-    } while (!done);
+
+    } while (choice != _EXIT);
+
+    #ifdef DEBUG
+    cout << "------------------------" << endl;
+    for (multimap<int, module>::iterator mit = station.begin(); mit != station.end(); mit++)
+    {
+        mit->second.display();
+    }
+    cout << "------------------------" << endl;
+    #endif
 
     return 0;
 }

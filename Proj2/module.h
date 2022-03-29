@@ -38,7 +38,7 @@ enum corners:char {_BL, _BR, _TR, _TL};
  * @brief unique module types for inheritance purposes
  * 
  */
-enum types:int {_BASE};
+enum types:int {_BASE = 1, _HOUSING, _POWER, _LAB, _GYM, _STORAGE, _AIRLOCK};
 
 /**
  * @brief handy references to individual module walls.  _BOW corresponds

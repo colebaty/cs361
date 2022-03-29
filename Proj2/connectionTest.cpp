@@ -36,7 +36,7 @@ int main()
 
     module * dst = &modlist[0];
 
-    src->connect(_N, *dst, _S);
+    src->connect(_BOW, *dst, _STERN);
 
     cout << "--------------------------" << endl;
 
@@ -63,9 +63,9 @@ int main()
 
     cout << "connecting remaining modules to module 100" << endl;
 
-    src->connect(_W, modlist[1], _E);
-    src->connect(_S, modlist[2], _N);
-    src->connect(_E, modlist[3], _W);
+    src->connect(_PORT, modlist[1], _SB);
+    src->connect(_STERN, modlist[2], _BOW);
+    src->connect(_SB, modlist[3], _PORT);
 
 
     cout << "--------------------------" << endl;
@@ -87,7 +87,7 @@ int main()
          << "attempting to connect 105E to 104W" << endl;
     cout << "--------------------------" << endl;
     
-    src->connect(_E, *dst, _W);
+    src->connect(_SB, *dst, _PORT);
 
     src->display();
     cout << endl;

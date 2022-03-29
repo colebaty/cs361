@@ -4,7 +4,9 @@
 #include <iostream>
 #include <utility>
 #include <cstdio>   //for printf
+#include <map>
 
+#include "station.h"
 #include "module.h"
 
 using namespace std;
@@ -25,5 +27,12 @@ void writeData(module mod);
  * @param dstWall 
  */
 void connect(dirs srcWall, module& dst, dirs dstWall);
+
+/**
+ * @brief add a module to the station
+ * 
+ * @param station 
+ */
+void addMod(station& station);
 
 #endif //__UTILITIES_H__

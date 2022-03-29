@@ -35,8 +35,8 @@ int main()
 
     assert(bl.first == 10 && bl.second == 100);
 
-    cout << "bl.first:\t" << *first << endl
-         << "bl.second:\t" << *second << endl;
+    cout << "bl.first:\t" << bl.first << endl
+         << "bl.second:\t" << bl.second << endl;
 
 
     cout << "*first:\t\t" << *first << endl

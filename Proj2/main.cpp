@@ -13,10 +13,8 @@ int main()
 {
     displayHeader();
     char choice;
-    bool done = false;
-    int modID = 100;
 
-    station station;
+    station station(1);
 
     do
     {

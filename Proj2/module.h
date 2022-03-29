@@ -157,7 +157,14 @@ class module {
          */
         void writeConfFile(ofstream& out);
         
+        /**
+         * @brief returns true if module has available connections
+         * 
+         * @return true 
+         * @return false 
+         */
         bool hasAvailable();
+
         /**
          * @brief a list of walls with no connections. if no available connections
          * returns an empty vector

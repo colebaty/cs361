@@ -16,12 +16,12 @@ class station {
         //private methods
     public:
         station();
-        station(int id, types type = _BASE);
+        station(int id);
         /**
          * @brief prints a list of modules with available connections
          * 
          */
-        void getAvailableConnections();
+        void showAvailableConnections();
         /**
          * @brief adds unconnected src module to connected dst module, making
          * connection along given source and destination walls

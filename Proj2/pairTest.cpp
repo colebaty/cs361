@@ -42,5 +42,44 @@ int main()
     cout << "*first:\t\t" << *first << endl
          << "*second:\t" << *second << endl;
 
+    cout << "---------------------" << endl;
+
+    cout << "creating some modules" << endl;
+
+    module * modptr; 
+    int modID = 100;
+    map<int, module> mymap;
+
+    for (int i = 0; i < 5; i++)
+    {
+         modptr = new module(modID++);
+         mymap.insert(make_pair(modptr->getID(), *modptr));
+    }
+
+    cout << "available modules: ";
+    map<int, module>::iterator mit = mymap.begin();
+    while (mit != mymap.end())
+    {
+         cout << mit->first << " ";
+         mit++;
+    }
+    cout << endl;
+
+    cout << "---------------------" << endl;
+    
+    cout << "get specific module (ID): ";
+    int choice;
+    cin >> choice;
+
+    mit = mymap.find(choice);
+    mit->second.display();
+
+    cout << "---------------------" << endl;
+    cout << "attempting to move selected module through mit->second" << endl;
+
+    mit->second.move(10.0, 10.0);
+    mit->second.display();
+
+
     return 0;
 }

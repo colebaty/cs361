@@ -79,6 +79,7 @@ dirs module::getWall(int i)
 }
 
 
+//TODO change to make use of utility::get(std::pair)
 void module::updateWalls()
 {
     //walls

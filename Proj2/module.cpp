@@ -78,7 +78,6 @@ dirs module::getWall(int i)
     return _LAST;
 }
 
-
 //TODO change to make use of utility::get(std::pair)
 void module::updateWalls()
 {
@@ -153,7 +152,7 @@ void module::display()
         start = &wit->second.first;
         end = &wit->second.second;
 
-        cout << "\twall " << (char) wit->first 
+        cout << "\twall " << dir2char(wit->first)
              << ": (" << start->first << ", " << start->second
              << ") to (" << end->first << ", " << end->second << ")" 
              << endl;
@@ -178,7 +177,7 @@ void module::display()
             vector<dirs>::iterator connit = avail->begin();
             while (connit != avail->end())
             {
-                cout << (char) *connit << " ";
+                cout << dir2char(*connit) << " ";
                 connit++;
             }
             cout << endl;
@@ -191,7 +190,7 @@ void module::display()
         map<dirs, module>::iterator connit = _connections.begin();
         while (connit != _connections.end())
         {
-            cout << "\twall " << (char) connit->first << " to module " << connit->second.getID() << endl;
+            cout << "\twall " << dir2char(connit->first) << " to module " << connit->second.getID() << endl;
             connit++;
         }
     }
@@ -268,8 +267,8 @@ void module::connect(dirs srcWall, module& dst, dirs dstWall)
         //check that target wall is not already connected
         if (dst._connections.find(dstWall) == dst._connections.end())
         {
-            cout << "connecting src wall " << (char) srcWall << " of module " << _id
-                 << " to dst wall " << (char) dstWall << " of module " << dst._id << endl;
+            cout << "connecting src wall " << dir2char(srcWall) << " of module " << _id
+                 << " to dst wall " << dir2char(dstWall) << " of module " << dst._id << endl;
             //connect this to other
             _connections.insert(make_pair(srcWall, dst));
             
@@ -279,7 +278,7 @@ void module::connect(dirs srcWall, module& dst, dirs dstWall)
         }
         else
         {
-            cerr << "error: dst wall " << (char) dstWall << " of module " << dst._id << " already connected " << endl;
+            cerr << "error: dst wall " << dir2char(dstWall) << " of module " << dst._id << " already connected " << endl;
         }
     }
     else
@@ -292,4 +291,31 @@ void module::connect(dirs srcWall, module& dst, dirs dstWall)
 void module::align(dirs& srcWall, module& dst, dirs& dstWall)
 {
 
+}
+
+char module::dir2char(dirs dir)
+{
+    switch (dir)
+    {
+    case _BOW:
+        return 'N';
+        break;
+    
+    case _STERN:
+        return 'S';
+        break;
+    
+    case _SB:
+        return 'E';
+        break;
+    
+    case _PORT:
+        return 'W';
+        break;
+    
+    default:
+        break;
+    }
+
+    return _LAST;
 }

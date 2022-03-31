@@ -115,6 +115,15 @@ class module {
          */
         void align(dirs& srcWall, module& dst, dirs& dstWall);
 
+        /**
+         * @brief shitty utility function to convert dir enum type to 
+         * printable char
+         * 
+         * @param dir 
+         * @return char 
+         */
+        char dir2char(dirs dir);
+
     public:
         /**
          * @brief Default constructor - id set to zero, bottom-left corner at

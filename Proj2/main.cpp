@@ -34,14 +34,5 @@ int main()
 
     } while (choice != _EXIT);
 
-    #ifdef DEBUG
-    cout << "------------------------" << endl;
-    for (multimap<int, module>::iterator mit = station.begin(); mit != station.end(); mit++)
-    {
-        mit->second.display();
-    }
-    cout << "------------------------" << endl;
-    #endif
-
     return 0;
 }

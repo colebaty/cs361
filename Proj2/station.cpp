@@ -1,4 +1,4 @@
-#define DEBUG
+// #define DEBUG
 //uncomment for more debug info
 
 #include <iostream>
@@ -43,7 +43,7 @@ void station::showAvailableConnections()
         vector<int>::iterator ait = available.begin();
         while (ait != available.end())
         {
-            cout << *ait << " " << endl;
+            cout << *ait << " ";
             ait++;
         }
     }
@@ -51,6 +51,8 @@ void station::showAvailableConnections()
     {
         cout << "NO AVAILABLE CONNECTIONS" << endl;
     }
+
+    cout << endl;
     
 }
 
@@ -80,23 +82,26 @@ void station::add(types type)
         cout << endl;
 
         //connect them
-        module * dst;
-        // *dst = get<module>(*_manifest.find(target));
-        vector<dirs> dstWalls = dst->getAvailable();
+        multimap<int, module>::iterator dst;
+        dst = _manifest.find(target);
+        vector<dirs> dstWalls = dst->second.getAvailable();
         if (!dstWalls.empty())
         {
-            cout << "MODULE " << dst->getID() << " AVAILABLE CONNECTIONS:" << endl;
+            cout << "MODULE " << dst->second.getID() << " AVAILABLE CONNECTIONS:" << endl;
             cout << "\t";
             vector<dirs>::iterator wit = dstWalls.begin();
             while (wit != dstWalls.end())
             {
-                cout << *wit << " " << endl;
+                cout << *wit << " ";
+                wit++;
             }
         }
         else
         {
-            cout << "MODULE " << dst->getID() << " HAS NO AVAILBLE CONNECTIONS" << endl;
+            cout << "MODULE " << dst->second.getID() << " HAS NO AVAILBLE CONNECTIONS" << endl;
         }
+
+        cout << endl;
         
     }
     else

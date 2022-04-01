@@ -14,5 +14,7 @@ void addMod(station& station)
 {
     types choice = displayAddModMenu();
 
+    station.showAvailableConnections();
+
     station.add(choice);
 }

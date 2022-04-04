@@ -72,8 +72,6 @@ void station::add(types type)
     int target = 0;
     if (!_manifest.empty())
     {
-        //add to map
-        _manifest.insert(make_pair(mptr->getID(), *mptr));
 
         //select target module
         showAvailableConnections();
@@ -85,6 +83,9 @@ void station::add(types type)
         multimap<int, module>::iterator dst;
         dst = _manifest.find(target);
         vector<dirs> dstWalls = dst->second.getAvailable();
+        vector<dirs> srcWalls = mptr->getAvailable();
+        dirs targetWall;
+        dirs srcWall;
         if (!dstWalls.empty())
         {
             cout << "MODULE " << dst->second.getID() << " AVAILABLE CONNECTIONS:" << endl;
@@ -95,6 +96,27 @@ void station::add(types type)
                 cout << *wit << " ";
                 wit++;
             }
+            cout << endl << "TARGET WALL OF TARGET MODULE: ";
+            int in;
+            cin >> in;
+            targetWall = (dirs) in;
+
+
+            cout << "SOURCE WALL AVAILABLE CONNECTIONS: "
+                 << "\t";
+            wit = srcWalls.begin();
+            while (wit != srcWalls.end())
+            {
+                cout << *wit << " ";
+                wit++;
+            }
+            cout << endl << "TARGET WALL SOURCE MODULE: ";
+            cin >> in;
+            srcWall = (dirs) in;
+
+            mptr->connect(srcWall, dst->second, targetWall);
+            _manifest.insert(make_pair(mptr->getID(), *mptr));
+
         }
         else
         {
@@ -106,6 +128,7 @@ void station::add(types type)
     }
     else
     {
+        //add first module to map
         _manifest.insert(make_pair(mptr->getID(), *mptr));
     }
     
@@ -131,4 +154,16 @@ void station::move(double dx, double dy)
         mit->second.move(dx, dy);
         mit++;
     }
+}
+
+void station::display()
+{
+    map<int, module>::iterator mit = _manifest.begin();
+
+    while (mit != _manifest.end())
+    {
+        mit->second.display();
+        mit++;
+    }
+
 }

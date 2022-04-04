@@ -44,6 +44,8 @@ class station {
          * @param dy 
          */
         void move(double dx, double dy);
+
+        void display();
 };
 
 

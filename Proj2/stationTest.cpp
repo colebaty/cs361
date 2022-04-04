@@ -28,6 +28,11 @@ int main()
         cin >> ans;
         done = (ans != 'y');
     }
+
+    cout << "------------------------" << endl;
+    cout << "listing all modules" << endl;
+
+    station.display();
     
 
     return 0;

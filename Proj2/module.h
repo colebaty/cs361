@@ -5,8 +5,11 @@
 #include <map>
 #include <list>
 #include <vector>
+#include <cmath>
 
 using namespace std;
+
+const double PI = acos(-1);
 
 /**
  * @brief along x-axis
@@ -90,13 +93,6 @@ class module {
          * 
          */
         void flip();
-        /**
-         * @brief rotate from x-axis deg degrees. deg > 0 => ccw
-         * 
-         * @param deg 
-         */
-        void rotate(int deg);
-
         /**
          * @brief shitty utility function to convert int into <dirs> enum type
          * 
@@ -193,6 +189,13 @@ class module {
          * @param dstWall 
          */
         void connect(dirs srcWall, module& dst, dirs dstWall);
+
+        /**
+         * @brief rotate from x-axis deg degrees. deg > 0 => ccw
+         * 
+         * @param deg 
+         */
+        void rotate(double deg);
 
 
 };

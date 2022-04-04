@@ -2,6 +2,7 @@
 #include <fstream>
 #include <utility>
 #include <map>
+#include <cmath>
 
 #include "module.h"
 
@@ -318,4 +319,23 @@ char module::dir2char(dirs dir)
     }
 
     return _LAST;
+}
+
+void module::rotate(double deg)
+{
+    //convert deg to radian
+    double rad = deg / 180 * PI;
+
+    map<corners, pair<double, double>>::iterator cit = _corners.begin();
+    double *x, *y;
+    while (cit != _corners.end())
+    {
+        x = &get<0>(cit->second);
+        y = &get<1>(cit->second);
+
+        *x = (*x * cos(rad)) - (*y * sin(rad));
+        *y = (*x * sin(rad)) + (*y * cos(rad));
+
+        cit++;
+    }
 }

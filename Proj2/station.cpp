@@ -121,3 +121,14 @@ void station::add(types type)
 
     _modID++;
 }
+
+void station::move(double dx, double dy)
+{
+    multimap<int, module>::iterator mit = _manifest.begin();
+
+    while(mit != _manifest.end())
+    {
+        mit->second.move(dx, dy);
+        mit++;
+    }
+}

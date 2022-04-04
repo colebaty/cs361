@@ -80,6 +80,14 @@ int main()
     mit->second.move(10.0, 10.0);
     mit->second.display();
 
+    cout << "---------------------" << endl;
+    cout << "attempting to move selected module through get<module>" << endl;
+
+    modptr = &get<1>(*mymap.find(choice));
+    modptr->move(-3.0, -3.0);
+
+    modptr->display();
+
     
 
     return 0;

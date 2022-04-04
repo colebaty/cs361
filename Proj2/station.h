@@ -17,6 +17,8 @@ class station {
     public:
         station();
         station(int id);
+
+        //public methods
         /**
          * @brief prints a list of modules with available connections
          * 
@@ -32,7 +34,16 @@ class station {
          * @param dst 
          */
         void add(types type);
-        //public methods
+
+        /**
+         * @brief shifts the entire space station by (dx, dy). since the under
+         * -lying structure is a multimap, it is a matter of iterating over
+         * each member and updating the module element by ca
+         * 
+         * @param dx 
+         * @param dy 
+         */
+        void move(double dx, double dy);
 };
 
 

@@ -59,6 +59,23 @@ void module::initialize()
 
         mit++;
     }
+
+    updateHeading();
+
+}
+
+void module::updateHeading()
+{
+    map<dirs, pair<pair<double, double>, pair<double, double>>>::iterator wit;
+    wit = _walls.find(_SB);
+    pair<double, double> wallVector;
+    wallVector.first = wit->second.second.first - wit->second.first.first;
+    wallVector.second = wit->second.second.second - wit->second.first.second;
+
+    double headingRad;
+    headingRad = atan(wallVector.second / wallVector.first);
+
+    _heading = 180 / PI * headingRad;
 }
 
 dirs module::getWall(int i)
@@ -66,19 +83,19 @@ dirs module::getWall(int i)
     switch (i)
     {
     case 0:
-        return _BOW;
-        break;
-    
-    case 1:
-        return _PORT;
-        break;
-    
-    case 2:
         return _STERN;
         break;
     
-    case 3:
+    case 1:
         return _SB;
+        break;
+    
+    case 2:
+        return _BOW;
+        break;
+    
+    case 3:
+        return _PORT;
         break;
     
     default:
@@ -126,6 +143,7 @@ void module::move(double dx, double dy)
         mit++;
     }
     updateWalls();
+    updateHeading();
 }
 
 void module::display()
@@ -159,6 +177,8 @@ void module::display()
              << endl;
         wit++;
     }
+
+    cout << "heading: " << _heading << " (deg)" << endl;
 
     cout << endl;
 
@@ -348,4 +368,5 @@ void module::rotate(double deg)
     }
 
     updateWalls();
+    updateHeading();
 }

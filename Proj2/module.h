@@ -65,6 +65,13 @@ class module {
         map<corners, pair<double, double>> _corners;
         map<dirs, pair<pair<double, double>, pair<double, double>>> _walls;
         map<dirs, module> _connections;
+        /**
+         * @brief in degrees, the direction the module is facing, which is the 
+         * direction of the wall _SB. computed by arctan(y / x), where x and y 
+         * are the members of the vector represented by _SB
+         * 
+         */
+        double _heading;
 
         int _maxConnections;
 
@@ -81,6 +88,12 @@ class module {
          * 
          */
         void updateWalls();
+
+        /**
+         * @brief called after a move to ensure the heading is correct
+         * 
+         */
+        void updateHeading();
 
         /**
          * @brief swap top and bottom pairs of x coords to reverse over

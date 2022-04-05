@@ -16,6 +16,15 @@ module::module()
     initialize();
 }
 
+module::module(int id, double x, double y)
+{
+    _id = id;
+    _type = _BASE;
+    _maxConnections = HALLWAY_MAX_CONNECTIONS;
+    initialize();//set corners
+    move(x, y);
+}
+
 void module::initialize()
 {
     //corners
@@ -105,15 +114,6 @@ void module::updateWalls()
         cit++;
         wit++;
     }
-}
-
-module::module(int id, double x, double y)
-{
-    _id = id;
-    _type = _BASE;
-    _maxConnections = HALLWAY_MAX_CONNECTIONS;
-    initialize();//set corners
-    move(x, y);
 }
 
 void module::move(double dx, double dy)
@@ -328,13 +328,17 @@ void module::rotate(double deg)
 
     map<corners, pair<double, double>>::iterator cit = _corners.begin();
     double *x, *y;
+    double newX, newY;
     while (cit != _corners.end())
     {
         x = &get<0>(cit->second);
         y = &get<1>(cit->second);
 
-        *x = (*x * cos(rad)) - (*y * sin(rad));
-        *y = (*x * sin(rad)) + (*y * cos(rad));
+        newX = (*x * cos(rad)) - (*y * sin(rad));
+        newY = (*x * sin(rad)) + (*y * cos(rad));
+
+        *x = newX;
+        *y = newY;
 
         //correcting for rounding error that makes for very small non-zero answer
         if (abs(*x) < 0.0001) *x = 0;
@@ -342,4 +346,6 @@ void module::rotate(double deg)
 
         cit++;
     }
+
+    updateWalls();
 }

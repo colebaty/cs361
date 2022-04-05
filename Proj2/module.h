@@ -48,7 +48,7 @@ enum types:int {_BASE = 1, _HOUSING, _POWER, _LAB, _GYM, _STORAGE, _AIRLOCK};
  * to heading module-north. _SB => starboard
  * 
  */
-enum dirs:char {_BOW, _STERN, _SB, _PORT, _LAST};
+enum dirs:char {_STERN, _SB, _BOW, _PORT, _LAST};
 
 
 /**

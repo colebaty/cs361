@@ -88,7 +88,38 @@ int main()
 
     modptr->display();
 
-    
+    cout << "---------------------" << endl;
+    cout << "creating a pair where the second element is a pair of doubles" << endl;
+    pair<int, pair<double, double>> doublePair = make_pair(1, make_pair(1.0, 2.0));
+
+    cout << "pair: " << doublePair.first << endl
+         << "\tfirst double: " << doublePair.second.first << endl
+         << "\tsecond double: " << doublePair.second.second << endl
+         << endl;
+
+    cout << "---------------------" << endl;
+    cout << "attemptining to assign doublPair.second values to pointers" << endl;
+
+    double *x, *y;
+    x = &get<0>(doublePair.second);
+    y = &get<1>(doublePair.second);
+
+    cout << "x: " << *x << endl
+         << "y: " << *y << endl;
+
+    cout << "---------------------" << endl;
+    cout << "attempting to modify values of x, y" << endl;
+
+    *x = 100 * *x;
+    *y = 1000 * *y;
+
+    cout << "x: " << *x << endl
+         << "y: " << *y << endl;
+
+    cout << "pair: " << doublePair.first << endl
+            << "\tfirst double: " << doublePair.second.first << endl
+            << "\tsecond double: " << doublePair.second.second << endl
+            << endl;
 
     return 0;
 }

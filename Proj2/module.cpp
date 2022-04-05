@@ -336,6 +336,10 @@ void module::rotate(double deg)
         *x = (*x * cos(rad)) - (*y * sin(rad));
         *y = (*x * sin(rad)) + (*y * cos(rad));
 
+        //correcting for rounding error that makes for very small non-zero answer
+        if (abs(*x) < 0.0001) *x = 0;
+        if (abs(*y) < 0.0001) *y = 0;
+
         cit++;
     }
 }

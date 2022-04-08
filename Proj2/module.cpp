@@ -165,7 +165,7 @@ void module::display()
         wit++;
     }
 
-    cout << "heading: " << _heading << " (deg)" << endl;
+    cout << "heading: " << _heading << endl;
 
     cout << endl;
 
@@ -305,24 +305,41 @@ errors module::connect(dirs srcWall, module& dst, dirs dstWall)
 
 void module::align(dirs srcWall, module& dst, dirs dstWall)
 {
+    //set heading
     int rot = (srcWall + dstWall) % 4;
     switch (rot)
     {
     case _90:
-        cout << "need to turn cw 90º" << endl;
+        cout << "need to turn ccw 90º" << endl;
+        _heading = _SB;
         break;
     
     case _180:
-        cout << "need to turn cw 180º" << endl;
+        cout << "need to turn ccw 180º" << endl;
+        _heading = _STERN;
         break;
     
     case _270:
-        cout << "need to turn cw 270º" << endl;
+        cout << "need to turn ccw 270º" << endl;
+        _heading = _PORT;
         break;
     
     default:
         break;
     }
+
+    //update walls
+    map<dirs, pair<pair<double, double>, pair<double, double>>>::iterator srcWit;
+    pair<pair<double, double>, pair<double, double>> * srcWallptr;
+    map<dirs, pair<pair<double, double>, pair<double, double>>>::iterator dstWit;
+
+    srcWit = _walls.find(srcWall);
+    srcWallptr = &get<1>(*srcWit);
+
+    dstWit = dst._walls.find(dstWall);
+
+    *srcWallptr = dstWit->second;
+    
 }
 
 char module::dir2char(dirs dir)

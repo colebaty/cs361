@@ -12,13 +12,13 @@ using namespace std;
 const double PI = acos(-1);
 
 /**
- * @brief along x-axis
+ * @brief along x-axis with respect to _BOW
  * 
  */
 const double HALLWAY_LEN = 5.0;
 
 /**
- * @brief along y-axis
+ * @brief along y-axis with respect to _BOW
  * 
  */
 const double HALLWAY_WID = 5.0;
@@ -133,6 +133,12 @@ class module {
          * @return char 
          */
         char dir2char(dirs dir);
+        
+        /**
+         * @brief 
+         * 
+         */
+        void updateCorners();
 
     public:
         /**

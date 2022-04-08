@@ -16,6 +16,7 @@ int main()
     module m2(modID++);
 
     m1.display();
+    cout << endl;
     m2.display();
 
     cout << "--------------------------" << endl;
@@ -25,6 +26,7 @@ int main()
     m2.connect(_SB, m1, _BOW);
 
     m1.display();
+    cout << endl;
     m2.display();
 
 

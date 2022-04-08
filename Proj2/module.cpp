@@ -46,6 +46,7 @@ void module::initialize()
     {
         start = &mit->second;
 
+        //wraparound
         if(next(mit) == _corners.end())
         {
             end = &_corners.begin()->second;
@@ -60,22 +61,9 @@ void module::initialize()
         mit++;
     }
 
-    updateHeading();
+    //set heading (wall facing station-north) to _BOW
+    updateHeading(_BOW);
 
-}
-
-void module::updateHeading()
-{
-    map<dirs, pair<pair<double, double>, pair<double, double>>>::iterator wit;
-    wit = _walls.find(_SB);
-    pair<double, double> wallVector;
-    wallVector.first = wit->second.second.first - wit->second.first.first;
-    wallVector.second = wit->second.second.second - wit->second.first.second;
-
-    double headingRad;
-    headingRad = atan(wallVector.second / wallVector.first);
-
-    _heading = 180 / PI * headingRad;
 }
 
 dirs module::getWall(int i)
@@ -143,7 +131,6 @@ void module::move(double dx, double dy)
         mit++;
     }
     updateWalls();
-    updateHeading();
 }
 
 void module::display()
@@ -280,7 +267,7 @@ void module::writeDataFile(ofstream& out)
  
 }
 
-void module::connect(dirs srcWall, module& dst, dirs dstWall)
+errors module::connect(dirs srcWall, module& dst, dirs dstWall)
 {
     //check for available connections
     if (dst.hasAvailable())
@@ -288,30 +275,54 @@ void module::connect(dirs srcWall, module& dst, dirs dstWall)
         //check that target wall is not already connected
         if (dst._connections.find(dstWall) == dst._connections.end())
         {
-            cout << "connecting src wall " << dir2char(srcWall) << " of module " << _id
-                 << " to dst wall " << dir2char(dstWall) << " of module " << dst._id << endl;
+            cout << "connecting src wall " << dir2char(srcWall) 
+                 << " of module " << _id << " to dst wall " << dir2char(dstWall) 
+                 << " of module " << dst._id << endl;
             //connect this to other
             _connections.insert(make_pair(srcWall, dst));
             
             //connect other to this
             dst._connections.insert(make_pair(dstWall, *this));
             align(srcWall, dst, dstWall);
+
+            return _NONE;
         }
         else
         {
-            cerr << "error: dst wall " << dir2char(dstWall) << " of module " << dst._id << " already connected " << endl;
+            cerr << "error: dst wall " << dir2char(dstWall) 
+                 << " of module " << dst._id << " already connected " << endl;
+            
+            return _ALREADY_CONN;
         }
     }
     else
     {
         cerr << "error: dst has no available connections" << endl;
+        return _FULL;
     }
     
 }
 
-void module::align(dirs& srcWall, module& dst, dirs& dstWall)
+void module::align(dirs srcWall, module& dst, dirs dstWall)
 {
-
+    int rot = (srcWall + dstWall) % 4;
+    switch (rot)
+    {
+    case _90:
+        cout << "need to turn cw 90º" << endl;
+        break;
+    
+    case _180:
+        cout << "need to turn cw 180º" << endl;
+        break;
+    
+    case _270:
+        cout << "need to turn cw 270º" << endl;
+        break;
+    
+    default:
+        break;
+    }
 }
 
 char module::dir2char(dirs dir)
@@ -341,32 +352,49 @@ char module::dir2char(dirs dir)
     return _LAST;
 }
 
-void module::rotate(double deg)
-{
-    //convert deg to radian
-    double rad = deg / 180 * PI;
+// void module::rotate(rotation deg)
+// {
+//     //get rotation angle in radians
+//     double rot = 0.0;
+//     switch (abs(deg - _heading))
+//     {
+//     case _90:
+//         rot  = 90.0 * PI / 180;
+//         break;
+    
+//     case _180:
+//         rot  = 180.0 * PI / 180;
+//         break;
+    
+//     case _270:
+//         rot  = 90.0 * PI / 180;
+//         break;
+    
+//     default:
+//         break;
+//     }
 
-    map<corners, pair<double, double>>::iterator cit = _corners.begin();
-    double *x, *y;
-    double newX, newY;
-    while (cit != _corners.end())
-    {
-        x = &get<0>(cit->second);
-        y = &get<1>(cit->second);
+//     map<corners, pair<double, double>>::iterator cit = _corners.begin();
+//     double *x, *y;
+//     double newX, newY;
+//     while (cit != _corners.end())
+//     {
+//         x = &get<0>(cit->second);
+//         y = &get<1>(cit->second);
 
-        newX = (*x * cos(rad)) - (*y * sin(rad));
-        newY = (*x * sin(rad)) + (*y * cos(rad));
+//         newX = (*x * cos(rad)) - (*y * sin(rad));
+//         newY = (*x * sin(rad)) + (*y * cos(rad));
 
-        *x = newX;
-        *y = newY;
+//         *x = newX;
+//         *y = newY;
 
-        //correcting for rounding error that makes for very small non-zero answer
-        if (abs(*x) < 0.0001) *x = 0;
-        if (abs(*y) < 0.0001) *y = 0;
+//         //correcting for rounding error that makes for very small non-zero answer
+//         if (abs(*x) < 0.0001) *x = 0;
+//         if (abs(*y) < 0.0001) *y = 0;
 
-        cit++;
-    }
+//         cit++;
+//     }
 
-    updateWalls();
-    updateHeading();
-}
+//     updateWalls();
+//     updateHeading();
+// }

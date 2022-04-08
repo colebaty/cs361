@@ -50,6 +50,11 @@ enum types:int {_BASE = 1, _HOUSING, _POWER, _LAB, _GYM, _STORAGE, _AIRLOCK};
  */
 enum dirs:char {_STERN, _SB, _BOW, _PORT, _LAST};
 
+enum rotation:int {_90 = 1, _180, _270};
+
+
+enum errors:int { _ALREADY_CONN, _FULL, _NONE };
+
 
 /**
  * @brief base module type. corners are indexed from bottom-left, proceeding CCW.
@@ -66,12 +71,10 @@ class module {
         map<dirs, pair<pair<double, double>, pair<double, double>>> _walls;
         map<dirs, module> _connections;
         /**
-         * @brief in degrees, the direction the module is facing, which is the 
-         * direction of the wall _SB. computed by arctan(y / x), where x and y 
-         * are the members of the vector represented by _SB
+         * @brief the wall facing station-north
          * 
          */
-        double _heading;
+        dirs _heading;
 
         int _maxConnections;
 
@@ -93,7 +96,7 @@ class module {
          * @brief called after a move to ensure the heading is correct
          * 
          */
-        void updateHeading();
+        void updateHeading(dirs heading) { _heading = heading; }
 
         /**
          * @brief swap top and bottom pairs of x coords to reverse over
@@ -115,14 +118,12 @@ class module {
         dirs getWall(int i);
 
         /**
-         * @brief arrange src corners to align with dst corners according to the
-         * given src, dst walls. See README.md
+         * @brief accepts the name of the wall which needs to face station-north.
+         * implicit call to updateWalls, updateHeading
          * 
-         * @param srcWall 
-         * @param dst 
-         * @param dstWall 
+         * @param heading 
          */
-        void align(dirs& srcWall, module& dst, dirs& dstWall);
+        void align(dirs srcWall, module& dst, dirs dstWall);
 
         /**
          * @brief shitty utility function to convert dir enum type to 
@@ -158,6 +159,13 @@ class module {
 
         char getType() { return _type; };
         int getID() { return _id; };
+
+        /**
+         * @brief returns the name of the wall facing station-north
+         * 
+         * @return dirs 
+         */
+        dirs getHeading() { return _heading; }
 
         /**
          * @brief writes corners to data file specified by given <ofstream> param.
@@ -196,19 +204,19 @@ class module {
          * @brief connects this module to dst module. assumes dst module is
          * already attached to space station, and this module is not.
          * 
-         * 
          * @param srcWall 
          * @param dst 
          * @param dstWall 
          */
-        void connect(dirs srcWall, module& dst, dirs dstWall);
+        errors connect(dirs srcWall, module& dst, dirs dstWall);
 
         /**
-         * @brief rotate from x-axis deg degrees. deg > 0 => ccw
+         * @brief limited to one of three angles, 90º, 180º, or 270º. rotation
+         * is essentially ccw 
          * 
          * @param deg 
          */
-        void rotate(double deg);
+        void rotate(rotation deg);
 
 
 };

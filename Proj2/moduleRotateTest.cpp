@@ -27,7 +27,7 @@ int main()
     cin >> deg;
     cout << endl;
 
-    m1.rotate(deg);
+    m1.rotate((rotation) deg);
     m1.display();
 
 

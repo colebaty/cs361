@@ -1,5 +1,35 @@
 # Space Station
 
+## NOTES
+
+I am deliberately turning this in unfinished - I just don't have the time and I'm
+confident that what I'm submitting demonstrates my knowledge of the concepts.
+
+The `main` program is very sparse, and not really worth looking into.
+
+The bulk of the work will be in the testing files.
+
+Please use `make` to run test files:
+
+```bash
+$ make TARGET=<cpp test file without extension>
+
+#example
+
+$ make TARGET=moduleTest
+```
+
+### Noteworthy tests
+
+- `dataFileTest2.cpp`: creates four modules, moves them, and then completes
+the requisite steps to draw it to the output file `output2.png` using `gnuplot`
+- `rotationTest.cpp`: this test is unfinished. The idea was to determine which 
+walls of a source and target were available for connection, and then rotate the
+*source* module (i.e. the unconnected module) so that it was in the proper 
+orientation to make the connection. Then, align the appropriate corners, and figure
+out where to place the remaining corners, update the walls, etc. I got as far as
+aligning corners of the connecting walls.
+
 ## Description
 
 A menu-driven application for building, arranging, and drawing a space station.

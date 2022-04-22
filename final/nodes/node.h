@@ -41,4 +41,6 @@ class node {
         bool search(char target);
 
         void display();
+
+        int getID() { return _id; }
 };

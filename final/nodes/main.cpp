@@ -6,7 +6,6 @@
 
 #include "node.h"
 
-
 using namespace std;
 
 enum menuOptions:char {_ENTER = 'a', _GEN = 'b', _SEARCH = 'c', 
@@ -17,11 +16,13 @@ void getNandM(int& n, int& m);
 void generate(vector<node>& v, const int& n, const int& m);
 void display(vector<node>& v);
 void getNodesWithChar(vector<node>& v);
+void displayNode(vector<node>& v);
+void erase(vector<node>* v);
 
 int main()
 {
 
-    vector<node> v;
+    vector<node> * v = new vector<node>;
 
     int n, m;
     menuOptions choice;
@@ -35,12 +36,23 @@ int main()
             break;
         
         case _GEN:
-            generate(v, n, m);
-            display(v);
+            generate(*v, n, m);
+            display(*v);
             break;
 
         case _SEARCH:
-            getNodesWithChar(v);
+            getNodesWithChar(*v);
+            break;
+
+        case _DISPLAY:
+            displayNode(*v);
+            break;
+
+        case _ERASE:
+            erase(v);
+            break;
+
+        case _EXIT:
             break;
 
         default:
@@ -138,4 +150,34 @@ void getNodesWithChar(vector<node>& v)
         cout << "not found" << endl;
     }
 
+}
+
+void displayNode(vector<node>& v)
+{
+    cout << "index of node to display [1, N]: ";
+    int target;
+    cin >> target;
+    while (target < 0 || target > v.size())
+    {
+        cout << "selection out of bounds" << endl;
+        cout << "index of node to display [0, N]: ";
+        cin >> target;
+        cout << endl;
+    }
+
+    for (vector<node>::iterator vit = v.begin(); vit != v.end(); vit++)
+    {
+        if (vit->getID() == target)
+        {
+            vit->display();
+            break;
+        }
+    }
+    
+}
+
+void erase(vector<node>* v)
+{
+    delete v;
+    v = new vector<node>;
 }

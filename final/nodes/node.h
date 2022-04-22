@@ -1,3 +1,6 @@
+#ifndef __NODE_H__
+#define __NODE_H__
+
 #include <queue>
 
 using namespace std;
@@ -38,9 +41,21 @@ class node {
          */
         void push(char data);
 
+        /**
+         * @brief returns true if any instance of @param target is found in the
+         * node's associated queue. rotates through the queue once, returning 
+         * it to its original order.
+         * 
+         * @param target 
+         * @return true 
+         * @return false 
+         */
         bool search(char target);
 
         void display();
 
         int getID() { return _id; }
 };
+
+
+#endif //__NODE_H__

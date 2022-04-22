@@ -1,6 +1,4 @@
 #include <iostream>
-#include <map>
-#include <utility>
 
 #include "node.h"
 
@@ -20,15 +18,15 @@ node::node(int val)
 
 void node::initialize()
 {
-    _Q1 = nullptr;
-    _Q2 = nullptr;
-    _Q3 = nullptr;
-    _Q4 = nullptr;
+    _Q1 = NULL;
+    _Q2 = NULL;
+    _Q3 = NULL;
+    _Q4 = NULL;
 }
 
 void node::add(int data)
 {
-    if ((data / _val) < (_val * .50))
+    if (data < (_val * .50))
     {
         if (_Q1 != NULL)
         {
@@ -39,7 +37,7 @@ void node::add(int data)
             _Q1 = new node(data);
         }
     }
-    else if (data <= _val - 1)
+    else if ((_val * .50) <= data && data < _val)
     {
         if (_Q2 != NULL)
         {
@@ -50,7 +48,7 @@ void node::add(int data)
             _Q2 = new node(data);
         }
     }
-    else if (data >= _val + 1 && data < 1.5 * _val)
+    else if (_val < data && data < (1.5 * _val))
     {
         if (_Q3 != NULL)
         {
@@ -72,4 +70,28 @@ void node::add(int data)
             _Q4 = new node(data);
         }
     }
+}
+
+void node::display()
+{
+    if (_Q1 != NULL)
+    {
+        _Q1->display();
+    }
+    else if (_Q2 != NULL)
+    {
+        _Q2->display();
+    }
+    
+    cout << _val << " ";
+
+    if (_Q3 != NULL)
+    {
+        _Q3->display();
+    }
+    else if (_Q4 != NULL)
+    {
+        _Q4->display();
+    }
+    
 }

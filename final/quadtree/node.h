@@ -1,7 +1,5 @@
-#include <map>
-
-using namespace std;
-
+#ifndef __NODE_H__
+#define __NODE_H__
 
 class node {
     private:
@@ -22,4 +20,9 @@ class node {
 
         //public methods
         void add(int data);
+
+        void display();
 };
+
+
+#endif //__NODE_H__

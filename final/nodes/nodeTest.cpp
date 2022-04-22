@@ -32,6 +32,12 @@ int main()
     cout << "randomly adding letters" << endl;
     default_random_engine gen(time(NULL));
     uniform_int_distribution<int> ldist(_A, _Z);//letter distribution
+    /**
+     * during testing, discovered that the first value is always the same for
+     * a default random engine seeded the way it is above. this call is just to
+     * discard that first value
+     */
+    ldist(gen);
     nptr = new node(2);
     for (int i = _A; i < _Z; i++)
     {

@@ -1,11 +1,10 @@
 #include <queue>
-#include <random>
-#include <ctime>
 
 using namespace std;
 
 const int _A = 65;
 const int _Z = 90;
+const int _E = 69;
 
 class node {
     private:

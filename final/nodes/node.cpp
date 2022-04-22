@@ -22,12 +22,15 @@ void node::display()
     {
         cout << "queue contents: " << endl << "\t";
 
-        queue<char> temp = _q;
-        while (!temp.empty())
+        char * temp;
+        for (int i = 0; i < _q.size(); i++)
         {
-            cout << temp.front() << " ";
-            temp.pop();
+            temp = &_q.front();
+            cout << *temp << " ";
+            _q.pop();
+            _q.push(*temp);
         }
+
         cout << endl;
     }
     else

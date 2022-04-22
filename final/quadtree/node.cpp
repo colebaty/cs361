@@ -26,7 +26,7 @@ void node::initialize()
 
 void node::add(int data)
 {
-    if (data < (_val * .50))
+    if (data < (_val / 2))
     {
         if (_Q1 != NULL)
         {
@@ -37,7 +37,7 @@ void node::add(int data)
             _Q1 = new node(data);
         }
     }
-    else if ((_val * .50) <= data && data < _val)
+    else if ((_val / 2) <= data && data < _val)
     {
         if (_Q2 != NULL)
         {
@@ -48,7 +48,7 @@ void node::add(int data)
             _Q2 = new node(data);
         }
     }
-    else if (_val < data && data < (1.5 * _val))
+    else if (_val < data && data < (_val * 3 / 2))
     {
         if (_Q3 != NULL)
         {
@@ -70,6 +70,7 @@ void node::add(int data)
             _Q4 = new node(data);
         }
     }
+
 }
 
 void node::display()
@@ -78,7 +79,7 @@ void node::display()
     {
         _Q1->display();
     }
-    else if (_Q2 != NULL)
+    if (_Q2 != NULL)
     {
         _Q2->display();
     }
@@ -89,7 +90,7 @@ void node::display()
     {
         _Q3->display();
     }
-    else if (_Q4 != NULL)
+    if (_Q4 != NULL)
     {
         _Q4->display();
     }

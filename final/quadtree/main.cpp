@@ -11,23 +11,23 @@ int main()
     default_random_engine gen(time(NULL));
     uniform_int_distribution<int> idist(1, 1000);
 
-    cout << "creating root node with random value" << endl;
+    cout << "how many nodes to add to tree (N)? ";
 
-    node * root = new node(idist(gen));
-
-    root->display();
-
+    int ans;
+    cin >> ans;
     cout << endl;
 
-    cout << "--------------------------" << endl;
-    cout << "adding ten random values to tree" << endl;
+    //generating root node
+    node * root = new node(idist(gen));
 
-    for (size_t i = 0; i < 10; i++)
+    //start at one because we've already added root
+    for (size_t i = 1; i < ans; i++)
     {
         int next = idist(gen);
-        // cout << "adding: " << next << endl;
         root->add(next);
     }
+
+    cout << "--------------------------" << endl;
 
     root->display();
 

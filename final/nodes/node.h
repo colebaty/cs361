@@ -38,5 +38,7 @@ class node {
          */
         void push(char data);
 
+        bool search(char target);
+
         void display();
 };

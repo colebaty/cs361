@@ -1,6 +1,7 @@
 #include <iostream>
 #include <random>
 #include <ctime>
+#include <cassert>
 
 #include "node.h"
 
@@ -25,6 +26,16 @@ int main()
 
     nptr->push(_Z);
     nptr->display();
+
+    cout << "----------------------" << endl;
+    cout << "testing search" << endl;
+    cout << "testing for value known to be in queue (Z)...";
+    assert(nptr->search('Z'));
+    cout << "pass" << endl;
+    cout << "----------------------" << endl;
+    cout << "testing for value known NOT to be in queue (X)...";
+    assert(!nptr->search('X'));
+    cout << "pass" << endl;
 
     delete nptr;
 

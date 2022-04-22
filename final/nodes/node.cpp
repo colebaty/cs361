@@ -43,3 +43,19 @@ void node::push(char data)
 {
     _q.push(data);
 }
+
+bool node::search(char target)
+{
+        char * temp;
+        for (int i = 0; i < _q.size(); i++)
+        {
+            temp = &_q.front();
+            
+            if (*temp == target) return true;
+
+            _q.pop();
+            _q.push(*temp);
+        }
+
+        return false;
+}

@@ -15,7 +15,6 @@ int main()
 
     int ans;
     cin >> ans;
-    cout << endl;
 
     //generating root node
     node * root = new node(idist(gen));

@@ -84,6 +84,7 @@ void node::display()
         _Q2->display();
     }
     
+    //display this node
     cout << "Node: " << _val << " ";
     cout << "Q1->";
     _Q1 != NULL ? cout << _Q1->_val << " ": cout << "NULL ";
@@ -98,6 +99,7 @@ void node::display()
     _Q4 != NULL ? cout << _Q4->_val << " ": cout << "NULL ";
 
     cout << endl;
+    //end display this node
 
     if (_Q3 != NULL)
     {

@@ -59,7 +59,7 @@ void node::add(int data)
             _Q3 = new node(data);
         }
     }
-    else
+    else if ((_val * 3 / 2) <= data)
     {
         if (_Q4 != NULL)
         {

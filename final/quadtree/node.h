@@ -19,6 +19,13 @@ class node {
         node(int val);
 
         //public methods
+        /**
+         * @brief adds data to the tree/subtree rooted at this node. if
+         * data is already found in the tree, this data is discarded. as
+         * a result, node::display may show fewer than N nodes.
+         * 
+         * @param data 
+         */
         void add(int data);
 
         void display();

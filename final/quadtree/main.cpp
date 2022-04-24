@@ -17,10 +17,11 @@ int main()
     cin >> ans;
 
     //generating root node
+    idist(gen);//discarding first value
     node * root = new node(idist(gen));
 
     //start at one because we've already added root
-    for (size_t i = 1; i < ans; i++)
+    for (int i = 1; i < ans; i++)
     {
         int next = idist(gen);
         root->add(next);

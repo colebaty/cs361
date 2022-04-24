@@ -29,7 +29,8 @@ Menu options are:
 
 ## Implementation
 
-Letters are generated randomly by a `uniform_int_dist` random number generator.
+Letters are generated randomly by a `uniform_int_dist` random number generator,
+which are then implicltly converted to `char` types during assignment.
 
 Since the underlying queue element has only two access points, in order to
 display or search the queue, I implemented a pseudo in-place solution. An early

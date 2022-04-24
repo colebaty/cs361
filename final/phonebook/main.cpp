@@ -125,6 +125,9 @@ void loadFile(mapRecord& names, mapRecord & addresses, mapRecord & phones)
         addresses.insert({rptr->getAddr(), rptr});
         phones.insert({rptr->getPhone(), rptr});
 
+        delete in;
     }
+
+    infile->close();
 
 }

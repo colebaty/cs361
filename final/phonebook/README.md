@@ -19,10 +19,10 @@ Menu-driven phonebook. Searchable by name, address, phone number.
 Entries are stored in `record` objects. All fields are stored as strings.
 
 `record`s are refereneced by a `std::map` mapping each name, address, and phone
-number to an individual record (stored on the heap).
+number to an pointer to a record declared on the heap.
 
-Lookup/access is O(log n) time for `map`s, so while this implementation may not 
-be spatially conservative, lookup is relatively fast.
+The `<map>` STL implements a `find` function in O(log n).  By using keys which
+map to `record` pointers, I've eliminated the need to duplicate storage in memory.
 
 I believe my implementation could be called a naive database implementation.
 

@@ -29,7 +29,7 @@ corrected by explicitly describing the Q4 interval as being <= the Q4 comparison
 value, .e.g
 
 ```cpp
-void node::display()
+void node::add()
 {
     //before
     ...

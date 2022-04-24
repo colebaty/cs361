@@ -101,10 +101,9 @@ void generate(vector<node>& v, const int& n, const int& m)
     ldist(gen);
 
     node * nptr;
-    int nodeID = 1;
-    for (int i = 0; i < n; i++)
+    for (int i = 1; i <= n; i++)
     {
-        nptr = new node(nodeID++);
+        nptr = new node(i);
         v.push_back(*nptr);
     }
 
@@ -118,11 +117,15 @@ void generate(vector<node>& v, const int& n, const int& m)
 
 void display(vector<node>& v)
 {
+    cout << "-----------------" << endl;
+    cout << "displaying generated nodes" << endl << endl;
     for (auto it : v)
     {
         it.display();
         cout << endl;
     }
+
+    cout << "-----------------" << endl;
 }
 
 void getNodesWithChar(vector<node>& v)
@@ -133,6 +136,7 @@ void getNodesWithChar(vector<node>& v)
 
     vector<node> results;
 
+    cout << "searching for nodes with " << target << " in queue" << endl;
     for(vector<node>::iterator vit = v.begin(); vit != v.end(); vit++)
     {
         if (vit->search(target)) results.push_back(*vit);
@@ -140,6 +144,8 @@ void getNodesWithChar(vector<node>& v)
 
     if (!results.empty())
     {
+        cout << "-----------------" << endl;
+
         for (auto n : results)
         {
             n.display();
@@ -150,17 +156,19 @@ void getNodesWithChar(vector<node>& v)
         cout << "not found" << endl;
     }
 
+    cout << "-----------------" << endl;
+
 }
 
 void displayNode(vector<node>& v)
 {
-    cout << "index of node to display [1, N]: ";
+    cout << "index of node to display [1, " << v.size() << "]: ";
     int target;
     cin >> target;
     while (target < 0 || target > v.size())
     {
         cout << "selection out of bounds" << endl;
-        cout << "index of node to display [0, N]: ";
+        cout << "index of node to display [1, " << v.size() << "]: ";
         cin >> target;
         cout << endl;
     }

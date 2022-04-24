@@ -46,17 +46,17 @@ void node::push(char data)
 
 bool node::search(char target)
 {
-        bool found = false;
-        char * temp;
-        for (int i = 0; i < _q.size(); i++)
-        {
-            temp = &_q.front();
-            
-            if (*temp == target) found = true;
+    bool found = false;
+    char * temp;
+    for (int i = 0; i < _q.size(); i++)
+    {
+        temp = &_q.front();
+        
+        if (*temp == target) found = true;
 
-            _q.pop();
-            _q.push(*temp);
-        }
+        _q.pop();
+        _q.push(*temp);
+    }
 
-        return found;
+    return found;
 }

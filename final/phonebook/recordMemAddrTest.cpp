@@ -9,7 +9,7 @@
 
 using namespace std;
 
-typedef map<string, record> mapRecord;
+typedef map<string, record*> mapRecord;
 
 void find(mapRecord & m);
 void find(mapRecord & m, string target);
@@ -33,41 +33,20 @@ int main()
     for (int i = 0; i < 5; i++)
     {
         rptr = new record(names[i], addresses[i], phoneNos[i]);
-        m.insert({rptr->getName(), *rptr});
-        maddr.insert({rptr->getAddr(), *rptr});
+        m.insert({rptr->getName(), rptr});
+        maddr.insert({rptr->getAddr(), rptr});
     }
 
-    cout << "-------------" << endl;
+    record * name;
+    record * addr;
 
-    for (auto r : m)
-    {
-        r.second.display();
-    }
-    cout << "-------------" << endl;
+    name = m["cole"];
+    addr = maddr["211 n shore rd"];
 
-    cout << "accessing record by name tom, i.e. m[\"tom\"]" << endl;
+    assert (name == addr);
 
-    *rptr = m["tom"];
-
-    rptr->display();
-    cout << "-------------" << endl;
-    cout << "accessing record by variable name" << endl;
-    *rptr = m[names[2]];
-    rptr->display();
-
-    cout << "-------------" << endl;
-    cout << "getting name by user input" << endl;
-    find(m);
-
-
-    cout << "-------------" << endl;
-    cout << "creating map from addresses" << endl;
-    
-    cout << "getting address by user input" << endl;
-    string in;
-    cout << "address to look up: ";
-    getline(cin, in);
-    find(maddr, in);
+    name->display();
+    addr->display();
 
     return 0;
 }
@@ -83,7 +62,7 @@ void find(mapRecord & m)
     mit = m.find(in);
     if (mit != m.end())
     {
-        mit->second.display();
+        mit->second->display();
     }
     else
     {
@@ -99,7 +78,7 @@ void find(mapRecord & m, string target)
     mit = m.find(target);
     if (mit != m.end())
     {
-        mit->second.display();
+        mit->second->display();
     }
     else
     {

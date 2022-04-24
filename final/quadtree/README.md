@@ -45,6 +45,7 @@ void node::display()
     ...
 
     //after
+    ...
     else if (_val < data && data < (_val * 3 / 2))
     {
         //add to Q3

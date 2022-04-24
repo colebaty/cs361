@@ -8,9 +8,7 @@
 
 using namespace std;
 
-string genName(uniform_int_distribution<int>& idist);
-string genAddr(uniform_int_distribution<int>& idist);
-string genPhone(uniform_int_distribution<int>& idist);
+void find(map<string, record> & m);
 
 int main()
 {
@@ -61,21 +59,32 @@ int main()
 
     rptr->display();
     cout << "-------------" << endl;
+    cout << "accessing record by variable name" << endl;
+    *rptr = m[names[2]];
+    rptr->display();
+
+    cout << "-------------" << endl;
+    cout << "getting name by user input" << endl;
+    find(m);
 
     return 0;
 }
 
-string genName(uniform_int_distribution<int>& idist)
+void find(map<string, record> & m)
 {
-    
+    cout << "-------------" << endl;
+    string in;
+    cout << "name to look up: ";
+    getline(cin, in);
+
+    map<string, record>::iterator mit;
+    mit = m.find(in);
+    if (mit != m.end())
+    {
+        mit->second.display();
+    }
+    else
+    {
+        cout << "record not found" << endl;
+    }
 }
-
-// string genAddr(uniform_int_distribution<int>& idist);
-// {
-
-// }
-
-// string genPhone(uniform_int_distribution<int>& idist);
-// {
-
-// }

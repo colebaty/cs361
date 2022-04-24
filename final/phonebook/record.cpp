@@ -3,6 +3,8 @@
 
 #include "record.h"
 
+using namespace std;
+
 record::record()
 {
     _name = "";

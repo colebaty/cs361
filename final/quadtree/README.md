@@ -55,10 +55,3 @@ void node::display()
     }
 }
 ```
-
-***
-
-### Output - null leaf nodes
-
-I found output to be too cluttered when `null` leaf nodes were included, so they
-are omitted in `node::display`.

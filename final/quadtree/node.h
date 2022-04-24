@@ -28,6 +28,10 @@ class node {
          */
         void add(int data);
 
+        /**
+         * @brief depth first display function
+         * 
+         */
         void display();
 };
 

@@ -3,6 +3,8 @@
 Cole Baty
 UIN 01187002
 
+This is my "second best" solution.
+
 ## Running
 
 ```bash
@@ -56,3 +58,18 @@ void node::add()
     }
 }
 ```
+
+## Tests
+
+To build and run tests, comment out `line 55` of the Makefile (`TARGET=main`).
+Then run the following commands.
+
+```bash
+$> make TARGET=<name of test file without extension>
+$> ./<name of test file without extension>
+```
+
+## Misc.
+
+This program was tested on the ODU CS Department Linux servers on 24 April 2022.
+The program behaved as intended.

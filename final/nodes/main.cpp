@@ -139,7 +139,7 @@ void getNodesWithChar(vector<node>& v)
     cout << "searching for nodes with " << target << " in queue" << endl;
     for(vector<node>::iterator vit = v.begin(); vit != v.end(); vit++)
     {
-        if (vit->search(target)) results.push_back(*vit);
+        if (vit->search(toupper(target))) results.push_back(*vit);
     }
 
     if (!results.empty())

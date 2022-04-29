@@ -161,9 +161,12 @@ int main()
             cin >> ans;
             if (ans == 'n') done = true;
         }
+<<<<<<< HEAD
         
         
         
+=======
+>>>>>>> siding
     }
 
     //housekeeping
